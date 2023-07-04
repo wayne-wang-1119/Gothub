@@ -3,7 +3,7 @@ from pydantic.dataclasses import dataclass
 
 
 @dataclass
-class GithubPubOrderInp:
+class GithubOrderInp:
     https_url: str
     github_token: str
     openai_api_key: str
@@ -12,9 +12,9 @@ class GithubPubOrderInp:
 
 
 @dataclass
-class GithubPubOrderOut:
+class GithubOrderOut:
     pull_requests: list[str]
 
 
-def take_order(inp: GithubPubOrderInp) -> GithubPubOrderOut:
+def take_order(inp: GithubOrderInp) -> GithubOrderOut:
     pass
