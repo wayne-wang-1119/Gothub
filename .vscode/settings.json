@@ -3,6 +3,7 @@
         "Gothub",
         "gots",
         "langchain",
-        "OPENAI"
+        "OPENAI",
+        "pydantic"
     ]
 }
