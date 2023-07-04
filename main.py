@@ -9,21 +9,20 @@ from tools.file_tools import (
     read_directory_tree_tool,
     read_one_file_tool,
     write_file_tool,
-    recursive_directory_tool,
 )
 
 # keep this true if you want to see the outputs
 langchain.debug = True
 
-cwd = os.getcwd()
+# cwd = os.getcwd()
 
-repo_url = "https://github.com/Git-of-Thoughts/Gothub.git"
-local_dir = cwd
-access_token = "magical token"
+# repo_url = "https://github.com/Git-of-Thoughts/Gothub.git"
+# local_dir = cwd
+# access_token = "magical token"
 
-git = git_methods(repo_url, local_dir, access_token)
-handler = MyCustomHandlerOne(git)
-
+# git = git_methods(repo_url, local_dir, access_token)
+# handler = MyCustomHandlerOne(git)
+handler = MyCustomHandlerOne()
 
 llm = ChatOpenAI(
     temperature=0, model="gpt-3.5-turbo-0613", callbacks=[MyCustomHandlerOne()]
@@ -33,7 +32,6 @@ tools = [
     read_directory_tree_tool,
     read_one_file_tool,
     write_file_tool,
-    recursive_directory_tool,
 ]
 
 
@@ -43,5 +41,5 @@ mrkl = initialize_agent(
 
 
 mrkl.run(
-    "what is the current directory looking like? and what does the file called file_tools_funcs.py containing?"
+    "what is under the dir called callbacks? tell me what tool you used to know this?"
 )
