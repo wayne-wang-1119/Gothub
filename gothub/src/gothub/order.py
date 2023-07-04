@@ -28,7 +28,7 @@ class GithubOrderOut:
 
 
 def take_order(inp: GithubOrderInp) -> GithubOrderOut:
-    time = datetime.now().strftime("%Y-%m-%d %H_%M_%S")
+    time = datetime.now().strftime("%Y-%m-%d %H_%M_%S_%f")
     dir = SETUP_ORDERS_BASE_DIR + ... + time
 
     inp = SetupRepoControllerInp(

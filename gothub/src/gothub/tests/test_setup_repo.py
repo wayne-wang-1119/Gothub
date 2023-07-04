@@ -28,7 +28,7 @@ GITHUB_TOKEN = os.getenv("GITHUB_GOT_TEST_TOKEN")
 
 
 def test_mkdir_if_available_else_error():
-    time = datetime.now().strftime("%Y-%m-%d %H_%M_%S")
+    time = datetime.now().strftime("%Y-%m-%d %H_%M_%S_%f")
     dir = "test_mkdir_if_available_else_error" + time
 
     path = Path(SETUP_BASE_DIR / SETUP_TESTS_BASE_DIR / dir)
@@ -38,7 +38,7 @@ def test_mkdir_if_available_else_error():
 
 
 def test_setup_repo_default_branch():
-    time = datetime.now().strftime("%Y-%m-%d %H_%M_%S")
+    time = datetime.now().strftime("%Y-%m-%d %H_%M_%S_%f")
     dir = SETUP_TESTS_BASE_DIR + "test_setup_repo_default_branch" + time
 
     inp = SetupRepoControllerInp(
@@ -53,7 +53,7 @@ def test_setup_repo_default_branch():
 
 
 def test_setup_repo_other_branch():
-    time = datetime.now().strftime("%Y-%m-%d %H_%M_%S")
+    time = datetime.now().strftime("%Y-%m-%d %H_%M_%S_%f")
     dir = SETUP_TESTS_BASE_DIR + "test_setup_repo_other_branch" + time
 
     inp = SetupRepoControllerInp(
