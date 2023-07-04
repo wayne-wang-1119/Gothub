@@ -106,6 +106,7 @@ dependencies = [ # Optional
     "pydantic==1.10.11",
     "GitPython==3.1.31",
     "PyGithub==1.59.0",
+    "python-dotenv==1.0.0",
 ]
 
 # List additional groups of dependencies here (e.g. development
