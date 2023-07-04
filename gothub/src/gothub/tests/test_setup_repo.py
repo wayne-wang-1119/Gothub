@@ -9,6 +9,11 @@ import dotenv
 from git import Repo
 
 # local imports
+from . import (
+    TEST_HTTPS_URL,
+    OTHER_BRANCH,
+    GITHUB_TOKEN,
+)
 from ..setup_repo import (
     setup_repo,
     SetupRepoControllerInp,
@@ -21,10 +26,6 @@ dotenv.load_dotenv()
 
 
 SETUP_TESTS_BASE_DIR = "tests/"
-
-TEST_HTTPS_URL = "https://github.com/Git-of-Thoughts/GoT-test.git"
-OTHER_BRANCH = "modify-snake.py"
-GITHUB_TOKEN = os.getenv("GITHUB_GOT_TEST_TOKEN")
 
 
 def test_mkdir_if_available_else_error():
