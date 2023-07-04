@@ -53,3 +53,8 @@ def take_order(inp: GithubOrderInp) -> GithubOrderOut:
 
     with setup_repo(setup_repo_inp) as repo:
         pass
+
+    return GithubOrderOut(
+        order_id=time,
+        pull_requests=[],
+    )
