@@ -42,10 +42,10 @@ def take_order(inp: GithubOrderInp) -> GithubOrderOut:
             pass
 
     time = datetime.now().strftime("%Y-%m-%d %H_%M_%S_%f")
-    dir = SETUP_ORDERS_BASE_DIR + username + "/" + time
+    setup_dir = SETUP_ORDERS_BASE_DIR + username + "/" + time
 
     setup_repo_inp = SetupRepoControllerInp(
-        setup_dir=dir,
+        setup_dir=setup_dir,
         https_url=https_url,
         github_token=github_token,
         branch_name=branch_name,
