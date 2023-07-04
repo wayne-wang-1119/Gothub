@@ -1,0 +1,6 @@
+langchain
+openai
+pydantic
+GitPython
+PyGithub
+time

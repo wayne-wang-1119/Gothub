@@ -1,6 +1,10 @@
+import os
+import langchain
 from langchain.agents import initialize_agent
 from langchain.agents import AgentType
 from langchain.chat_models import ChatOpenAI
+from callbacks.CallbackHandler import MyCustomHandlerOne
+from callbacks.utils.git_methods import git_methods
 from tools.file_tools import (
     read_directory_tree_tool,
     read_one_file_tool,
@@ -8,9 +12,22 @@ from tools.file_tools import (
     recursive_directory_tool,
 )
 
-# Initialize the OpenAI language model
-# Replace <your_api_key> in openai_api_key="<your_api_key>" with your actual OpenAI key.
-llm = ChatOpenAI(temperature=0, model="gpt-3.5-turbo-0613")
+# keep this true if you want to see the outputs
+langchain.debug = True
+
+cwd = os.getcwd()
+
+repo_url = "https://github.com/Git-of-Thoughts/Gothub.git"
+local_dir = cwd
+access_token = "magical token"
+
+git = git_methods(repo_url, local_dir, access_token)
+handler = MyCustomHandlerOne(git)
+
+
+llm = ChatOpenAI(
+    temperature=0, model="gpt-3.5-turbo-0613", callbacks=[MyCustomHandlerOne()]
+)
 
 tools = [
     read_directory_tree_tool,
@@ -23,11 +40,6 @@ tools = [
 mrkl = initialize_agent(
     tools, llm, agent=AgentType.OPENAI_MULTI_FUNCTIONS, verbose=True
 )
-
-
-import langchain
-
-langchain.debug = True
 
 
 mrkl.run(
