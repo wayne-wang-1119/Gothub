@@ -27,7 +27,7 @@ def mkdir_if_available_else_error(path: Path):
         path.mkdir()
 
 
-def setup_repo(inp: SetupRepoControllerInp) -> Path:
+def setup_repo(inp: SetupRepoControllerInp) -> Repo:
     match inp:
         case SetupRepoControllerInp(
             setup_dir=setup_dir,
@@ -44,8 +44,8 @@ def setup_repo(inp: SetupRepoControllerInp) -> Path:
 
     # Clone repo in dir
     # TODO: How to use github_token?
-    Repo.clone_from(https_url, dir)
+    repo = Repo.clone_from(https_url, dir)
 
     # Checkout branch
 
-    return dir
+    return repo

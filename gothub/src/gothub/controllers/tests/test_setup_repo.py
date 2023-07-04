@@ -42,10 +42,8 @@ def test_setup_repo_default_branch():
         branch_name=None,
     )
 
-    dir = setup_repo(inp)
-
-    assert dir.exists()
-    assert Repo(dir)
+    with setup_repo(inp) as repo:
+        assert repo.is_dirty() is False
 
     # remove non-empty dir
     shutil.rmtree(dir)
