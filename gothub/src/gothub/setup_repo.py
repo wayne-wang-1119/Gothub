@@ -3,12 +3,8 @@ from pydantic.dataclasses import dataclass
 
 
 @dataclass
-class SetupRepoInp:
+class SetupRepoControllerInp:
+    setup_dir: str
     https_url: str
     github_token: str
     branch_name: Optional[str]
-
-
-@dataclass
-class SetupRepoOut:
-    pull_requests: list[str]
