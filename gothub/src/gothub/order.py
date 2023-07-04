@@ -1,4 +1,8 @@
+# stdlib imports
 from typing import Optional
+
+# third-party imports
+from github.PullRequest import PullRequest
 from pydantic.dataclasses import dataclass
 
 
@@ -13,7 +17,7 @@ class GithubOrderInp:
 
 @dataclass
 class GithubOrderOut:
-    pull_requests: list[str]
+    pull_requests: list[PullRequest]
 
 
 def take_order(inp: GithubOrderInp) -> GithubOrderOut:
