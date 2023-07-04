@@ -33,6 +33,7 @@ def setup_repo(inp: SetupRepoControllerInp) -> Path:
             setup_dir=setup_dir,
             https_url=https_url,
             github_token=github_token,
+            branch_name=branch_name,
         ):
             pass
 
@@ -42,11 +43,8 @@ def setup_repo(inp: SetupRepoControllerInp) -> Path:
     mkdir_if_available_else_error(dir)
 
     # Clone repo in dir
-    # gh = Github(github_token)
-    # repo = gh.get_repo(https_url)
+    # TODO: How to use github_token?
     Repo.clone_from(https_url, dir)
-
-    # os.system(f"git clone {https_url} {setup_dir}")
 
     # Checkout branch
 
