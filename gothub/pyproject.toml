@@ -104,6 +104,7 @@ classifiers = [ # Optional
 # https://packaging.python.org/discussions/install-requires-vs-requirements/
 dependencies = [ # Optional
     "pydantic==1.10.11",
+    "PyGithub==1.59.0",
 ]
 
 # List additional groups of dependencies here (e.g. development
