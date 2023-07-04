@@ -24,7 +24,10 @@ git = git_methods(repo_url, local_dir, access_token)
 handler = MyCustomHandlerOne(git)
 
 llm = ChatOpenAI(
-    temperature=0, model="gpt-3.5-turbo-0613", callbacks=[MyCustomHandlerOne()]
+    temperature=0,
+    model="gpt-3.5-turbo-0613",
+    callbacks=[handler],
+    openai_api_key="sk-...",
 )
 
 tools = [
@@ -35,7 +38,10 @@ tools = [
 
 
 mrkl = initialize_agent(
-    tools, llm, agent=AgentType.OPENAI_MULTI_FUNCTIONS, verbose=True
+    tools,
+    llm,
+    agent=AgentType.OPENAI_MULTI_FUNCTIONS,
+    verbose=True,
 )
 
 
