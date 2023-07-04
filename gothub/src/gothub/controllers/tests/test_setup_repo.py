@@ -42,4 +42,7 @@ def test_setup_repo_default_branch():
 
     dir = setup_repo(inp)
 
+    assert dir.exists()
+    assert ...  # FIXME Check git repo is cloned correctly
+
     dir.rmdir()
