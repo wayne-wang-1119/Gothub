@@ -27,13 +27,13 @@ GITHUB_TOKEN = os.getenv("GITHUB_GOT_TEST_TOKEN")
 
 
 def test_mkdir_if_available_else_error():
-    dir = "test_mkdir_if_available_else_error"
+    time = datetime.now().strftime("%Y-%m-%d %H_%M_%S")
+    dir = "test_mkdir_if_available_else_error" + time
+
     path = Path(SETUP_BASE_DIR / SETUP_TESTS_BASE_DIR / dir)
     mkdir_if_available_else_error(path)
 
     assert path.exists()
-
-    path.rmdir()
 
 
 def test_setup_repo_default_branch():
