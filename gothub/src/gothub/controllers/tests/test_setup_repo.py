@@ -1,6 +1,7 @@
 # stdlib imports
 import os
 import shutil
+from datetime import datetime
 from pathlib import Path
 
 # third-party imports
@@ -35,8 +36,11 @@ def test_mkdir_if_available_else_error():
 
 
 def test_setup_repo_default_branch():
+    time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+    dir = SETUP_TESTS_BASE_DIR + "test_setup_repo_default_branch" + time
+
     inp = SetupRepoControllerInp(
-        setup_dir=SETUP_TESTS_BASE_DIR + "test_setup_repo",
+        setup_dir=dir,
         https_url=TEST_HTTPS_URL,
         github_token=GITHUB_TOKEN,
         branch_name=None,
@@ -44,6 +48,3 @@ def test_setup_repo_default_branch():
 
     with setup_repo(inp) as repo:
         assert repo.is_dirty() is False
-
-    # remove non-empty dir
-    shutil.rmtree(dir)
