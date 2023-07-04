@@ -25,7 +25,7 @@ class MyCustomHandlerOne(BaseCallbackHandler):
 
     def on_chain_end(self, outputs: Dict[str, Any], **kwargs: Any) -> Any:
         """Run when chain ends running."""
-        # Todo: figure out what is this outputs outputing and try to find the needed info from it
+        # Todo: figure out what is this outputs outputing and try to find the needed info from it!
         print(outputs)
         self.git.commit_changes(outputs["commit_message"])
         self.git.push_changes(outputs["branch"])
