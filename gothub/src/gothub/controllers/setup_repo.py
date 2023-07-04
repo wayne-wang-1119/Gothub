@@ -47,5 +47,7 @@ def setup_repo(inp: SetupRepoControllerInp) -> Repo:
     repo = Repo.clone_from(https_url, dir)
 
     # Checkout branch
+    if branch_name is not None:
+        repo.git.checkout(branch_name)
 
     return repo

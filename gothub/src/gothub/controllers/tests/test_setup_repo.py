@@ -22,6 +22,7 @@ dotenv.load_dotenv()
 
 SETUP_TESTS_BASE_DIR = "tests/"
 TEST_HTTPS_URL = "https://github.com/Git-of-Thoughts/GoT-test.git"
+OTHER_BRANCH = "modify-snake.py"
 GITHUB_TOKEN = os.getenv("GITHUB_GOT_TEST_TOKEN")
 
 
@@ -48,3 +49,19 @@ def test_setup_repo_default_branch():
 
     with setup_repo(inp) as repo:
         assert repo.is_dirty() is False
+
+
+def test_setup_repo_other_branch():
+    time = datetime.now().strftime("%Y-%m-%d %H_%M_%S")
+    dir = SETUP_TESTS_BASE_DIR + "test_setup_repo_other_branch" + time
+
+    inp = SetupRepoControllerInp(
+        setup_dir=dir,
+        https_url=TEST_HTTPS_URL,
+        github_token=GITHUB_TOKEN,
+        branch_name=OTHER_BRANCH,
+    )
+
+    with setup_repo(inp) as repo:
+        assert repo.is_dirty() is False
+        assert repo.active_branch.name == OTHER_BRANCH
