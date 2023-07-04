@@ -9,7 +9,7 @@ from .utils import git_methods
 
 # First, define custom callback handler implementations
 class MyCustomHandlerOne(BaseCallbackHandler):
-    def __init__(self, git_methods_instance):
+    def __init__(self, git_methods_instance: git_methods):
         self.git = git_methods_instance
 
     def on_tool_start(
