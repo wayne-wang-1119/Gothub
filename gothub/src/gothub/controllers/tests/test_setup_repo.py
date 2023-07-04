@@ -1,9 +1,11 @@
 # stdlib imports
 import os
+import shutil
 from pathlib import Path
 
 # third-party imports
 import dotenv
+from git import Repo
 
 # local imports
 from ..setup_repo import (
@@ -43,6 +45,7 @@ def test_setup_repo_default_branch():
     dir = setup_repo(inp)
 
     assert dir.exists()
-    assert ...  # FIXME Check git repo is cloned correctly
+    assert Repo(dir)
 
-    dir.rmdir()
+    # remove non-empty dir
+    shutil.rmtree(dir)
