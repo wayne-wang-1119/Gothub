@@ -36,7 +36,7 @@ def test_mkdir_if_available_else_error():
 
 
 def test_setup_repo_default_branch():
-    time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+    time = datetime.now().strftime("%Y-%m-%d %H_%M_%S")
     dir = SETUP_TESTS_BASE_DIR + "test_setup_repo_default_branch" + time
 
     inp = SetupRepoControllerInp(
