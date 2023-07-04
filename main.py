@@ -14,15 +14,14 @@ from tools.file_tools import (
 # keep this true if you want to see the outputs
 langchain.debug = True
 
-# cwd = os.getcwd()
+cwd = os.getcwd()
 
-# repo_url = "https://github.com/Git-of-Thoughts/Gothub.git"
-# local_dir = cwd
-# access_token = "magical token"
+repo_url = "https://github.com/Git-of-Thoughts/Gothub.git"
+local_dir = cwd
+access_token = "magical token"
 
-# git = git_methods(repo_url, local_dir, access_token)
-# handler = MyCustomHandlerOne(git)
-handler = MyCustomHandlerOne()
+git = git_methods(repo_url, local_dir, access_token)
+handler = MyCustomHandlerOne(git)
 
 llm = ChatOpenAI(
     temperature=0, model="gpt-3.5-turbo-0613", callbacks=[MyCustomHandlerOne()]
@@ -41,5 +40,5 @@ mrkl = initialize_agent(
 
 
 mrkl.run(
-    "what is under the dir called callbacks? tell me what tool you used to know this?"
+    "can you make another dir called 'proj' and add a main.py under it with a very simple print that prints some info?"
 )
