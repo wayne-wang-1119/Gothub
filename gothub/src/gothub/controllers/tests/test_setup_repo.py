@@ -2,6 +2,9 @@
 import os
 from pathlib import Path
 
+# third-party imports
+import dotenv
+
 # local imports
 from ..setup_repo import (
     setup_repo,
@@ -11,7 +14,9 @@ from ..setup_repo import (
 )
 
 
-SETUP_TESTS_BASE_DIR = "tests"
+SETUP_TESTS_BASE_DIR = "tests/"
+TEST_HTTPS_URL = "https://github.com/Git-of-Thoughts/GoT-test.git"
+GITHUB_TOKEN = os.getenv("GITHUB_GOT_TEST_TOKEN")
 
 
 def test_mkdir_if_available_else_error():
