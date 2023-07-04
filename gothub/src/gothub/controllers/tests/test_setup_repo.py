@@ -11,8 +11,13 @@ from ..setup_repo import (
 )
 
 
+SETUP_TESTS_BASE_DIR = "tests"
+
+
 def test_mkdir_if_available_else_error():
-    path = Path(SETUP_BASE_DIR / "test_mkdir_if_available_else_error")
+    path = Path(
+        SETUP_BASE_DIR / SETUP_TESTS_BASE_DIR / "test_mkdir_if_available_else_error",
+    )
     mkdir_if_available_else_error(path)
     assert path.exists()
     path.rmdir()
