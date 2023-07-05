@@ -8,6 +8,8 @@ from pydantic.dataclasses import dataclass
 from pydantic import BaseModel
 
 # local imports
+from gots import git_of_thoughts
+from gots.typing import WriteRepoInp, WriteRepoOut
 from .setup_repo import setup_repo, SetupRepoInp
 
 
@@ -60,7 +62,15 @@ def take_order(inp: GithubOrderInp) -> GithubOrderOut:
     )
 
     with setup_repo(setup_repo_inp) as repo:
-        pass
+        write_repo_out = git_of_thoughts(
+            WriteRepoInp(
+                repo=repo,
+                openai_api_key=openai_api_key,
+                extra_prompt=extra_prompt,
+            )
+        )
+
+        new_branches = write_repo_out.new_branches
 
     return GithubOrderOut(
         order_id=time,
