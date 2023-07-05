@@ -6,9 +6,7 @@ from typing import Optional
 # third-party imports
 from github.Auth import Token
 from github import Github
-from github.PullRequest import PullRequest
 from pydantic.dataclasses import dataclass
-from pydantic import BaseModel
 
 # local imports
 from gots import git_of_thoughts
