@@ -1,11 +1,10 @@
-import os
 import argparse
+import os
 
 from dotenv import load_dotenv
 from git import Repo
 
 from .typing import WriteRepoInp, WriteRepoOut
-
 
 load_dotenv()
 

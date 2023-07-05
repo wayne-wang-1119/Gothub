@@ -2,10 +2,9 @@ import os
 from pathlib import Path
 from typing import Optional
 
-from pydantic.dataclasses import dataclass
-from github import Github
 from git import Repo
-
+from github import Github
+from pydantic.dataclasses import dataclass
 
 SETUP_BASE_DIR = Path("./repos")
 

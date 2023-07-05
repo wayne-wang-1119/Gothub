@@ -1,8 +1,8 @@
-from typing import Optional, Callable
+from typing import Callable, Optional
 
-from pydantic.dataclasses import dataclass
+from git import Head, Repo
 from pydantic import BaseModel
-from git import Repo, Head
+from pydantic.dataclasses import dataclass
 
 
 class WriteRepoInp(BaseModel):

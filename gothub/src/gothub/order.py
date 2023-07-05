@@ -2,15 +2,15 @@ import re
 from datetime import datetime
 from typing import Optional
 
-from github.Auth import Token
 from github import Github
+from github.Auth import Token
 from pydantic.dataclasses import dataclass
 
 from gots import git_of_thoughts
 from gots.typing import RepoAgent, WriteRepoInp, WriteRepoOut
-from .setup_repo import setup_repo, SetupRepoInp
-from .write_github import create_pull_request, GothubPullRequest
 
+from .setup_repo import SetupRepoInp, setup_repo
+from .write_github import GothubPullRequest, create_pull_request
 
 SETUP_ORDERS_BASE_DIR = "orders/"
 

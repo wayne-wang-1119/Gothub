@@ -1,9 +1,9 @@
 from typing import Optional
 
-from pydantic import BaseModel
-from github.Repository import Repository
-from github.PullRequest import PullRequest
 from git import Head
+from github.PullRequest import PullRequest
+from github.Repository import Repository
+from pydantic import BaseModel
 
 
 class GothubPullRequest(BaseModel):
