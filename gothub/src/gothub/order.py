@@ -11,6 +11,7 @@ from pydantic import BaseModel
 from gots import git_of_thoughts
 from gots.typing import WriteRepoInp, WriteRepoOut
 from .setup_repo import setup_repo, SetupRepoInp
+from .write_github import create_pull_request
 
 
 SETUP_ORDERS_BASE_DIR = "orders/"
@@ -72,7 +73,15 @@ def take_order(inp: GithubOrderInp) -> GithubOrderOut:
 
         new_branches = write_repo_out.new_branches
 
+    new_pull_requests = [
+        create_pull_request(
+            repo,
+            branch,
+        )
+        for branch in new_branches
+    ]
+
     return GithubOrderOut(
         order_id=time,
-        pull_requests=[],
+        pull_requests=new_pull_requests,
     )
