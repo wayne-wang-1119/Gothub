@@ -2,11 +2,20 @@
 from typing import Optional
 
 # third-party imports
+from pydantic import BaseModel
 from github.Repository import Repository
+from github.PullRequest import PullRequest
 from git import Head
 
 
-def create_pull_request(github_repo: Repository, branch: Head):
+class GothubPullRequest(BaseModel):
+    pr: PullRequest
+
+    class Config:
+        arbitrary_types_allowed = True
+
+
+def create_pull_request(github_repo: Repository, branch: Head) -> GothubPullRequest:
     branch_name = branch.name
     base_branch = github_repo.default_branch
 
@@ -17,4 +26,6 @@ def create_pull_request(github_repo: Repository, branch: Head):
         base=base_branch,
     )
 
-    return pr
+    return GothubPullRequest(
+        pr=pr,
+    )
