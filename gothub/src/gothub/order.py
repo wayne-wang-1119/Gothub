@@ -14,17 +14,10 @@ from pydantic import BaseModel
 from gots import git_of_thoughts
 from gots.typing import RepoAgent, WriteRepoInp, WriteRepoOut
 from .setup_repo import setup_repo, SetupRepoInp
-from .write_github import create_pull_request
+from .write_github import create_pull_request, GothubPullRequest
 
 
 SETUP_ORDERS_BASE_DIR = "orders/"
-
-
-class GothubPullRequest(BaseModel):
-    pr: PullRequest
-
-    class Config:
-        arbitrary_types_allowed = True
 
 
 @dataclass
