@@ -18,7 +18,7 @@ def test_order():
         username=TESTS_USERNAME,
         https_url=TEST_HTTPS_URL,
         github_token=GITHUB_TOKEN,
-        openai_api_key="",
+        openai_api_key="...",
         branch_name=None,
         extra_prompt=None,
     )
