@@ -1,5 +1,8 @@
 from git import InvalidGitRepositoryError, NoSuchPathError, Repo
 import time
+
+
+# FIXME Let's make gots not depend on github; gothub can depend on github
 from github import Github, GithubException
 
 
