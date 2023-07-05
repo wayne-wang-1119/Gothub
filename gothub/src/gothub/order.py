@@ -1,4 +1,5 @@
 # stdlib imports
+import re
 from datetime import datetime
 from typing import Optional
 
@@ -74,11 +75,17 @@ def take_order(inp: GithubOrderInp) -> GithubOrderOut:
                 extra_prompt=extra_prompt,
             )
         )
+
         new_branches = write_repo_out.new_branches
+        for branch in new_branches:
+            repo.remote().push(branch)
 
     # TODO abstract this away
     github = Github(auth=Token(github_token))
-    github_repo = github.get_repo(https_url)
+    pattern = r"github\.com/([^/]+)/([^/]+)\.git"
+    match = re.search(pattern, https_url)
+    full_name = match.group(1) + "/" + match.group(2)
+    github_repo = github.get_repo(full_name)
 
     new_pull_requests = [
         create_pull_request(
