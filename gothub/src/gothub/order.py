@@ -5,12 +5,20 @@ from typing import Optional
 # third-party imports
 from github.PullRequest import PullRequest
 from pydantic.dataclasses import dataclass
+from pydantic import BaseModel
 
 # local imports
 from .setup_repo import setup_repo, SetupRepoControllerInp
 
 
 SETUP_ORDERS_BASE_DIR = "orders/"
+
+
+class GothubPullRequest(BaseModel):
+    pr: PullRequest
+
+    class Config:
+        arbitrary_types_allowed = True
 
 
 @dataclass
@@ -26,7 +34,7 @@ class GithubOrderInp:
 @dataclass
 class GithubOrderOut:
     order_id: str
-    pull_requests: list[PullRequest]
+    pull_requests: list[GothubPullRequest]
 
 
 def take_order(inp: GithubOrderInp) -> GithubOrderOut:
