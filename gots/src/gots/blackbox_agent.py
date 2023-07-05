@@ -1,24 +1,24 @@
 import os
+from .repo_agent import WriteRepoInp
 import langchain
 from langchain.agents import initialize_agent
 from langchain.agents import AgentType
 from langchain.chat_models import ChatOpenAI
 from .callbacks.git_callback_handler import GitCallbackHandler
-from .tools.file_tools import (
-    read_directory_tree_tool,
-    read_one_file_tool,
-    write_file_tool,
-)
+from .tools.scoped_file_tools import build_scoped_file_tools
 
 
-def one_branch_agent(openai_api_key: str):
+def one_branch_agent(inp: WriteRepoInp) -> None:
+    match inp:
+        case WriteRepoInp(
+            repo=repo,
+            openai_api_key=openai_api_key,
+            extra_prompt=extra_prompt,
+        ):
+            pass
+
+    tools = build_scoped_file_tools(repo.working_dir)
     git_callback_handler = GitCallbackHandler()
-
-    tools = [
-        read_directory_tree_tool,
-        read_one_file_tool,
-        write_file_tool,
-    ]
 
     llm = ChatOpenAI(
         temperature=0,

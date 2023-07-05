@@ -1,5 +1,6 @@
 from datetime import datetime
 from typing import Callable, Optional
+from .blackbox_agent import one_branch_agent
 
 import langchain
 from git import Head, Repo
@@ -50,8 +51,9 @@ def gots_repo_agent(inp: WriteRepoInp) -> WriteRepoOut:
     new_branch = repo.create_head(new_branch_name)
     new_branch.checkout()
 
-    # FIXME Replace this with the actual code
+    # Replace this with the actual code
     repo.git.commit("--allow-empty", "-m", "empty commit")
+    one_branch_agent(inp)
 
     original_branch.checkout()
 
