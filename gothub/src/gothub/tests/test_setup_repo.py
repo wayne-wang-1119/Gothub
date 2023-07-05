@@ -1,25 +1,17 @@
-# stdlib imports
 import os
 import shutil
 from datetime import datetime
 from pathlib import Path
 
-# third-party imports
 from git import Repo
 
-# local imports
-from . import (
-    TEST_HTTPS_URL,
-    OTHER_BRANCH,
-    GITHUB_TOKEN,
-)
 from ..setup_repo import (
-    setup_repo,
+    SETUP_BASE_DIR,
     SetupRepoInp,
     mkdir_if_available_else_error,
-    SETUP_BASE_DIR,
+    setup_repo,
 )
-
+from . import GITHUB_TOKEN, OTHER_BRANCH, TEST_HTTPS_URL
 
 SETUP_TESTS_BASE_DIR = "tests/"
 

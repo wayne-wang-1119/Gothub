@@ -1,9 +1,12 @@
 {
     "cSpell.words": [
+        "blackbox",
         "dotenv",
         "Gothub",
         "gots",
         "langchain",
+        "mrkl",
+        "mypy",
         "OPENAI",
         "pydantic"
     ]

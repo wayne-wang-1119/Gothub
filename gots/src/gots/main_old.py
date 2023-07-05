@@ -1,8 +1,9 @@
 import os
+
 import langchain
-from langchain.agents import initialize_agent
-from langchain.agents import AgentType
+from langchain.agents import AgentType, initialize_agent
 from langchain.chat_models import ChatOpenAI
+
 from .callbacks.CallbackHandler import MyCustomHandlerOne
 from .callbacks.utils.git_methods import git_methods
 from .tools.file_tools import (
@@ -15,7 +16,6 @@ from .tools.file_tools import (
 langchain.debug = True
 
 cwd = os.getcwd()
-import os
 
 github_token = os.environ.get("GITHUB_TOKEN")
 openai_api_key = os.environ.get("OPENAI_API_KEY")

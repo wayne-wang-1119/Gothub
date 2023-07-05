@@ -1,19 +1,20 @@
-# stdlib imports
 import re
 from datetime import datetime
 from typing import Optional
 
-# third-party imports
-from github.Auth import Token
 from github import Github
+from github.Auth import Token
 from pydantic.dataclasses import dataclass
 
-# local imports
-from gots import git_of_thoughts
-from gots.typing import RepoAgent, WriteRepoInp, WriteRepoOut
-from .setup_repo import setup_repo, SetupRepoInp
-from .write_github import create_pull_request, GothubPullRequest
+from gots.repo_agent import (
+    RepoAgent,
+    WriteRepoInp,
+    WriteRepoOut,
+    gots_repo_agent,
+)
 
+from .setup_repo import SetupRepoInp, setup_repo
+from .write_github import GothubPullRequest, create_pull_request
 
 SETUP_ORDERS_BASE_DIR = "orders/"
 
@@ -46,7 +47,7 @@ def take_order(inp: GithubOrderInp) -> GithubOrderOut:
             extra_prompt=extra_prompt,
             repo_agent=repo_agent,
         ):
-            repo_agent = repo_agent or git_of_thoughts
+            repo_agent = repo_agent or gots_repo_agent
 
     time = datetime.now().strftime("%Y-%m-%d %H_%M_%S_%f")
     setup_dir = SETUP_ORDERS_BASE_DIR + username + "/" + time
@@ -77,7 +78,7 @@ def take_order(inp: GithubOrderInp) -> GithubOrderOut:
     github = Github(auth=Token(github_token))
     pattern = r"github\.com/([^/]+)/([^/]+)\.git"
     match = re.search(pattern, https_url)
-    full_name = match.group(1) + "/" + match.group(2)
+    full_name = match.group(1) + "/" + match.group(2) if match else ""
     github_repo = github.get_repo(full_name)
 
     new_pull_requests = [

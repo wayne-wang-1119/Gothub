@@ -1,6 +1,6 @@
-from git import InvalidGitRepositoryError, NoSuchPathError, Repo
 import time
 
+from git import InvalidGitRepositoryError, NoSuchPathError, Repo
 
 # FIXME Let's make gots not depend on github; gothub can depend on github
 from github import Github, GithubException

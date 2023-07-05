@@ -1,23 +1,46 @@
-from .typing import WriteRepoInp, WriteRepoOut
+import argparse
+import os
+from datetime import datetime
+
+from dotenv import load_dotenv
+from git import Repo
+
+from .repo_agent import (
+    WriteRepoInp,
+    WriteRepoOut,
+    gots_repo_agent,
+)
+
+load_dotenv()
 
 
-def git_of_thoughts(inp: WriteRepoInp) -> WriteRepoOut:
-    """
-    ! Should only modify what's permitted by inp
-    """
+OPENAI_API_KEY = os.environ["OPENAI_API_KEY"]
 
-    match inp:
-        case WriteRepoInp(
-            repo=repo,
-            openai_api_key=openai_api_key,
-            extra_prompt=extra_prompt,
-        ):
-            pass
 
-    result = WriteRepoOut(
-        new_branches=[],
+def main():
+    parser = argparse.ArgumentParser(
+        description="Git of Thoughts",
+    )
+    parser.add_argument(
+        "--dir",
+        help="Git repo directory",
+        required=True,
     )
 
-    raise NotImplementedError("git_of_thoughts")
+    args = parser.parse_args()
 
-    return result
+    # Checks that the directory is a git repo
+    with Repo(args.dir) as repo:
+        write_repo_out = gots_repo_agent(
+            WriteRepoInp(
+                repo=repo,
+                openai_api_key=OPENAI_API_KEY,
+                extra_prompt=None,
+            )
+        )
+
+        new_branches = write_repo_out.new_branches
+
+        for branch in new_branches:
+            print("New branch:", end=" ")
+            print(branch)

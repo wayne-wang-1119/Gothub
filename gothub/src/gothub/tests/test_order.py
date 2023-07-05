@@ -1,21 +1,22 @@
 from datetime import datetime
-from . import (
-    TEST_HTTPS_URL,
-    OTHER_BRANCH,
-    GITHUB_TOKEN,
-    OPENAI_API_KEY,
-)
-from ..order import (
-    take_order,
-    GithubOrderInp,
-    GithubOrderOut,
-)
-from gots.typing import (
+
+from gots.repo_agent import (
     RepoAgent,
     WriteRepoInp,
     WriteRepoOut,
 )
 
+from ..order import (
+    GithubOrderInp,
+    GithubOrderOut,
+    take_order,
+)
+from . import (
+    GITHUB_TOKEN,
+    OPENAI_API_KEY,
+    OTHER_BRANCH,
+    TEST_HTTPS_URL,
+)
 
 TESTS_USERNAME = "../tests/"
 TESTS_BRANCH_DIR = "gothub_mock/"
@@ -71,7 +72,7 @@ def test_order_mock_repo_agent():
     assert out.order_id is not None
 
 
-def test_order_git_of_thoughts():
+def test_order_gots_repo_agent():
     inp = GithubOrderInp(
         username=TESTS_USERNAME,
         https_url=TEST_HTTPS_URL,
