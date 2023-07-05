@@ -1,4 +1,5 @@
 import argparse
+from datetime import datetime
 import os
 
 from dotenv import load_dotenv
@@ -16,7 +17,6 @@ def git_of_thoughts(inp: WriteRepoInp) -> WriteRepoOut:
     """
     ! Should only modify what's permitted by inp
     """
-
     match inp:
         case WriteRepoInp(
             repo=repo,
@@ -25,13 +25,28 @@ def git_of_thoughts(inp: WriteRepoInp) -> WriteRepoOut:
         ):
             pass
 
-    result = WriteRepoOut(
-        new_branches=[],
+    time = datetime.now().strftime("%Y-%m-%d_%H_%M_%S_%f")
+    original_branch = repo.active_branch
+
+    new_branch_name_1 = "gothub_got" + time + "(1)"
+    new_branch_name_2 = "gothub_got" + time + "(2)"
+
+    new_branches = []
+    for new_branch_name in [
+        new_branch_name_1,
+        new_branch_name_2,
+    ]:
+        new_branch = repo.create_head(new_branch_name)
+        new_branch.checkout()
+
+        repo.git.commit("--allow-empty", "-m", "empty commit")
+        new_branches.append(new_branch)
+
+        original_branch.checkout()
+
+    return WriteRepoOut(
+        new_branches=new_branches,
     )
-
-    raise NotImplementedError("git_of_thoughts")
-
-    return result
 
 
 def main():
