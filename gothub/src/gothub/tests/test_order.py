@@ -10,7 +10,7 @@ from ..order import (
 )
 
 
-TESTS_USERNAME = "tests"
+TESTS_USERNAME = "../tests/"
 
 
 def test_order():
