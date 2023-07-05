@@ -1,7 +1,7 @@
 from .typing import WriteRepoInp, WriteRepoOut
 
 
-def write_repo(inp: WriteRepoInp) -> WriteRepoOut:
+def git_of_thoughts(inp: WriteRepoInp) -> WriteRepoOut:
     match inp:
         case WriteRepoInp(
             repo=repo,
@@ -10,4 +10,6 @@ def write_repo(inp: WriteRepoInp) -> WriteRepoOut:
         ):
             pass
 
-    raise NotImplementedError
+    return WriteRepoOut(
+        new_branches=[],
+    )
