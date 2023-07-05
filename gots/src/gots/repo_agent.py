@@ -4,7 +4,6 @@ import langchain
 from git import Head, Repo
 from pydantic import BaseModel
 from pydantic.dataclasses import dataclass
-import os
 from langchain.agents import initialize_agent
 from langchain.agents import AgentType
 from langchain.chat_models import ChatOpenAI
