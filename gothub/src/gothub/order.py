@@ -6,8 +6,12 @@ from github import Github
 from github.Auth import Token
 from pydantic.dataclasses import dataclass
 
-from gots import git_of_thoughts
-from gots.repo_agent import RepoAgent, WriteRepoInp, WriteRepoOut
+from gots.repo_agent import (
+    RepoAgent,
+    WriteRepoInp,
+    WriteRepoOut,
+    gots_repo_agent,
+)
 
 from .setup_repo import SetupRepoInp, setup_repo
 from .write_github import GothubPullRequest, create_pull_request
@@ -43,7 +47,7 @@ def take_order(inp: GithubOrderInp) -> GithubOrderOut:
             extra_prompt=extra_prompt,
             repo_agent=repo_agent,
         ):
-            repo_agent = repo_agent or git_of_thoughts
+            repo_agent = repo_agent or gots_repo_agent
 
     time = datetime.now().strftime("%Y-%m-%d %H_%M_%S_%f")
     setup_dir = SETUP_ORDERS_BASE_DIR + username + "/" + time

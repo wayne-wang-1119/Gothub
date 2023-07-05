@@ -71,7 +71,7 @@ def test_order_mock_repo_agent():
     assert out.order_id is not None
 
 
-def test_order_git_of_thoughts():
+def test_order_gots_repo_agent():
     inp = GithubOrderInp(
         username=TESTS_USERNAME,
         https_url=TEST_HTTPS_URL,
