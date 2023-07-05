@@ -3,6 +3,7 @@ from . import (
     TEST_HTTPS_URL,
     OTHER_BRANCH,
     GITHUB_TOKEN,
+    OPENAI_API_KEY,
 )
 from ..order import (
     take_order,
@@ -58,7 +59,7 @@ def test_order_mock_repo_agent():
         username=TESTS_USERNAME,
         https_url=TEST_HTTPS_URL,
         github_token=GITHUB_TOKEN,
-        openai_api_key="...",
+        openai_api_key=OPENAI_API_KEY,
         branch_name=None,
         extra_prompt=None,
         repo_agent=mock_repo_agent,
@@ -75,7 +76,7 @@ def test_order_git_of_thoughts():
         username=TESTS_USERNAME,
         https_url=TEST_HTTPS_URL,
         github_token=GITHUB_TOKEN,
-        openai_api_key="...",
+        openai_api_key=OPENAI_API_KEY,
         branch_name=None,
         extra_prompt=None,
         repo_agent=None,
