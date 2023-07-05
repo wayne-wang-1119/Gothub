@@ -54,7 +54,7 @@ def take_order(inp: GithubOrderInp) -> GithubOrderOut:
             extra_prompt=extra_prompt,
             repo_agent=repo_agent,
         ):
-            pass
+            repo_agent = repo_agent or git_of_thoughts
 
     time = datetime.now().strftime("%Y-%m-%d %H_%M_%S_%f")
     setup_dir = SETUP_ORDERS_BASE_DIR + username + "/" + time
