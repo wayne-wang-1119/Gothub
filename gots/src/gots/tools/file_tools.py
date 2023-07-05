@@ -13,8 +13,9 @@ read_one_file_tool = Tool(
     name="read_one_file",
     func=ReadFileTool().run,
     description="""
-        Useful when you want to get the contents inside a file in a specified file path. 
-        You should enter the file path recognized by the file. If you can not find the file,
+        Useful when you want to get the contents inside a file in a specified file path.
+        You should enter the file path recognized by the file.
+        If you can not find the file,
         """,
 )
 
