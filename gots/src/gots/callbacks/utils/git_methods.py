@@ -1,6 +1,6 @@
-from git import GitCommandError, InvalidGitRepositoryError, NoSuchPathError, Repo
+from git import InvalidGitRepositoryError, NoSuchPathError, Repo
 import time
-from github import Github
+from github import Github, GithubException
 
 
 class git_methods:
@@ -8,13 +8,16 @@ class git_methods:
         self.repo_url = repo_url
         self.local_dir = local_dir
         self.github = Github(access_token)
-        self.gh_repo = self.github.get_repo("Git-of-Thoughts/Gothub")
         try:
+            self.gh_repo = self.github.get_repo("Git-of-Thoughts/Gothub")
             self.repo = Repo(self.local_dir)
         except InvalidGitRepositoryError:
             self.repo = Repo.init(self.local_dir)
         except NoSuchPathError:
             self.repo = Repo.clone_from(self.repo_url, self.local_dir)
+        except GithubException as g:
+            print(f"An error occurred while accessing the GitHub repository: {g}")
+            raise
 
     # def branch_exists(self, branch_name):
     #     branches = [b.name for b in self.repo.branches]

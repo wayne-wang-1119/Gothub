@@ -15,10 +15,14 @@ from tools.file_tools import (
 langchain.debug = True
 
 cwd = os.getcwd()
+import os
+
+github_token = os.environ.get("GITHUB_TOKEN")
+openai_api_key = os.environ.get("OPENAI_API_KEY")
 
 repo_url = "https://github.com/Git-of-Thoughts/Gothub.git"
 local_dir = cwd
-access_token = "magical token"
+access_token = github_token
 
 git = git_methods(repo_url, local_dir, access_token)
 handler = MyCustomHandlerOne(git)
@@ -27,7 +31,7 @@ llm = ChatOpenAI(
     temperature=0,
     model="gpt-3.5-turbo-0613",
     callbacks=[handler],
-    openai_api_key="sk-...",
+    openai_api_key=openai_api_key,
 )
 
 tools = [
@@ -45,6 +49,4 @@ mrkl = initialize_agent(
 )
 
 
-mrkl.run(
-    "can you make another dir called 'proj' and add a main.py under it with a very simple print that prints some info?"
-)
+mrkl.run("write me a fun python script file")
