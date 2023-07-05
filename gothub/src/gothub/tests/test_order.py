@@ -8,9 +8,18 @@ from ..order import (
     GithubOrderInp,
     GithubOrderOut,
 )
+from gots.typing import (
+    RepoAgent,
+    WriteRepoInp,
+    WriteRepoOut,
+)
 
 
 TESTS_USERNAME = "../tests/"
+
+
+def repo_agent(inp: WriteRepoInp) -> WriteRepoOut:
+    pass
 
 
 def test_order():
@@ -21,6 +30,7 @@ def test_order():
         openai_api_key="...",
         branch_name=None,
         extra_prompt=None,
+        repo_agent=repo_agent,
     )
 
     out = take_order(inp)
