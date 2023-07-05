@@ -77,6 +77,8 @@ def take_order(inp: GithubOrderInp) -> GithubOrderOut:
         )
 
         new_branches = write_repo_out.new_branches
+
+        # TODO abstract this away
         for branch in new_branches:
             repo.remote().push(branch)
 
