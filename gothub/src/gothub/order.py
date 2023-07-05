@@ -8,7 +8,7 @@ from pydantic.dataclasses import dataclass
 from pydantic import BaseModel
 
 # local imports
-from .setup_repo import setup_repo, SetupRepoControllerInp
+from .setup_repo import setup_repo, SetupRepoInp
 
 
 SETUP_ORDERS_BASE_DIR = "orders/"
@@ -52,7 +52,7 @@ def take_order(inp: GithubOrderInp) -> GithubOrderOut:
     time = datetime.now().strftime("%Y-%m-%d %H_%M_%S_%f")
     setup_dir = SETUP_ORDERS_BASE_DIR + username + "/" + time
 
-    setup_repo_inp = SetupRepoControllerInp(
+    setup_repo_inp = SetupRepoInp(
         setup_dir=setup_dir,
         https_url=https_url,
         github_token=github_token,

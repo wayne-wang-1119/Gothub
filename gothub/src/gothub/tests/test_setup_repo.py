@@ -16,7 +16,7 @@ from . import (
 )
 from ..setup_repo import (
     setup_repo,
-    SetupRepoControllerInp,
+    SetupRepoInp,
     mkdir_if_available_else_error,
     SETUP_BASE_DIR,
 )
@@ -42,7 +42,7 @@ def test_setup_repo_default_branch():
     time = datetime.now().strftime("%Y-%m-%d %H_%M_%S_%f")
     dir = SETUP_TESTS_BASE_DIR + "test_setup_repo_default_branch" + time
 
-    inp = SetupRepoControllerInp(
+    inp = SetupRepoInp(
         setup_dir=dir,
         https_url=TEST_HTTPS_URL,
         github_token=GITHUB_TOKEN,
@@ -57,7 +57,7 @@ def test_setup_repo_other_branch():
     time = datetime.now().strftime("%Y-%m-%d %H_%M_%S_%f")
     dir = SETUP_TESTS_BASE_DIR + "test_setup_repo_other_branch" + time
 
-    inp = SetupRepoControllerInp(
+    inp = SetupRepoInp(
         setup_dir=dir,
         https_url=TEST_HTTPS_URL,
         github_token=GITHUB_TOKEN,

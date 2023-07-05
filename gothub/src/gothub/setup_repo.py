@@ -13,7 +13,7 @@ SETUP_BASE_DIR = Path("./repos")
 
 
 @dataclass
-class SetupRepoControllerInp:
+class SetupRepoInp:
     setup_dir: str
     https_url: str
     github_token: str
@@ -27,9 +27,9 @@ def mkdir_if_available_else_error(path: Path):
         path.mkdir()
 
 
-def setup_repo(inp: SetupRepoControllerInp) -> Repo:
+def setup_repo(inp: SetupRepoInp) -> Repo:
     match inp:
-        case SetupRepoControllerInp(
+        case SetupRepoInp(
             setup_dir=setup_dir,
             https_url=https_url,
             github_token=github_token,
