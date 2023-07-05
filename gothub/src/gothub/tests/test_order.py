@@ -1,3 +1,4 @@
+from datetime import datetime
 from . import (
     TEST_HTTPS_URL,
     OTHER_BRANCH,
@@ -16,10 +17,20 @@ from gots.typing import (
 
 
 TESTS_USERNAME = "../tests/"
+TESTS_BRANCH_DIR = "gothub_mock/"
 
 
-def repo_agent(inp: WriteRepoInp) -> WriteRepoOut:
-    pass
+def mock_repo_agent(inp: WriteRepoInp) -> WriteRepoOut:
+    match inp:
+        case WriteRepoInp(
+            repo=repo,
+            openai_api_key=openai_api_key,
+            extra_prompt=extra_prompt,
+        ):
+            pass
+
+    time = datetime.now().strftime("%Y-%m-%d %H_%M_%S_%f")
+    repo.create_head(TESTS_BRANCH_DIR + time)
 
 
 def test_order():
@@ -30,7 +41,7 @@ def test_order():
         openai_api_key="...",
         branch_name=None,
         extra_prompt=None,
-        repo_agent=repo_agent,
+        repo_agent=mock_repo_agent,
     )
 
     out = take_order(inp)
