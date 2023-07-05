@@ -1,14 +1,11 @@
-# stdlib imports
 import re
 from datetime import datetime
 from typing import Optional
 
-# third-party imports
 from github.Auth import Token
 from github import Github
 from pydantic.dataclasses import dataclass
 
-# local imports
 from gots import git_of_thoughts
 from gots.typing import RepoAgent, WriteRepoInp, WriteRepoOut
 from .setup_repo import setup_repo, SetupRepoInp

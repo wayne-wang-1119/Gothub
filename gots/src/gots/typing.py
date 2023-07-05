@@ -1,7 +1,5 @@
-# stdlib imports
 from typing import Optional, Callable
 
-# third-party imports
 from pydantic.dataclasses import dataclass
 from pydantic import BaseModel
 from git import Repo, Head

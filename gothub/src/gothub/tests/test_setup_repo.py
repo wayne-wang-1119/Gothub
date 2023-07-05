@@ -1,13 +1,10 @@
-# stdlib imports
 import os
 import shutil
 from datetime import datetime
 from pathlib import Path
 
-# third-party imports
 from git import Repo
 
-# local imports
 from . import (
     TEST_HTTPS_URL,
     OTHER_BRANCH,

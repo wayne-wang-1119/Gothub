@@ -1,9 +1,7 @@
-# stdlib imports
 import os
 from pathlib import Path
 from typing import Optional
 
-# third-party imports
 from pydantic.dataclasses import dataclass
 from github import Github
 from git import Repo

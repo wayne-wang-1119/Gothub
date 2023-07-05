@@ -1,7 +1,5 @@
-# stdlib imports
 from typing import Optional
 
-# third-party imports
 from pydantic import BaseModel
 from github.Repository import Repository
 from github.PullRequest import PullRequest

@@ -1,12 +1,9 @@
-# stdlib imports
 import os
 import argparse
 
-# third-party imports
 from dotenv import load_dotenv
 from git import Repo
 
-# local imports
 from .typing import WriteRepoInp, WriteRepoOut
 
 
