@@ -50,6 +50,7 @@ def main():
 
     args = parser.parse_args()
 
+    # Checks that the directory is a git repo
     with Repo(args.dir) as repo:
         write_repo_out = git_of_thoughts(
             WriteRepoInp(
