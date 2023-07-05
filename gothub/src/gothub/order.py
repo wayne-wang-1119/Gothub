@@ -3,6 +3,7 @@ from datetime import datetime
 from typing import Optional
 
 # third-party imports
+from github import Github
 from github.PullRequest import PullRequest
 from pydantic.dataclasses import dataclass
 from pydantic import BaseModel
@@ -70,12 +71,14 @@ def take_order(inp: GithubOrderInp) -> GithubOrderOut:
                 extra_prompt=extra_prompt,
             )
         )
-
         new_branches = write_repo_out.new_branches
+
+    github = Github(github_token)
+    github_repo = github.get_repo(https_url)
 
     new_pull_requests = [
         create_pull_request(
-            repo,
+            github_repo,
             branch,
         )
         for branch in new_branches
