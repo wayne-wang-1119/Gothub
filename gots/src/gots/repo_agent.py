@@ -86,8 +86,9 @@ def gots_repo_agent(inp: WriteRepoInp) -> WriteRepoOut:
     new_branch.checkout()
 
     # Replace this with the actual code
-    repo.git.commit("--allow-empty", "-m", "empty commit")
+    repo.git.commit("--allow-empty", "-m", "empty commit: start")
     one_branch_mrkl(inp)
+    repo.git.commit("--allow-empty", "-m", "empty commit: end")
 
     original_branch.checkout()
 
