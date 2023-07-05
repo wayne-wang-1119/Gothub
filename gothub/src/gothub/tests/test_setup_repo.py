@@ -5,7 +5,6 @@ from datetime import datetime
 from pathlib import Path
 
 # third-party imports
-import dotenv
 from git import Repo
 
 # local imports
@@ -20,9 +19,6 @@ from ..setup_repo import (
     mkdir_if_available_else_error,
     SETUP_BASE_DIR,
 )
-
-
-dotenv.load_dotenv()
 
 
 SETUP_TESTS_BASE_DIR = "tests/"

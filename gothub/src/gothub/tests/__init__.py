@@ -1,4 +1,8 @@
 import os
+import dotenv
+
+
+dotenv.load_dotenv()
 
 
 TEST_HTTPS_URL = "https://github.com/Git-of-Thoughts/GoT-test.git"
