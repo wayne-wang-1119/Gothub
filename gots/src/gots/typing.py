@@ -23,4 +23,4 @@ class WriteRepoOut(BaseModel):
         arbitrary_types_allowed = True
 
 
-RepoWriter = Callable[[WriteRepoInp], WriteRepoOut]
+RepoAgent = Callable[[WriteRepoInp], WriteRepoOut]

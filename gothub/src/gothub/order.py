@@ -10,7 +10,7 @@ from pydantic import BaseModel
 
 # local imports
 from gots import git_of_thoughts
-from gots.typing import WriteRepoInp, WriteRepoOut
+from gots.typing import RepoAgent, WriteRepoInp, WriteRepoOut
 from .setup_repo import setup_repo, SetupRepoInp
 from .write_github import create_pull_request
 
@@ -33,6 +33,7 @@ class GithubOrderInp:
     openai_api_key: str
     branch_name: Optional[str]
     extra_prompt: Optional[str]
+    repo_agent: Optional[RepoAgent]
 
 
 @dataclass
@@ -50,6 +51,7 @@ def take_order(inp: GithubOrderInp) -> GithubOrderOut:
             openai_api_key=openai_api_key,
             branch_name=branch_name,
             extra_prompt=extra_prompt,
+            repo_agent=repo_agent,
         ):
             pass
 
@@ -64,7 +66,7 @@ def take_order(inp: GithubOrderInp) -> GithubOrderOut:
     )
 
     with setup_repo(setup_repo_inp) as repo:
-        write_repo_out = git_of_thoughts(
+        write_repo_out = repo_agent(
             WriteRepoInp(
                 repo=repo,
                 openai_api_key=openai_api_key,
@@ -73,6 +75,7 @@ def take_order(inp: GithubOrderInp) -> GithubOrderOut:
         )
         new_branches = write_repo_out.new_branches
 
+    # TODO abstract this away
     github = Github(github_token)
     github_repo = github.get_repo(https_url)
 
