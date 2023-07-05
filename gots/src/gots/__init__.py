@@ -55,3 +55,8 @@ def main():
                 extra_prompt=None,
             )
         )
+
+        new_branches = write_repo_out.new_branches
+
+        for branch in new_branches:
+            print(branch)
