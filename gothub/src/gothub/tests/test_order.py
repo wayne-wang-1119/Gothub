@@ -29,7 +29,7 @@ def mock_repo_agent(inp: WriteRepoInp) -> WriteRepoOut:
         ):
             pass
 
-    time = datetime.now().strftime("%Y-%m-%d %H_%M_%S_%f")
+    time = datetime.now().strftime("%Y-%m-%d_%H_%M_%S_%f")
 
     new_branch_name_1 = TESTS_BRANCH_DIR + time + "(1)"
     new_branch_name_2 = TESTS_BRANCH_DIR + time + "(2)"
