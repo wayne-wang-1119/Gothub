@@ -31,11 +31,11 @@ def mock_repo_agent(inp: WriteRepoInp) -> WriteRepoOut:
 
     time = datetime.now().strftime("%Y-%m-%d %H_%M_%S_%f")
 
-    new_branch_1 = TESTS_BRANCH_DIR + time + "(1)"
-    new_branch_2 = TESTS_BRANCH_DIR + time + "(2)"
+    new_branch_name_1 = TESTS_BRANCH_DIR + time + "(1)"
+    new_branch_name_2 = TESTS_BRANCH_DIR + time + "(2)"
 
-    repo.create_head(new_branch_1)
-    repo.create_head(new_branch_2)
+    new_branch_1 = repo.create_head(new_branch_name_1)
+    new_branch_2 = repo.create_head(new_branch_name_2)
 
     return WriteRepoOut(
         new_branches=[
