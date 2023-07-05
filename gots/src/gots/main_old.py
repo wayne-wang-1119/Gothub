@@ -15,7 +15,6 @@ from .tools.file_tools import (
 langchain.debug = True
 
 cwd = os.getcwd()
-import os
 
 github_token = os.environ.get("GITHUB_TOKEN")
 openai_api_key = os.environ.get("OPENAI_API_KEY")

@@ -74,7 +74,7 @@ def take_order(inp: GithubOrderInp) -> GithubOrderOut:
     github = Github(auth=Token(github_token))
     pattern = r"github\.com/([^/]+)/([^/]+)\.git"
     match = re.search(pattern, https_url)
-    full_name = match.group(1) + "/" + match.group(2)
+    full_name = match.group(1) + "/" + match.group(2) if match else ""
     github_repo = github.get_repo(full_name)
 
     new_pull_requests = [

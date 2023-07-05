@@ -4,6 +4,7 @@
         "Gothub",
         "gots",
         "langchain",
+        "mypy",
         "OPENAI",
         "pydantic"
     ]
