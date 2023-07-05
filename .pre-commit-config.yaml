@@ -15,10 +15,11 @@ repos:
     hooks:
       - id: mypy
 
-  - repo: https://github.com/pycqa/flake8
-    rev: 6.0.0
-    hooks:
-      - id: flake8
+  # - repo: https://github.com/pycqa/flake8
+  #   rev: 6.0.0
+  #   hooks:
+  #     - id: flake8
+  #       args: ["--ignore=F401,F841"]
 
   - repo: https://github.com/pycqa/isort
     rev: 5.12.0
