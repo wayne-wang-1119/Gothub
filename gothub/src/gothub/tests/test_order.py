@@ -10,7 +10,7 @@ from ..order import (
     GithubOrderInp,
     GithubOrderOut,
 )
-from gots.typing import (
+from gots.repo_agent import (
     RepoAgent,
     WriteRepoInp,
     WriteRepoOut,

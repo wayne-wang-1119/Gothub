@@ -5,7 +5,7 @@ import os
 from dotenv import load_dotenv
 from git import Repo
 
-from .typing import WriteRepoInp, WriteRepoOut
+from .repo_agent import WriteRepoInp, WriteRepoOut
 
 load_dotenv()
 

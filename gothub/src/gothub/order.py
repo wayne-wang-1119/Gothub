@@ -7,7 +7,7 @@ from github.Auth import Token
 from pydantic.dataclasses import dataclass
 
 from gots import git_of_thoughts
-from gots.typing import RepoAgent, WriteRepoInp, WriteRepoOut
+from gots.repo_agent import RepoAgent, WriteRepoInp, WriteRepoOut
 
 from .setup_repo import SetupRepoInp, setup_repo
 from .write_github import GothubPullRequest, create_pull_request
