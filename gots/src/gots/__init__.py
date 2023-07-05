@@ -1,6 +1,9 @@
 # stdlib imports
 import argparse
 
+# third-party imports
+from git import Repo
+
 # local imports
 from .typing import WriteRepoInp, WriteRepoOut
 
@@ -16,6 +19,9 @@ def main():
     )
 
     args = parser.parse_args()
+
+    with Repo(args.dir) as repo:
+        pass
 
 
 def git_of_thoughts(inp: WriteRepoInp) -> WriteRepoOut:
