@@ -2,6 +2,10 @@ from .typing import WriteRepoInp, WriteRepoOut
 
 
 def git_of_thoughts(inp: WriteRepoInp) -> WriteRepoOut:
+    """
+    ! Should only modify what's permitted by inp
+    """
+
     match inp:
         case WriteRepoInp(
             repo=repo,
