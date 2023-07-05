@@ -1,11 +1,15 @@
 from datetime import datetime
 from typing import Callable, Optional
-from .repo_blackbox_agent import one_branch_agent
-
 import langchain
 from git import Head, Repo
 from pydantic import BaseModel
 from pydantic.dataclasses import dataclass
+import os
+from langchain.agents import initialize_agent
+from langchain.agents import AgentType
+from langchain.chat_models import ChatOpenAI
+from .callbacks.git_callback_handler import GitCallbackHandler
+from .tools.scoped_file_tools import build_scoped_file_tools
 
 
 # keep this true if you want to see the outputs
@@ -31,6 +35,37 @@ class WriteRepoOut(BaseModel):
 RepoAgent = Callable[[WriteRepoInp], WriteRepoOut]
 
 
+def one_branch_mrkl(inp: WriteRepoInp) -> None:
+    match inp:
+        case WriteRepoInp(
+            repo=repo,
+            openai_api_key=openai_api_key,
+            extra_prompt=extra_prompt,
+        ):
+            pass
+
+    tools = build_scoped_file_tools(repo.working_dir)
+    git_callback_handler = GitCallbackHandler()
+
+    llm = ChatOpenAI(
+        temperature=0,
+        model="gpt-3.5-turbo-0613",
+        callbacks=[
+            git_callback_handler,
+        ],
+        openai_api_key=openai_api_key,
+    )
+
+    mrkl = initialize_agent(
+        tools,
+        llm,
+        agent=AgentType.OPENAI_FUNCTIONS,
+        verbose=True,
+    )
+
+    mrkl.run("write me a fun python script file")
+
+
 def gots_repo_agent(inp: WriteRepoInp) -> WriteRepoOut:
     """
     ! Should only modify what's permitted by inp
@@ -53,7 +88,7 @@ def gots_repo_agent(inp: WriteRepoInp) -> WriteRepoOut:
 
     # Replace this with the actual code
     repo.git.commit("--allow-empty", "-m", "empty commit")
-    one_branch_agent(inp)
+    one_branch_mrkl(inp)
 
     original_branch.checkout()
 
