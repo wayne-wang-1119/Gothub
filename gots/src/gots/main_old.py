@@ -1,8 +1,9 @@
 import os
+
 import langchain
-from langchain.agents import initialize_agent
-from langchain.agents import AgentType
+from langchain.agents import AgentType, initialize_agent
 from langchain.chat_models import ChatOpenAI
+
 from .callbacks.CallbackHandler import MyCustomHandlerOne
 from .callbacks.utils.git_methods import git_methods
 from .tools.file_tools import (

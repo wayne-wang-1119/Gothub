@@ -1,15 +1,15 @@
 from datetime import datetime
 from typing import Callable, Optional
+
 import langchain
 from git import Head, Repo
+from langchain.agents import AgentType, initialize_agent
+from langchain.chat_models import ChatOpenAI
 from pydantic import BaseModel
 from pydantic.dataclasses import dataclass
-from langchain.agents import initialize_agent
-from langchain.agents import AgentType
-from langchain.chat_models import ChatOpenAI
+
 from .callbacks.git_callback_handler import GitCallbackHandler
 from .tools.scoped_file_tools import build_scoped_file_tools
-
 
 # keep this true if you want to see the outputs
 langchain.debug = True
