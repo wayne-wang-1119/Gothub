@@ -1,27 +1,19 @@
 # stdlib imports
+import os
 import argparse
 
 # third-party imports
+from dotenv import load_dotenv
 from git import Repo
 
 # local imports
 from .typing import WriteRepoInp, WriteRepoOut
 
 
-def main():
-    parser = argparse.ArgumentParser(
-        description="Git of Thoughts",
-    )
-    parser.add_argument(
-        "--dir",
-        help="Git repo directory",
-        required=True,
-    )
+load_dotenv()
 
-    args = parser.parse_args()
 
-    with Repo(args.dir) as repo:
-        pass
+OPENAI_API_KEY = os.environ["OPENAI_API_KEY"]
 
 
 def git_of_thoughts(inp: WriteRepoInp) -> WriteRepoOut:
@@ -44,3 +36,25 @@ def git_of_thoughts(inp: WriteRepoInp) -> WriteRepoOut:
     raise NotImplementedError("git_of_thoughts")
 
     return result
+
+
+def main():
+    parser = argparse.ArgumentParser(
+        description="Git of Thoughts",
+    )
+    parser.add_argument(
+        "--dir",
+        help="Git repo directory",
+        required=True,
+    )
+
+    args = parser.parse_args()
+
+    with Repo(args.dir) as repo:
+        write_repo_out = git_of_thoughts(
+            WriteRepoInp(
+                repo=repo,
+                openai_api_key=OPENAI_API_KEY,
+                extra_prompt=None,
+            )
+        )
