@@ -30,7 +30,19 @@ def mock_repo_agent(inp: WriteRepoInp) -> WriteRepoOut:
             pass
 
     time = datetime.now().strftime("%Y-%m-%d %H_%M_%S_%f")
-    repo.create_head(TESTS_BRANCH_DIR + time)
+
+    new_branch_1 = TESTS_BRANCH_DIR + time + "(1)"
+    new_branch_2 = TESTS_BRANCH_DIR + time + "(2)"
+
+    repo.create_head(new_branch_1)
+    repo.create_head(new_branch_2)
+
+    return WriteRepoOut(
+        new_branches=[
+            new_branch_1,
+            new_branch_2,
+        ],
+    )
 
 
 def test_order():
