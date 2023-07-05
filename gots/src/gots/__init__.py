@@ -10,6 +10,10 @@ def git_of_thoughts(inp: WriteRepoInp) -> WriteRepoOut:
         ):
             pass
 
-    return WriteRepoOut(
+    result = WriteRepoOut(
         new_branches=[],
     )
+
+    raise NotImplementedError("git_of_thoughts")
+
+    return result
