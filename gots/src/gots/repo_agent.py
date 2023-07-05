@@ -1,9 +1,14 @@
 from datetime import datetime
 from typing import Callable, Optional
 
+import langchain
 from git import Head, Repo
 from pydantic import BaseModel
 from pydantic.dataclasses import dataclass
+
+
+# keep this true if you want to see the outputs
+langchain.debug = True
 
 
 class WriteRepoInp(BaseModel):
