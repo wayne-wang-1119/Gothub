@@ -45,7 +45,7 @@ def mock_repo_agent(inp: WriteRepoInp) -> WriteRepoOut:
     )
 
 
-def test_order():
+def test_order_mock_repo_agent():
     inp = GithubOrderInp(
         username=TESTS_USERNAME,
         https_url=TEST_HTTPS_URL,
@@ -54,6 +54,23 @@ def test_order():
         branch_name=None,
         extra_prompt=None,
         repo_agent=mock_repo_agent,
+    )
+
+    out = take_order(inp)
+
+    assert isinstance(out, GithubOrderOut)
+    assert out.order_id is not None
+
+
+def test_order_git_of_thoughts():
+    inp = GithubOrderInp(
+        username=TESTS_USERNAME,
+        https_url=TEST_HTTPS_URL,
+        github_token=GITHUB_TOKEN,
+        openai_api_key="...",
+        branch_name=None,
+        extra_prompt=None,
+        repo_agent=None,
     )
 
     out = take_order(inp)
