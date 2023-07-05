@@ -16,3 +16,5 @@ def create_pull_request(github_repo: Repository, branch: Head):
         head=branch_name,  # name of the branch you want to merge
         base=base_branch,
     )
+
+    return pr
