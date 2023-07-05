@@ -1,6 +1,6 @@
 from datetime import datetime
 from typing import Callable, Optional
-from .blackbox_agent import one_branch_agent
+from .repo_blackbox_agent import one_branch_agent
 
 import langchain
 from git import Head, Repo
