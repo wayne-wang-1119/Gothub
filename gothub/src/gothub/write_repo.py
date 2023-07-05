@@ -7,7 +7,7 @@ from typing import Optional
 from pydantic.dataclasses import dataclass
 from pydantic import BaseModel
 from github import Github
-from git import Repo
+from git import Repo, Head
 
 
 class WriteRepoInp(BaseModel):
@@ -17,3 +17,8 @@ class WriteRepoInp(BaseModel):
 
     class Config:
         arbitrary_types_allowed = True
+
+
+@dataclass
+class WriteRepoOut:
+    new_branches: list[Head]
