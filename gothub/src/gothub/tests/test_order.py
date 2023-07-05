@@ -30,18 +30,26 @@ def mock_repo_agent(inp: WriteRepoInp) -> WriteRepoOut:
             pass
 
     time = datetime.now().strftime("%Y-%m-%d_%H_%M_%S_%f")
+    original_branch = repo.active_branch
 
     new_branch_name_1 = TESTS_BRANCH_DIR + time + "(1)"
     new_branch_name_2 = TESTS_BRANCH_DIR + time + "(2)"
 
-    new_branch_1 = repo.create_head(new_branch_name_1)
-    new_branch_2 = repo.create_head(new_branch_name_2)
+    new_branches = []
+    for new_branch_name in [
+        new_branch_name_1,
+        new_branch_name_2,
+    ]:
+        new_branch = repo.create_head(new_branch_name)
+        new_branch.checkout()
+
+        repo.git.commit("--allow-empty", "-m", "empty commit")
+        new_branches.append(new_branch)
+
+        original_branch.checkout()
 
     return WriteRepoOut(
-        new_branches=[
-            new_branch_1,
-            new_branch_2,
-        ],
+        new_branches=new_branches,
     )
 
 
