@@ -74,4 +74,5 @@ def main():
         new_branches = write_repo_out.new_branches
 
         for branch in new_branches:
+            print("New branch:", end=" ")
             print(branch)
