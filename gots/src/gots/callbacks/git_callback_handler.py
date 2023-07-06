@@ -1,3 +1,4 @@
+import sys
 from typing import Any, Dict, List, Union
 
 from git import Repo
@@ -17,7 +18,7 @@ class GitCallbackHandler(BaseCallbackHandler):
     ) -> Any:
         """Run when chain starts running."""
         self.repo.git.add(A=True)
-        self.repo.index.commit(inputs)
+        self.repo.git.commit(inputs)
 
     def on_tool_end(
         self,
@@ -26,4 +27,4 @@ class GitCallbackHandler(BaseCallbackHandler):
     ) -> Any:
         """Run when chain ends running."""
         self.repo.git.add(A=True)
-        self.repo.index.commit(outputs)
+        self.repo.git.commit(outputs)
