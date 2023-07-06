@@ -31,6 +31,12 @@ class MyCreateFileTool(BaseFileToolMixin, BaseTool):
     def _run(self, file_path: str) -> str:
         append = False
         write_path = self.get_relative_path(file_path)  # root_dir + "/file_path"
+        if os.path.exists(write_path):
+            # if file exists, just add its path to the db path
+            with open(self.FILE_PATH_STORE, "w") as f:
+                f.write(str(write_path))
+            return f"Writing existing file: {file_path}"
+        # creating a new file, path doesn't exist
         try:
             mode = "a" if append else "w"
             with open(write_path, mode) as f:
