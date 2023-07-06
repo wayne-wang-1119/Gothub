@@ -13,6 +13,8 @@ from langchain.tools.file_management.utils import (
 )
 from pydantic import BaseModel, Field
 
+current_dir = os.getcwd()
+
 
 class MyCreateToolInput(BaseModel):
     """Input for FileTool."""
@@ -24,7 +26,7 @@ class MyCreateFileTool(BaseFileToolMixin, BaseTool):
     name: str = "create_file_tool"
     args_schema: Type[BaseModel] = MyCreateToolInput  # Accepts a single string argument
     description: str = "Create a new file"
-    FILE_PATH_STORE = "./file_path_store.txt"
+    FILE_PATH_STORE = current_dir + "/db/file_helper.txt"
 
     def _run(
         self,
@@ -63,7 +65,7 @@ class MyFillFileTool(BaseFileToolMixin, BaseTool):
     name: str = "write_file_tool"
     args_schema: Type[BaseModel] = MyFillToolInput
     description: str = "Write to a file"
-    FILE_PATH_STORE = "./file_path_store.txt"
+    FILE_PATH_STORE = current_dir + "/db/file_helper.txt"
 
     def _run(
         self, text: str, run_manager: Optional[CallbackManagerForToolRun] = None
