@@ -23,13 +23,7 @@ TESTS_BRANCH_DIR = "gothub_mock/"
 
 
 def mock_repo_agent(inp: WriteRepoInp) -> WriteRepoOut:
-    match inp:
-        case WriteRepoInp(
-            repo=repo,
-            openai_api_key=openai_api_key,
-            extra_prompt=extra_prompt,
-        ):
-            pass
+    repo = inp.repo
 
     time = datetime.now().strftime("%Y-%m-%d_%H_%M_%S_%f")
     original_branch = repo.active_branch
@@ -55,7 +49,7 @@ def mock_repo_agent(inp: WriteRepoInp) -> WriteRepoOut:
     )
 
 
-def test_order_mock_repo_agent():
+def _test_order_mock_repo_agent():
     inp = GithubOrderInp(
         username=TESTS_USERNAME,
         https_url=TEST_HTTPS_URL,

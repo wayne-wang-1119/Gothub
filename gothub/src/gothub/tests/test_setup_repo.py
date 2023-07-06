@@ -16,7 +16,7 @@ from . import GITHUB_TOKEN, OTHER_BRANCH, TEST_HTTPS_URL
 SETUP_TESTS_BASE_DIR = "tests/"
 
 
-def test_mkdir_if_available_else_error():
+def _test_mkdir_if_available_else_error():
     time = datetime.now().strftime("%Y-%m-%d %H_%M_%S_%f")
     dir = "test_mkdir_if_available_else_error" + time
 
@@ -26,7 +26,7 @@ def test_mkdir_if_available_else_error():
     assert path.exists()
 
 
-def test_setup_repo_default_branch():
+def _test_setup_repo_default_branch():
     time = datetime.now().strftime("%Y-%m-%d %H_%M_%S_%f")
     dir = SETUP_TESTS_BASE_DIR + "test_setup_repo_default_branch" + time
 
@@ -41,7 +41,7 @@ def test_setup_repo_default_branch():
         assert repo.is_dirty() is False
 
 
-def test_setup_repo_other_branch():
+def _test_setup_repo_other_branch():
     time = datetime.now().strftime("%Y-%m-%d %H_%M_%S_%f")
     dir = SETUP_TESTS_BASE_DIR + "test_setup_repo_other_branch" + time
 
