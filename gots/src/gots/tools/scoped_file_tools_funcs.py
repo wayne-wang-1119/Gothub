@@ -32,11 +32,10 @@ class MyCreateFileTool(BaseFileToolMixin, BaseTool):
         run_manager: Optional[CallbackManagerForToolRun] = None,
     ) -> str:
         append = False
-        write_path = self.get_relative_path(file_path) / file_path
+        write_path = self.get_relative_path(file_path)
         try:
-            write_path.parent.mkdir(exist_ok=True, parents=True)
             mode = "a" if append else "w"
-            with write_path.open(mode, encoding="utf-8") as f:
+            with open(write_path, mode) as f:
                 f.write("created successfully")
             with open(self.FILE_PATH_STORE, "w") as f:
                 f.write(str(write_path))
