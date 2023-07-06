@@ -186,6 +186,30 @@
         "documentation": {}
     },
     {
+        "label": "Repo",
+        "importPath": "git",
+        "description": "git",
+        "isExtraImport": true,
+        "detail": "git",
+        "documentation": {}
+    },
+    {
+        "label": "Head",
+        "importPath": "git",
+        "description": "git",
+        "isExtraImport": true,
+        "detail": "git",
+        "documentation": {}
+    },
+    {
+        "label": "Repo",
+        "importPath": "git",
+        "description": "git",
+        "isExtraImport": true,
+        "detail": "git",
+        "documentation": {}
+    },
+    {
         "label": "re",
         "kind": 6,
         "isExtraImport": true,
@@ -861,7 +885,7 @@
         "kind": 6,
         "importPath": "gots.src.gots.callbacks.CallbackHandler",
         "description": "gots.src.gots.callbacks.CallbackHandler",
-        "peekOfCode": "class MyCustomHandlerOne(BaseCallbackHandler):\n    def __init__(self, git_methods_instance: git_methods):\n        self.git = git_methods_instance\n    def on_tool_start(\n        self, serialized: Dict[str, Any], inputs: Dict[str, Any], **kwargs: Any\n    ) -> Any:\n        \"\"\"Run when chain starts running.\"\"\"\n    def on_tool_end(self, outputs: Dict[str, Any], **kwargs: Any) -> Any:\n        \"\"\"Run when chain ends running.\"\"\"\n        self.git.commit_changes(outputs)",
+        "peekOfCode": "class MyCustomHandlerOne(BaseCallbackHandler):\n    def __init__(self, repo: Repo):\n        self.repo = repo\n    def on_tool_start(\n        self, serialized: Dict[str, Any], inputs: str, **kwargs: Any\n    ) -> Any:\n        \"\"\"Run when chain starts running.\"\"\"\n        self.repo.git.add(A=True)\n        self.repo.index.commit(\"A\")\n    def on_tool_end(self, outputs: Dict[str, Any], **kwargs: Any) -> Any:",
         "detail": "gots.src.gots.callbacks.CallbackHandler",
         "documentation": {}
     },
@@ -870,7 +894,7 @@
         "kind": 6,
         "importPath": "gots.src.gots.callbacks.git_callback_handler",
         "description": "gots.src.gots.callbacks.git_callback_handler",
-        "peekOfCode": "class GitCallbackHandler(BaseCallbackHandler):\n    def __init__(self):\n        pass\n    def on_tool_start(\n        self,\n        serialized: Dict[str, Any],\n        inputs: Dict[str, Any],\n        **kwargs: Any,\n    ) -> Any:\n        \"\"\"Run when chain starts running.\"\"\"",
+        "peekOfCode": "class GitCallbackHandler(BaseCallbackHandler):\n    def __init__(self, repo: Repo):\n        self.repo = repo\n    def on_tool_start(\n        self,\n        serialized: Dict[str, Any],\n        inputs: str,\n        **kwargs: Any,\n    ) -> Any:\n        \"\"\"Run when chain starts running.\"\"\"",
         "detail": "gots.src.gots.callbacks.git_callback_handler",
         "documentation": {}
     },
@@ -1086,7 +1110,7 @@
         "kind": 2,
         "importPath": "gots.src.gots.repo_agent",
         "description": "gots.src.gots.repo_agent",
-        "peekOfCode": "def one_branch_mrkl(inp: WriteRepoInp) -> None:\n    match inp:\n        case WriteRepoInp(\n            repo=repo,\n            openai_api_key=openai_api_key,\n            extra_prompt=extra_prompt,\n        ):\n            pass\n    tools = build_scoped_file_tools(repo.working_dir)\n    git_callback_handler = GitCallbackHandler()",
+        "peekOfCode": "def one_branch_mrkl(inp: WriteRepoInp) -> None:\n    match inp:\n        case WriteRepoInp(\n            repo=repo,\n            openai_api_key=openai_api_key,\n            extra_prompt=extra_prompt,\n        ):\n            pass\n    tools = build_scoped_file_tools(repo.working_dir)\n    git_callback_handler = GitCallbackHandler(repo)",
         "detail": "gots.src.gots.repo_agent",
         "documentation": {}
     },

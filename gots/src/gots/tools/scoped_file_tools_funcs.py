@@ -37,7 +37,7 @@ class MyCreateFileTool(BaseFileToolMixin, BaseTool):
                 f.write("created successfully")
             with open(self.FILE_PATH_STORE, "w") as f:
                 f.write(str(write_path))
-            return f"File created successfully to {file_path}."
+            return f"created {file_path}."
         except Exception as e:
             return "Error: " + str(e)
 
@@ -79,7 +79,7 @@ class MyFillFileTool(BaseFileToolMixin, BaseTool):
 
             with open(self.FILE_PATH_STORE, "w") as f:
                 f.write("")
-            return f"File content written successfully to {file_path}."
+            return f"Written {file_path}."
 
         except Exception as e:
             return "Error: " + str(e)
