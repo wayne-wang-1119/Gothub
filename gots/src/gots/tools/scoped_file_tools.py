@@ -55,6 +55,7 @@ You should run this to create the file before writting to the file.
         description="""
 Useful when you want to fill in the contents in a file.
 You should run this to write in a file, the file must be created first.
+You don't need to specify the file path, just specify the file content.
 """,
     )
 
