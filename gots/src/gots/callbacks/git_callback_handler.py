@@ -16,14 +16,14 @@ class GitCallbackHandler(BaseCallbackHandler):
         input_str: str,
         **kwargs: Any,
     ) -> Any:
-        """Run when chain starts running."""
+        """Run when tool starts running."""
 
     def on_tool_end(
         self,
         output: str,
         **kwargs: Any,
     ) -> Any:
-        """Run when chain ends running."""
+        """Run when tool ends running."""
 
         self.repo.git.add(A=True)  # This will add all files to the staging area
-        self.repo.index.commit(output)
+        self.repo.git.commit("--allow-empty", "-m", output)
