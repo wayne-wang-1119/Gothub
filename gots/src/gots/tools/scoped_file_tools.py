@@ -43,7 +43,8 @@ You should run this to record the file directory tree when you need to.
         ).run,
         description="""
 Useful when you want to create files.
-You should run this to create the file before writting to the file.
+You should run this to create the file right before writing to the file.
+A use of the "write_file" tool should immediately follow this tool.
 """,
     )
 
@@ -54,6 +55,7 @@ You should run this to create the file before writting to the file.
         ).run,
         description="""
 Useful when you want to fill in the contents in a file.
+This tool should immediately follow a use of the "create_file" tool.
 You should run this to write in a file, the file must be created first.
 You don't need to specify the file path, just specify the file content.
 """,
