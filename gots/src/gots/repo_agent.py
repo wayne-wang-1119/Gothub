@@ -44,20 +44,19 @@ def one_branch_mrkl(inp: WriteRepoInp) -> None:
             pass
 
     tools = build_scoped_file_tools(repo.working_dir)
-    git_callback_handlers = [GitCallbackHandler(repo)]
 
     llm = ChatOpenAI(
         temperature=0,
         model="gpt-3.5-turbo-0613",
         openai_api_key=openai_api_key,
-        callbacks=git_callback_handlers,
+        callbacks=[GitCallbackHandler(repo)],
     )
 
     mrkl = initialize_agent(
         tools=tools,
         llm=llm,
         agent=AgentType.OPENAI_FUNCTIONS,
-        callbacks=git_callback_handlers,
+        callbacks=[GitCallbackHandler(repo)],
         verbose=True,
     )
 
