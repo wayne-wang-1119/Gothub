@@ -34,18 +34,14 @@ class MyCreateFileTool(BaseFileToolMixin, BaseTool):
         try:
             write_path = self.get_relative_path(file_path)
 
-            if write_path.is_dir():
-                write_path = write_path + "/" + file_path
+            write_path.parent.mkdir(parents=True, exist_ok=True)
 
-            write_path.parent.mkdir(exist_ok=True, parents=True)
-            mode = "w"
-            with write_path.open(mode, encoding="utf-8") as f:
+            with write_path.open("w", encoding="utf-8") as f:
                 f.write("created successfully")
-
             with open(self.FILE_PATH_STORE, "w") as f:
-                f.write(file_path)
+                f.write(str(write_path))
 
-            return f"File created successfully at {file_path}."
+            return f"File created successfully at {str(write_path)}."
         except Exception as e:
             return "Error: " + str(e)
 
