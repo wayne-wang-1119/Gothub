@@ -20,8 +20,9 @@ class GitCallbackHandler(BaseCallbackHandler):
 
     def on_llm_start(self, **kwargs: Any) -> Any:
         """Run when tool ends running."""
-        self.repo.git.add(A=True)  # This will add all files to the staging area
-        self.repo.git.commit("--allow-empty", "-m", "on llm start")
+        if self.repo.is_dirty():
+            self.repo.git.add(A=True)  # This will add all files to the staging area
+            self.repo.git.commit("-m", "on llm start")
 
     def on_chain_end(
         self,
@@ -29,8 +30,9 @@ class GitCallbackHandler(BaseCallbackHandler):
         **kwargs: Any,
     ) -> Any:
         """Run when chain ends running."""
-        self.repo.git.add(A=True)  # This will add all files to the staging area
-        self.repo.git.commit("--allow-empty", "-m", "on chain end")
+        if self.repo.is_dirty():
+            self.repo.git.add(A=True)  # This will add all files to the staging area
+            self.repo.git.commit("-m", "on chain end")
 
     def on_agent_finish(
         self,
@@ -38,5 +40,6 @@ class GitCallbackHandler(BaseCallbackHandler):
         **kwargs: Any,
     ) -> Any:
         """Run on agent end."""
-        self.repo.git.add(A=True)  # This will add all files to the staging area
-        self.repo.git.commit("--allow-empty", "-m", "on agent finish")
+        if self.repo.is_dirty():
+            self.repo.git.add(A=True)  # This will add all files to the staging area
+            self.repo.git.commit("-m", "on agent finish")
