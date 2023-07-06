@@ -636,14 +636,6 @@
         "documentation": {}
     },
     {
-        "label": "CallbackManagerForToolRun",
-        "importPath": "langchain.callbacks.manager",
-        "description": "langchain.callbacks.manager",
-        "isExtraImport": true,
-        "detail": "langchain.callbacks.manager",
-        "documentation": {}
-    },
-    {
         "label": "BaseTool",
         "importPath": "langchain.tools.base",
         "description": "langchain.tools.base",
@@ -652,23 +644,7 @@
         "documentation": {}
     },
     {
-        "label": "INVALID_PATH_TEMPLATE",
-        "importPath": "langchain.tools.file_management.utils",
-        "description": "langchain.tools.file_management.utils",
-        "isExtraImport": true,
-        "detail": "langchain.tools.file_management.utils",
-        "documentation": {}
-    },
-    {
         "label": "BaseFileToolMixin",
-        "importPath": "langchain.tools.file_management.utils",
-        "description": "langchain.tools.file_management.utils",
-        "isExtraImport": true,
-        "detail": "langchain.tools.file_management.utils",
-        "documentation": {}
-    },
-    {
-        "label": "FileValidationError",
         "importPath": "langchain.tools.file_management.utils",
         "description": "langchain.tools.file_management.utils",
         "isExtraImport": true,

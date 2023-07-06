@@ -44,11 +44,11 @@ You should run this to record the file directory tree when you need to.
         description="""
     Useful when you want to create files.
     You should run this to create the file before writting to the file.
-    Make sure to pass the entire file path, including the file name.
     """,
     )
+
     fill_file_tool = Tool(
-        name="create_file",
+        name="write_file",
         func=MyFillFileTool(
             root_dir=root_dir,
         ).run,

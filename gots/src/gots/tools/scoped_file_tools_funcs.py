@@ -3,13 +3,10 @@ from typing import Optional, Type
 
 from langchain.callbacks.manager import (
     AsyncCallbackManagerForToolRun,
-    CallbackManagerForToolRun,
 )
 from langchain.tools.base import BaseTool
 from langchain.tools.file_management.utils import (
-    INVALID_PATH_TEMPLATE,
     BaseFileToolMixin,
-    FileValidationError,
 )
 from pydantic import BaseModel, Field
 
