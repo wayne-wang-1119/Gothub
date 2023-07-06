@@ -10,20 +10,20 @@ class GitCallbackHandler(BaseCallbackHandler):
     def __init__(self, repo: Repo):
         self.repo = repo
 
-    def on_chain_start(
+    def on_tool_start(
         self,
         serialized: Dict[str, Any],
-        inputs: Dict[str, Any],
+        input_str: str,
         **kwargs: Any,
     ) -> Any:
         """Run when chain starts running."""
 
-    def on_chain_end(
+    def on_tool_end(
         self,
-        outputs: Dict[str, Any],
+        output: str,
         **kwargs: Any,
     ) -> Any:
         """Run when chain ends running."""
 
         self.repo.git.add(A=True)  # This will add all files to the staging area
-        self.repo.index.commit("on chain end")
+        self.repo.index.commit(output)
