@@ -59,7 +59,7 @@ This tool should immediately follow a use of the "create_file" tool.
 You should run this to write in a file, the file must be created first.
 
 The tool takes the file path and the text content as two strings separated by a /
-An example of this input: example.py/print("Hello World.")\nprint("Hello World again!")
+An example of input: example.py/print("Hello World.")\nprint("Hello World again!")\n
 Follow this example strictly.
 """,
     )
