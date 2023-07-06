@@ -25,13 +25,11 @@ class MyCreateFileTool(BaseFileToolMixin, BaseTool):
     def _run(self, file_path: str) -> str:
         append = False
         write_path = self.get_relative_path(file_path)  # root_dir + "/file_path"
+
         try:
             mode = "a" if append else "w"
             with open(write_path, mode) as f:
                 f.write("created successfully")
-
-            # TODO This is hacky
-
             return f"File created successfully to {file_path}."
         except Exception as e:
             return "Error: " + str(e)
@@ -44,7 +42,9 @@ class MyCreateFileTool(BaseFileToolMixin, BaseTool):
 class MyFillToolInput(BaseModel):
     """Input for FileTool."""
 
-    content: str = Field(..., description="content to write to file")
+    file_path_and_content: str = Field(
+        ..., description="file path and content separated by a '/' character"
+    )
 
 
 class MyFillFileTool(BaseFileToolMixin, BaseTool):
@@ -52,11 +52,13 @@ class MyFillFileTool(BaseFileToolMixin, BaseTool):
     args_schema: Type[BaseModel] = MyFillToolInput
     description: str = "Write to a file"
 
-    def _run(self, content: str) -> str:
-        file_path = ""
+    def _run(self, file_path_and_content: str) -> str:
+        split = file_path_and_content.split("/")
+        file_path = split[0]
+        content = file_path_and_content[len(file_path) + 1 :]
+
         try:
-            write_path = file_path
-            with open(write_path, "w") as file:
+            with open(file_path, "w") as file:
                 file.write(content)
             return f"File content written successfully to {file_path}."
         except Exception as e:
