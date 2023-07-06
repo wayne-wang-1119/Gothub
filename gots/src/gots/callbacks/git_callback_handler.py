@@ -18,14 +18,10 @@ class GitCallbackHandler(BaseCallbackHandler):
     ) -> Any:
         """Run when tool starts running."""
 
-    def on_llm_end(
-        self,
-        response,
-        **kwargs: Any,
-    ) -> Any:
+    def on_llm_start(self, **kwargs: Any) -> Any:
         """Run when tool ends running."""
         self.repo.git.add(A=True)  # This will add all files to the staging area
-        self.repo.git.commit("--allow-empty", "-m", "on llm end")
+        self.repo.git.commit("--allow-empty", "-m", "on llm start")
 
     def on_chain_end(
         self,
