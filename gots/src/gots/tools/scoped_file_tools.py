@@ -8,12 +8,13 @@ from langchain.tools.file_management import (
 )
 
 from .scoped_file_tools_funcs import (
-    MyCreateFileTool,
-    MyFillFileTool,
+    file_tool_factory,
 )
 
 
 def build_scoped_file_tools(root_dir: str) -> list[Tool]:
+    MyCreateFileTool, MyFillFileTool = file_tool_factory()
+
     read_one_file_tool = Tool(
         name="read_one_file",
         func=ReadFileTool(
@@ -57,9 +58,7 @@ A use of the "write_file" tool should immediately follow this tool.
 Useful when you want to fill in the contents in a file.
 This tool should immediately follow a use of the "create_file" tool.
 You should run this to write in a file, the file must be created first.
-
-The tool takes the file path and the text content as two strings separated by a /
-An example of input: example.py/print("Hello World.")\nprint("Hello World again!")\n
+Don't include the file path, just include the file content.
 Follow this example strictly.
 """,
     )
