@@ -4,7 +4,6 @@ from typing import Callable, Optional
 import langchain
 from git import Head, Repo
 from langchain.agents import AgentType, initialize_agent
-from langchain.callbacks.base import BaseCallbackManager
 from langchain.chat_models import ChatOpenAI
 from pydantic import BaseModel
 from pydantic.dataclasses import dataclass
@@ -57,7 +56,7 @@ def one_branch_mrkl(inp: WriteRepoInp) -> None:
         tools=tools,
         llm=llm,
         agent=AgentType.OPENAI_FUNCTIONS,
-        callback_manager=BaseCallbackManager([git_callback_handler]),
+        callbacks=[git_callback_handler],
         verbose=True,
     )
 
