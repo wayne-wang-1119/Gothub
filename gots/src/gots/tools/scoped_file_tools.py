@@ -57,7 +57,10 @@ A use of the "write_file" tool should immediately follow this tool.
 Useful when you want to fill in the contents in a file.
 This tool should immediately follow a use of the "create_file" tool.
 You should run this to write in a file, the file must be created first.
-You don't need to specify the file path, just specify the file content.
+
+The tool takes the file path and the text content as two strings separated by a /
+An example of this input: example.py/print("Hello World.")\nprint("Hello World again!")
+Follow this example strictly.
 """,
     )
 
