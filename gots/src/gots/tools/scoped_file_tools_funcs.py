@@ -14,6 +14,7 @@ from langchain.tools.file_management.utils import (
 from pydantic import BaseModel, Field
 
 current_dir = os.getcwd()
+# /Users/wayne/Desktop/Gothub
 
 
 class MyCreateToolInput(BaseModel):
@@ -26,15 +27,13 @@ class MyCreateFileTool(BaseFileToolMixin, BaseTool):
     name: str = "create_file_tool"
     args_schema: Type[BaseModel] = MyCreateToolInput  # Accepts a single string argument
     description: str = "Create a new file"
-    FILE_PATH_STORE = current_dir + "/db/file_helper.txt"
+    FILE_PATH_STORE = (
+        current_dir + "/db/file_helper.txt"
+    )  # /Users/wayne/Desktop/Gothub/db/file_helper.txt
 
-    def _run(
-        self,
-        file_path: str,
-        run_manager: Optional[CallbackManagerForToolRun] = None,
-    ) -> str:
+    def _run(self, file_path: str) -> str:
         append = False
-        write_path = self.get_relative_path(file_path)
+        write_path = self.get_relative_path(file_path)  # root_dir + "/file_path"
         try:
             mode = "a" if append else "w"
             with open(write_path, mode) as f:
@@ -65,11 +64,11 @@ class MyFillFileTool(BaseFileToolMixin, BaseTool):
     name: str = "write_file_tool"
     args_schema: Type[BaseModel] = MyFillToolInput
     description: str = "Write to a file"
-    FILE_PATH_STORE = current_dir + "/db/file_helper.txt"
+    FILE_PATH_STORE = (
+        current_dir + "/db/file_helper.txt"
+    )  # /Users/wayne/Desktop/Gothub/db/file_helper.txt
 
-    def _run(
-        self, text: str, run_manager: Optional[CallbackManagerForToolRun] = None
-    ) -> str:
+    def _run(self, text: str) -> str:
         if not os.path.exists(self.FILE_PATH_STORE):
             return "Error: No file has been created yet. Return to create a file."
 

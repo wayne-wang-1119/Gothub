@@ -122,14 +122,6 @@
         "documentation": {}
     },
     {
-        "label": "Path",
-        "importPath": "pathlib",
-        "description": "pathlib",
-        "isExtraImport": true,
-        "detail": "pathlib",
-        "documentation": {}
-    },
-    {
         "label": "Repo",
         "importPath": "git",
         "description": "git",
@@ -709,15 +701,6 @@
         "documentation": {}
     },
     {
-        "label": "pytest",
-        "kind": 6,
-        "isExtraImport": true,
-        "importPath": "pytest",
-        "description": "pytest",
-        "detail": "pytest",
-        "documentation": {}
-    },
-    {
         "label": "mock_repo_agent",
         "kind": 2,
         "importPath": "gothub.src.gothub.tests.test_order",
@@ -956,7 +939,7 @@
         "kind": 6,
         "importPath": "gots.src.gots.tools.scoped_file_tools_funcs",
         "description": "gots.src.gots.tools.scoped_file_tools_funcs",
-        "peekOfCode": "class MyCreateToolInput(BaseModel):\n    \"\"\"Input for FileTool.\"\"\"\n    file_path: str = Field(..., description=\"Path of the file, include file name\")\nclass MyCreateFileTool(BaseFileToolMixin, BaseTool):\n    name: str = \"create_file_tool\"\n    args_schema: Type[BaseModel] = MyCreateToolInput  # Accepts a single string argument\n    description: str = \"Create a new file\"\n    FILE_PATH_STORE = current_dir + \"/db/file_helper.txt\"\n    def _run(\n        self,",
+        "peekOfCode": "class MyCreateToolInput(BaseModel):\n    \"\"\"Input for FileTool.\"\"\"\n    file_path: str = Field(..., description=\"Path of the file, include file name\")\nclass MyCreateFileTool(BaseFileToolMixin, BaseTool):\n    name: str = \"create_file_tool\"\n    args_schema: Type[BaseModel] = MyCreateToolInput  # Accepts a single string argument\n    description: str = \"Create a new file\"\n    FILE_PATH_STORE = (\n        current_dir + \"/db/file_helper.txt\"\n    )  # /Users/wayne/Desktop/Gothub/db/file_helper.txt",
         "detail": "gots.src.gots.tools.scoped_file_tools_funcs",
         "documentation": {}
     },
@@ -965,7 +948,7 @@
         "kind": 6,
         "importPath": "gots.src.gots.tools.scoped_file_tools_funcs",
         "description": "gots.src.gots.tools.scoped_file_tools_funcs",
-        "peekOfCode": "class MyCreateFileTool(BaseFileToolMixin, BaseTool):\n    name: str = \"create_file_tool\"\n    args_schema: Type[BaseModel] = MyCreateToolInput  # Accepts a single string argument\n    description: str = \"Create a new file\"\n    FILE_PATH_STORE = current_dir + \"/db/file_helper.txt\"\n    def _run(\n        self,\n        file_path: str,\n        run_manager: Optional[CallbackManagerForToolRun] = None,\n    ) -> str:",
+        "peekOfCode": "class MyCreateFileTool(BaseFileToolMixin, BaseTool):\n    name: str = \"create_file_tool\"\n    args_schema: Type[BaseModel] = MyCreateToolInput  # Accepts a single string argument\n    description: str = \"Create a new file\"\n    FILE_PATH_STORE = (\n        current_dir + \"/db/file_helper.txt\"\n    )  # /Users/wayne/Desktop/Gothub/db/file_helper.txt\n    def _run(self, file_path: str) -> str:\n        append = False\n        write_path = self.get_relative_path(file_path)  # root_dir + \"/file_path\"",
         "detail": "gots.src.gots.tools.scoped_file_tools_funcs",
         "documentation": {}
     },
@@ -974,7 +957,7 @@
         "kind": 6,
         "importPath": "gots.src.gots.tools.scoped_file_tools_funcs",
         "description": "gots.src.gots.tools.scoped_file_tools_funcs",
-        "peekOfCode": "class MyFillToolInput(BaseModel):\n    \"\"\"Input for FileTool.\"\"\"\n    text: str = Field(..., description=\"content to write to file\")\nclass MyFillFileTool(BaseFileToolMixin, BaseTool):\n    name: str = \"write_file_tool\"\n    args_schema: Type[BaseModel] = MyFillToolInput\n    description: str = \"Write to a file\"\n    FILE_PATH_STORE = current_dir + \"/db/file_helper.txt\"\n    def _run(\n        self, text: str, run_manager: Optional[CallbackManagerForToolRun] = None",
+        "peekOfCode": "class MyFillToolInput(BaseModel):\n    \"\"\"Input for FileTool.\"\"\"\n    text: str = Field(..., description=\"content to write to file\")\nclass MyFillFileTool(BaseFileToolMixin, BaseTool):\n    name: str = \"write_file_tool\"\n    args_schema: Type[BaseModel] = MyFillToolInput\n    description: str = \"Write to a file\"\n    FILE_PATH_STORE = (\n        current_dir + \"/db/file_helper.txt\"\n    )  # /Users/wayne/Desktop/Gothub/db/file_helper.txt",
         "detail": "gots.src.gots.tools.scoped_file_tools_funcs",
         "documentation": {}
     },
@@ -983,7 +966,7 @@
         "kind": 6,
         "importPath": "gots.src.gots.tools.scoped_file_tools_funcs",
         "description": "gots.src.gots.tools.scoped_file_tools_funcs",
-        "peekOfCode": "class MyFillFileTool(BaseFileToolMixin, BaseTool):\n    name: str = \"write_file_tool\"\n    args_schema: Type[BaseModel] = MyFillToolInput\n    description: str = \"Write to a file\"\n    FILE_PATH_STORE = current_dir + \"/db/file_helper.txt\"\n    def _run(\n        self, text: str, run_manager: Optional[CallbackManagerForToolRun] = None\n    ) -> str:\n        if not os.path.exists(self.FILE_PATH_STORE):\n            return \"Error: No file has been created yet. Return to create a file.\"",
+        "peekOfCode": "class MyFillFileTool(BaseFileToolMixin, BaseTool):\n    name: str = \"write_file_tool\"\n    args_schema: Type[BaseModel] = MyFillToolInput\n    description: str = \"Write to a file\"\n    FILE_PATH_STORE = (\n        current_dir + \"/db/file_helper.txt\"\n    )  # /Users/wayne/Desktop/Gothub/db/file_helper.txt\n    def _run(self, text: str) -> str:\n        if not os.path.exists(self.FILE_PATH_STORE):\n            return \"Error: No file has been created yet. Return to create a file.\"",
         "detail": "gots.src.gots.tools.scoped_file_tools_funcs",
         "documentation": {}
     },
@@ -992,7 +975,7 @@
         "kind": 5,
         "importPath": "gots.src.gots.tools.scoped_file_tools_funcs",
         "description": "gots.src.gots.tools.scoped_file_tools_funcs",
-        "peekOfCode": "current_dir = os.getcwd()\nclass MyCreateToolInput(BaseModel):\n    \"\"\"Input for FileTool.\"\"\"\n    file_path: str = Field(..., description=\"Path of the file, include file name\")\nclass MyCreateFileTool(BaseFileToolMixin, BaseTool):\n    name: str = \"create_file_tool\"\n    args_schema: Type[BaseModel] = MyCreateToolInput  # Accepts a single string argument\n    description: str = \"Create a new file\"\n    FILE_PATH_STORE = current_dir + \"/db/file_helper.txt\"\n    def _run(",
+        "peekOfCode": "current_dir = os.getcwd()\n# /Users/wayne/Desktop/Gothub\nclass MyCreateToolInput(BaseModel):\n    \"\"\"Input for FileTool.\"\"\"\n    file_path: str = Field(..., description=\"Path of the file, include file name\")\nclass MyCreateFileTool(BaseFileToolMixin, BaseTool):\n    name: str = \"create_file_tool\"\n    args_schema: Type[BaseModel] = MyCreateToolInput  # Accepts a single string argument\n    description: str = \"Create a new file\"\n    FILE_PATH_STORE = (",
         "detail": "gots.src.gots.tools.scoped_file_tools_funcs",
         "documentation": {}
     },
@@ -1156,15 +1139,6 @@
         "description": "gots.src.gots.repo_agent",
         "peekOfCode": "RepoAgent = Callable[[WriteRepoInp], WriteRepoOut]\ndef one_branch_mrkl(inp: WriteRepoInp) -> None:\n    match inp:\n        case WriteRepoInp(\n            repo=repo,\n            openai_api_key=openai_api_key,\n            extra_prompt=extra_prompt,\n        ):\n            pass\n    tools = build_scoped_file_tools(repo.working_dir)",
         "detail": "gots.src.gots.repo_agent",
-        "documentation": {}
-    },
-    {
-        "label": "test_my_create_file_tool",
-        "kind": 2,
-        "importPath": "tests.test_create",
-        "description": "tests.test_create",
-        "peekOfCode": "def test_my_create_file_tool():\n    tool = MyCreateFileTool()\n    file_path = \"tests/test_file.txt\"\n    input_model = MyCreateToolInput(file_path=file_path)\n    # convert the input model to a dictionary\n    input_dict = input_model.dict()\n    output = tool.run(input_dict)\n    assert output == f\"File created successfully to {file_path}.\"",
-        "detail": "tests.test_create",
         "documentation": {}
     }
 ]

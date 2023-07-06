@@ -42,10 +42,10 @@ You should run this to record the file directory tree when you need to.
             root_dir=root_dir,
         ).run,
         description="""
-Useful when you want to create files.
-You should run this to create the file before writting to the file.
-Make sure to pass the entire file path, including the file name.
-""",
+    Useful when you want to create files.
+    You should run this to create the file before writting to the file.
+    Make sure to pass the entire file path, including the file name.
+    """,
     )
     fill_file_tool = Tool(
         name="create_file",
@@ -53,9 +53,9 @@ Make sure to pass the entire file path, including the file name.
             root_dir=root_dir,
         ).run,
         description="""
-Useful when you want to fill in the contents in a file.
-You should run this to write in a file, the file must be created first.
-""",
+    Useful when you want to fill in the contents in a file.
+    You should run this to write in a file, the file must be created first.
+    """,
     )
 
     return [
