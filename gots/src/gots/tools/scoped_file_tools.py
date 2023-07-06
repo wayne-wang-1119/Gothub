@@ -42,9 +42,9 @@ You should run this to record the file directory tree when you need to.
             root_dir=root_dir,
         ).run,
         description="""
-    Useful when you want to create files.
-    You should run this to create the file before writting to the file.
-    """,
+Useful when you want to create files.
+You should run this to create the file before writting to the file.
+""",
     )
 
     fill_file_tool = Tool(
@@ -53,9 +53,9 @@ You should run this to record the file directory tree when you need to.
             root_dir=root_dir,
         ).run,
         description="""
-    Useful when you want to fill in the contents in a file.
-    You should run this to write in a file, the file must be created first.
-    """,
+Useful when you want to fill in the contents in a file.
+You should run this to write in a file, the file must be created first.
+""",
     )
 
     return [
