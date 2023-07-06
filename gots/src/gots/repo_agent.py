@@ -44,7 +44,7 @@ def one_branch_mrkl(inp: WriteRepoInp) -> None:
             pass
 
     tools = build_scoped_file_tools(repo.working_dir)
-    git_callback_handler = GitCallbackHandler()
+    git_callback_handler = GitCallbackHandler(repo)
 
     llm = ChatOpenAI(
         temperature=0,
