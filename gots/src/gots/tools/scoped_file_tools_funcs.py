@@ -29,6 +29,9 @@ class MyCreateFileTool(BaseFileToolMixin, BaseTool):
             mode = "a" if append else "w"
             with open(write_path, mode) as f:
                 f.write("created successfully")
+
+            # TODO This is hacky
+
             return f"File created successfully to {file_path}."
         except Exception as e:
             return "Error: " + str(e)
@@ -41,7 +44,7 @@ class MyCreateFileTool(BaseFileToolMixin, BaseTool):
 class MyFillToolInput(BaseModel):
     """Input for FileTool."""
 
-    text: str = Field(..., description="content to write to file")
+    content: str = Field(..., description="content to write to file")
 
 
 class MyFillFileTool(BaseFileToolMixin, BaseTool):
@@ -49,12 +52,12 @@ class MyFillFileTool(BaseFileToolMixin, BaseTool):
     args_schema: Type[BaseModel] = MyFillToolInput
     description: str = "Write to a file"
 
-    def _run(self, text: str) -> str:
+    def _run(self, content: str) -> str:
         file_path = ""
         try:
             write_path = file_path
             with open(write_path, "w") as file:
-                file.write(text)
+                file.write(content)
             return f"File content written successfully to {file_path}."
         except Exception as e:
             return "Error: " + str(e)
