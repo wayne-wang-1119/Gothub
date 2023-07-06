@@ -17,10 +17,7 @@ class MyCustomHandlerOne(BaseCallbackHandler):
         self, serialized: Dict[str, Any], inputs: Dict[str, Any], **kwargs: Any
     ) -> Any:
         """Run when chain starts running."""
-        self.git.pull_changes()
 
     def on_tool_end(self, outputs: Dict[str, Any], **kwargs: Any) -> Any:
         """Run when chain ends running."""
         self.git.commit_changes(outputs)
-        self.git.push_changes(outputs)
-        self.git.create_pull_request(outputs)

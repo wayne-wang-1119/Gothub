@@ -5,7 +5,11 @@ from langchain.tools.file_management import (
     ListDirectoryTool,
     MoveFileTool,
     ReadFileTool,
-    WriteFileTool,
+)
+
+from .scoped_file_tools_funcs import (
+    MyCreateFileTool,
+    MyFillFileTool,
 )
 
 
@@ -32,19 +36,30 @@ You should run this to record the file directory tree when you need to.
 """,
     )
 
-    write_file_tool = Tool(
-        name="write_file",
-        func=WriteFileTool(
+    create_file_tool = Tool(
+        name="create_file",
+        func=MyCreateFileTool(
             root_dir=root_dir,
         ).run,
         description="""
-Useful when you want to write files.
-You should run this to write the file where you need to.
+Useful when you want to create files.
+You should run this to create the file before writting to the file.
+""",
+    )
+    fill_file_tool = Tool(
+        name="create_file",
+        func=MyFillFileTool(
+            root_dir=root_dir,
+        ).run,
+        description="""
+Useful when you want to fill in the contents in a file.
+You should run this to write in a file, the file must be created first.
 """,
     )
 
     return [
         read_one_file_tool,
         read_directory_tree_tool,
-        write_file_tool,
+        create_file_tool,
+        fill_file_tool,
     ]
