@@ -26,5 +26,6 @@ class GitCallbackHandler(BaseCallbackHandler):
         **kwargs: Any,
     ) -> Any:
         """Run when chain ends running."""
-        self.repo.git.add(A=True)
-        self.repo.git.commit(outputs)
+
+        self.repo.git.add(A=True)  # This will add all files to the staging area
+        self.repo.index.commit("one step done")
