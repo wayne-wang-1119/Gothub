@@ -71,7 +71,7 @@ class MyFillFileTool(BaseFileToolMixin, BaseTool):
         self, text: str, run_manager: Optional[CallbackManagerForToolRun] = None
     ) -> str:
         if not os.path.exists(self.FILE_PATH_STORE):
-            return "Error: No file has been created yet."
+            return "Error: No file has been created yet. Return to create a file."
 
         with open(self.FILE_PATH_STORE, "r") as f:
             file_path = f.read()
