@@ -140,7 +140,7 @@ def edit_file_tool_factory():
                 return f"Error: no such file or directory: {file_path}"
             try:
                 with read_path.open("r", encoding="utf-8") as f:
-                    content = f.read()
+                    content = f.readlines()
                     nonlocal prev_file_path
                     prev_file_path = read_path
                 return content
@@ -194,8 +194,7 @@ def edit_file_tool_factory():
                 with prev_file_path.open("r", encoding="utf-8") as f:
                     lines = f.readlines()
                 # Edit the lines
-                # !FIXME: This logic here correct? too drunk to tell!
-                lines[start + 1 : end + 2] = content
+                lines[start:end] = content
 
                 with prev_file_path.open("w", encoding="utf-8") as f:
                     f.writelines(lines)
@@ -217,6 +216,7 @@ class MyScriptExecutionTool(BaseFileToolMixin, BaseTool):
 
     def _run(self, script_path: str) -> str:
         try:
+            script_path = self.get_relative_path(script_path)
             # Determine the type of script and set the command accordingly
             if script_path.endswith(".py"):
                 cmd = ["python", script_path]
