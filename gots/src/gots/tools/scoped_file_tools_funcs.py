@@ -1,4 +1,5 @@
 import os
+import subprocess
 from typing import Optional, Type
 
 from langchain.callbacks.manager import (
@@ -46,6 +47,12 @@ class MyEditLineToolInput(BaseModel):
     content: str = Field(
         ..., description="content to write to the edited file, excluding file path"
     )
+
+
+class MyScriptExecutionToolInput(BaseModel):
+    """Input for TestScriptFileTool."""
+
+    script_path: str = Field(..., description="Path of the script to be tested")
 
 
 def file_tool_factory():
@@ -201,3 +208,30 @@ def edit_file_tool_factory():
             raise NotImplementedError
 
     return MyReadLineTool, MyLocateLineTool, MyEditLineTool
+
+
+class MyScriptExecutionTool(BaseFileToolMixin, BaseTool):
+    name: str = "test_execution_tool"
+    args_schema: Type[BaseModel] = MyScriptExecutionToolInput
+    description: str = "Execute the provided script as a test."
+
+    def _run(self, script_path: str) -> str:
+        try:
+            # Determine the type of script and set the command accordingly
+            if script_path.endswith(".py"):
+                cmd = ["python", script_path]
+            else:
+                return f"Error: Unsupported script type for file {script_path}"
+
+            # Run the script
+            result = subprocess.run(cmd, capture_output=True, text=True)
+
+            if result.returncode != 0:
+                return f"Error: Script execution failed with message {result.stderr}"
+            return f"Script {script_path} executed successfully"
+        except Exception as e:
+            return f"Error: {str(e)}"
+
+    async def _arun(self) -> str:
+        # TODO: Add asyncio subprocess execution method
+        raise NotImplementedError

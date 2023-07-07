@@ -8,6 +8,7 @@ from langchain.tools.file_management import (
 )
 
 from .scoped_file_tools_funcs import (
+    MyScriptExecutionTool,
     edit_file_tool_factory,
     file_tool_factory,
 )
@@ -105,6 +106,20 @@ You should run this to edit lines in a file,
 the lines must be verified by locate_line_tool first.
 """,
     )
+    test_execution_tool = Tool(
+        name="test_execution",
+        func=MyScriptExecutionTool(
+            root_dir=root_dir,
+        ).run,
+        description="""
+Useful when you want to test a script you created or edited.
+This tool should be used often to ensure correctness.
+The input to this tool should be a string, most importantly,
+with the specific file path that includes the script name.
+For example, if you want to test a script "test_script.py",
+under the directory "test", you should enter "test/test_script.py".
+""",
+    )
     return [
         read_one_file_tool,
         read_directory_tree_tool,
@@ -113,4 +128,5 @@ the lines must be verified by locate_line_tool first.
         read_line_tool,
         locate_line_tool,
         edit_line_tool,
+        test_execution_tool,
     ]
