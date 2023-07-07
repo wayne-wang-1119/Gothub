@@ -187,7 +187,8 @@ def edit_file_tool_factory():
                 with prev_file_path.open("r", encoding="utf-8") as f:
                     lines = f.readlines()
                 # Edit the lines
-                lines[start:end] = content
+                # !FIXME: This logic here correct? too drunk to tell!
+                lines[start + 1 : end + 2] = content
 
                 with prev_file_path.open("w", encoding="utf-8") as f:
                     f.writelines(lines)
