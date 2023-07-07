@@ -8,12 +8,14 @@ from langchain.tools.file_management import (
 )
 
 from .scoped_file_tools_funcs import (
+    edit_file_tool_factory,
     file_tool_factory,
 )
 
 
 def build_scoped_file_tools(root_dir: str) -> list[Tool]:
     MyCreateFileTool, MyFillFileTool = file_tool_factory()
+    MyReadLineTool, MyLocateLineTool, MyEditLineTool = edit_file_tool_factory()
 
     read_one_file_tool = Tool(
         name="read_one_file",
@@ -62,10 +64,50 @@ Don't include the file path, just include the file content.
 Follow this example strictly.
 """,
     )
+    read_line_tool = Tool(
+        name="read_line",
+        func=MyReadLineTool(
+            root_dir=root_dir,
+        ).run,
+        description="""
+Useful when you want to edit the contents in a file.
+You should run this FIRST before trying to edit the file.
+You should locate the lines where you want to edit the file with this tool.
+After this tool, you should always verify the line numbers with locate_line tool.
+""",
+    )
+    locate_line_tool = Tool(
+        name="locate_line",
+        func=MyLocateLineTool(
+            root_dir=root_dir,
+        ).run,
+        description="""
+Useful when you want to verify the lines exists in a file.
+This tool should immediately follow a use of the "read_line" tool.
+You should run this to verify the line number has contents
+,the file containing the lines must be read first.
+After this tool, you should edit file with edit_line tool.
+""",
+    )
 
+    edit_line_tool = Tool(
+        name="edit_line",
+        func=MyEditLineTool(
+            root_dir=root_dir,
+        ).run,
+        description="""
+Useful when you want to write specific contents in seleted lines in a file.
+This tool should immediately follow a use of the "locate_line" tool.
+You should run this to edit lines in a file,
+the lines must be verified by locate_line_tool first.
+""",
+    )
     return [
         read_one_file_tool,
         read_directory_tree_tool,
         create_file_tool,
         fill_file_tool,
+        read_line_tool,
+        locate_line_tool,
+        edit_line_tool,
     ]

@@ -5,8 +5,11 @@ from langchain.callbacks.manager import (
     AsyncCallbackManagerForToolRun,
 )
 from langchain.tools.base import BaseTool
+from langchain.tools.file_management import ReadFileTool
 from langchain.tools.file_management.utils import (
+    INVALID_PATH_TEMPLATE,
     BaseFileToolMixin,
+    FileValidationError,
 )
 from pydantic import BaseModel, Field
 
@@ -22,6 +25,26 @@ class MyFillToolInput(BaseModel):
 
     content: str = Field(
         ..., description="content to write to file, excluding file path"
+    )
+
+
+class MyLocateToolInput(BaseModel):
+    """Input for LocateTool."""
+
+    line_number: str = Field(
+        ...,
+        description=(
+            "Line number to locate where edits take place, "
+            "strictly in the format of num1:num2."
+        ),
+    )
+
+
+class MyEditLineToolInput(BaseModel):
+    """Input for EditLineTool."""
+
+    content: str = Field(
+        ..., description="content to write to the edited file, excluding file path"
     )
 
 
@@ -83,3 +106,92 @@ def file_tool_factory():
             raise NotImplementedError
 
     return MyCreateFileTool, MyFillFileTool
+
+
+def edit_file_tool_factory():
+    prev_file_path = None
+    edit_line_num = None
+
+    class MyReadLineTool(ReadFileTool):
+        name: str = "read_line_tool"
+        args_schema: Type[
+            BaseModel
+        ] = MyCreateToolInput  # Accepts a single string argument
+        description: str = "Read a file to find line numbers to edit"
+
+        def _run(
+            self,
+            file_path: str,
+        ) -> str:
+            try:
+                read_path = self.get_relative_path(file_path)
+            except FileValidationError:
+                return INVALID_PATH_TEMPLATE.format(
+                    arg_name="file_path", value=file_path
+                )
+            if not read_path.exists():
+                return f"Error: no such file or directory: {file_path}"
+            try:
+                with read_path.open("r", encoding="utf-8") as f:
+                    content = f.read()
+                    nonlocal prev_file_path
+                    prev_file_path = read_path
+                return content
+            except Exception as e:
+                return "Error: " + str(e)
+
+    class MyLocateLineTool(ReadFileTool):
+        name: str = "locate_line_tool"
+        args_schema: Type[BaseModel] = MyLocateToolInput  # Accepts a line range string
+        description: str = "Locate and validate line numbers in a file"
+
+        def _run(self, line_range: str) -> str:
+            try:
+                start, end = map(int, line_range.split(":"))
+            except ValueError:
+                return "Error: Invalid line range format"
+
+            # Reading the file again is not very efficient,
+            # but necessary to validate line numbers
+            with prev_file_path.open("r", encoding="utf-8") as f:
+                lines = f.readlines()
+
+            if start < 0 or end > len(lines):
+                return f"Error: line range {start}:{end} is out of file bounds"
+
+            nonlocal edit_line_num
+            edit_line_num = (start, end)  # Save the line numbers for the next tool
+            return "Success: line numbers are valid"
+
+    class MyEditLineTool(BaseFileToolMixin, BaseTool):
+        name: str = "edit_line_tool"
+        args_schema: Type[
+            BaseModel
+        ] = MyEditLineToolInput  # Accepts a line range string
+
+        def _run(self, content: str) -> str:
+            nonlocal edit_line_num
+            if edit_line_num is None:
+                return "Error: No line numbers set. Run MyLocateLineTool first."
+            start, end = edit_line_num
+            if end - start != len(content):
+                return (
+                    f"Error: Line count mismatch. Expected {end - start}, "
+                    f"got {len(content)}. Adjust new lines."
+                )
+
+            try:
+                with prev_file_path.open("r", encoding="utf-8") as f:
+                    lines = f.readlines()
+
+                # Edit the lines
+                lines[start:end] = content
+
+                with prev_file_path.open("w", encoding="utf-8") as f:
+                    f.writelines(lines)
+            except Exception as e:
+                return "Error: " + str(e)
+
+            return f"Edited file {prev_file_path} at lines {start}:{end}"
+
+    return MyReadLineTool, MyLocateLineTool, MyEditLineTool
