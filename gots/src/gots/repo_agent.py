@@ -60,7 +60,10 @@ def one_branch_mrkl(inp: WriteRepoInp) -> None:
         verbose=True,
     )
 
-    mrkl.run("Write me a fun python script file that computes Fibonacci.")
+    mrkl.run(
+        "Write me a fun python script file that computes Fibonacci. "
+        "And then edit it to use a different calculation algorithm"
+    )
 
 
 def gots_repo_agent(inp: WriteRepoInp) -> WriteRepoOut:

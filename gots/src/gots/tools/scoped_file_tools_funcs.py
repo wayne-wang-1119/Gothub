@@ -35,7 +35,7 @@ class MyLocateToolInput(BaseModel):
         ...,
         description=(
             "Line number to locate where edits take place, "
-            "strictly in the format of num1:num2."
+            "remember to strictly input in the format of num1:num2."
         ),
     )
 
@@ -140,6 +140,10 @@ def edit_file_tool_factory():
             except Exception as e:
                 return "Error: " + str(e)
 
+        async def _arun(self) -> str:
+            # TODO: Add aiofiles method
+            raise NotImplementedError
+
     class MyLocateLineTool(ReadFileTool):
         name: str = "locate_line_tool"
         args_schema: Type[BaseModel] = MyLocateToolInput  # Accepts a line range string
@@ -149,7 +153,7 @@ def edit_file_tool_factory():
             try:
                 start, end = map(int, line_range.split(":"))
             except ValueError:
-                return "Error: Invalid line range format"
+                return "Error: input can only be in the format of num1:num2"
 
             # Reading the file again is not very efficient,
             # but necessary to validate line numbers
@@ -163,35 +167,36 @@ def edit_file_tool_factory():
             edit_line_num = (start, end)  # Save the line numbers for the next tool
             return "Success: line numbers are valid"
 
+        async def _arun(self) -> str:
+            # TODO: Add aiofiles method
+            raise NotImplementedError
+
     class MyEditLineTool(BaseFileToolMixin, BaseTool):
         name: str = "edit_line_tool"
         args_schema: Type[
             BaseModel
         ] = MyEditLineToolInput  # Accepts a line range string
+        description: str = "edit contents in a file at specific line numbers"
 
         def _run(self, content: str) -> str:
             nonlocal edit_line_num
             if edit_line_num is None:
                 return "Error: No line numbers set. Run MyLocateLineTool first."
             start, end = edit_line_num
-            if end - start != len(content):
-                return (
-                    f"Error: Line count mismatch. Expected {end - start}, "
-                    f"got {len(content)}. Adjust new lines."
-                )
-
             try:
                 with prev_file_path.open("r", encoding="utf-8") as f:
                     lines = f.readlines()
-
                 # Edit the lines
                 lines[start:end] = content
 
                 with prev_file_path.open("w", encoding="utf-8") as f:
                     f.writelines(lines)
+                return f"Edited file {prev_file_path} at lines {start}:{end}"
             except Exception as e:
                 return "Error: " + str(e)
 
-            return f"Edited file {prev_file_path} at lines {start}:{end}"
+        async def _arun(self) -> str:
+            # TODO: Add aiofiles method
+            raise NotImplementedError
 
     return MyReadLineTool, MyLocateLineTool, MyEditLineTool
