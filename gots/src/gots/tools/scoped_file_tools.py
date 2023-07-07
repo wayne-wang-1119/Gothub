@@ -86,7 +86,9 @@ After this tool, you should always verify the line numbers with locate_line tool
 Useful when you want to verify the lines exists in a file.
 This tool should immediately follow a use of the "read_line" tool.
 You should run this with the input STRICTLY,
-following the example format here: num1:num2
+following the example format here: num1:num2,
+with num1 being the starting line of edit happens
+and num2 being the ending line of edit happens.
 in a string, with num1 being the starting line of edit happens
 and num2 being the ending line of edit happens.
 ,the file containing the lines must be read first.
