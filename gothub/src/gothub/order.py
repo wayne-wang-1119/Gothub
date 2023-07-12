@@ -1,5 +1,7 @@
+import os
 import re
 from datetime import datetime
+from pathlib import Path
 from typing import Optional
 
 from github import Github
@@ -27,7 +29,7 @@ class GithubOrderInp:
     openai_api_key: str
     branch_name: Optional[str]
     extra_prompt: Optional[str]
-    repo_agent: Optional[RepoAgent]
+    repo_agent: RepoAgent = gots_repo_agent
 
 
 @dataclass
@@ -47,9 +49,14 @@ def take_order(inp: GithubOrderInp) -> GithubOrderOut:
             extra_prompt=extra_prompt,
             repo_agent=repo_agent,
         ):
-            repo_agent = repo_agent or gots_repo_agent
+            pass
 
     time = datetime.now().strftime("%Y-%m-%d %H_%M_%S_%f")
+
+    user_path = Path("./repos/orders") / username
+    if not os.path.exists(user_path):
+        os.makedirs(user_path)
+
     setup_dir = SETUP_ORDERS_BASE_DIR + username + "/" + time
 
     setup_repo_inp = SetupRepoInp(

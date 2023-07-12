@@ -25,7 +25,11 @@ SECRET_KEY = "django-insecure-2dlxwzpwj3bxu=99i!kl6(8zf5mtq%b_mf$(x*y(sef9^v_+m_
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS: list[str] = []
+ALLOWED_HOSTS = [
+    "smee.io",
+    "localhost",
+    "127.0.0.1",
+]
 
 
 # Application definition

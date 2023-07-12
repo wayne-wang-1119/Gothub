@@ -29,7 +29,7 @@ def process_webhook(data):
             github_token=GITHUB_TOKEN,
             openai_api_key=openai_api_key,
             branch_name=branch_name,
-            extra_prompt=None,
+            extra_prompt=issue,
         )
 
         take_order(hub)

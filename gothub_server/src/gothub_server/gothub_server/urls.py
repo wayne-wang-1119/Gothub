@@ -20,6 +20,6 @@ from webhook_process.views import github_payload, home
 
 urlpatterns = [
     path("admin/", admin.site.urls),
-    path("/payload", github_payload, name="webhook"),
-    path("", home, name="home"),
+    path("", github_payload, name="webhook"),
+    # path("", home, name="home"),
 ]
