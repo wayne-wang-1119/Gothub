@@ -73,8 +73,7 @@ def test_order_gots_repo_agent():
         github_token=GITHUB_TOKEN,
         openai_api_key=OPENAI_API_KEY,
         branch_name=None,
-        extra_prompt=None,
-        repo_agent=None,
+        extra_prompt="write a fun script about snake game",
     )
 
     out = take_order(inp)
