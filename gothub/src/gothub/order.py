@@ -56,7 +56,7 @@ def take_order(inp: GithubOrderInp) -> GithubOrderOut:
     # TODO This is not elegant
     user_path = Path("./repos/orders") / username
     if not os.path.exists(user_path):
-        os.makedirs(user_path)
+        user_path.mkdir()
 
     setup_dir = SETUP_ORDERS_BASE_DIR + username + "/" + time
 
