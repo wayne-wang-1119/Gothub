@@ -6,7 +6,8 @@ from git import Repo
 from github import Github
 from pydantic.dataclasses import dataclass
 
-SETUP_BASE_DIR = Path("./repos")
+# TODO This is not elegant
+SETUP_BASE_DIR = Path(__file__).absolute().parent.parent.parent.parent / "repos/"
 
 
 @dataclass
@@ -21,7 +22,8 @@ def mkdir_if_available_else_error(path: Path):
     if path.exists():
         raise FileExistsError(f"Path {path} already exists.")
     else:
-        path.mkdir()
+        # TODO Maybe use mkdir() instead?
+        os.makedirs(path)
 
 
 def setup_repo(inp: SetupRepoInp) -> Repo:
