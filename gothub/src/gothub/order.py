@@ -53,6 +53,7 @@ def take_order(inp: GithubOrderInp) -> GithubOrderOut:
 
     time = datetime.now().strftime("%Y-%m-%d %H_%M_%S_%f")
 
+    # TODO This is not elegant
     user_path = Path("./repos/orders") / username
     if not os.path.exists(user_path):
         os.makedirs(user_path)
