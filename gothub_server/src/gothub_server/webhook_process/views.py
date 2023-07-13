@@ -1,7 +1,5 @@
 import json
 
-from braces.views import CsrfExemptMixin
-
 # Create your views here.
 from django.http import HttpResponse, JsonResponse
 from django.shortcuts import render
