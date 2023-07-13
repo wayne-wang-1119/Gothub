@@ -127,8 +127,8 @@ under the directory "test", you should enter "test/test_script.py".
         read_directory_tree_tool,
         create_file_tool,
         fill_file_tool,
-        read_line_tool,
-        locate_line_tool,
-        edit_line_tool,
-        test_execution_tool,
+        # read_line_tool,
+        # locate_line_tool,
+        # edit_line_tool,
+        # test_execution_tool,
     ]
