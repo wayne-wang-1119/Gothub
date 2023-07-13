@@ -18,7 +18,15 @@ def process_webhook(data):
     openai_api_key = os.environ["OPENAI_API_KEY"]
     branch_name = data["repository"]["default_branch"]
     GITHUB_TOKEN = os.environ["GITHUB_TOKEN"]
-    if "issue" in data and "action" in data and data["action"] == "created":
+    if (
+        "issue" in data
+        and "action" in data
+        and data["action"]
+        in [
+            "created",
+            "opened",
+        ]
+    ):
         # Extract the issue title and body.
         issue_title = data["issue"]["title"] if "title" in data["issue"] else ""
         issue_body = data["issue"]["body"] if "body" in data["issue"] else ""
