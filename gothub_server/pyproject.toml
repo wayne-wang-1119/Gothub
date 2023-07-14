@@ -126,6 +126,7 @@ dev = [
     "ruff==0.0.277",
     "black==23.3.0",
     "mypy==1.4.1",
+    "types-requests",
 ]
 test = ["coverage", "tox"]
 
