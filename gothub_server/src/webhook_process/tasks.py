@@ -10,14 +10,14 @@ from gothub.order import (
 )
 
 
-def process_webhook(data):
+def process_webhook(data, github_token):
     data = json.loads(data)
 
     username = data["sender"]["login"]
     https_url = data["repository"]["clone_url"]
     openai_api_key = os.environ["OPENAI_API_KEY"]
     branch_name = data["repository"]["default_branch"]
-    GITHUB_TOKEN = os.environ["GITHUB_TOKEN"]
+    GITHUB_TOKEN = github_token
     if (
         "issue" in data
         and "action" in data
