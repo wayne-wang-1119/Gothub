@@ -87,14 +87,19 @@ def generate_jwt() -> str:
 
 def generate_installation_access_token(installation_id):
     jwt = generate_jwt()
-    print(jwt)
 
     headers = {
-        "Authorization": f'Bearer {os.getenv("GITHUB_APP_PRIVATE_KEY")}',
         "Accept": "application/vnd.github+json",
+        "Authorization": f"Bearer {jwt}",
         "X-GitHub-Api-Version": "2022-11-28",
     }
     response = requests.post(
         f"https://api.github.com/app/installations/{installation_id}/access_tokens",
         headers=headers,
     )
+
+    if response.status_code == 201:
+        token_data = response.json()
+        return token_data["token"]
+    else:
+        raise Exception("Failed to generate installation access token")
