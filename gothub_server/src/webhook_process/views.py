@@ -25,67 +25,57 @@ def github_payload(request: WSGIRequest):
         payload = json.loads(request.body)
 
         installation_id = payload["installation"]["id"]
-        installation_node_id = payload["installation"]["node_id"]
+        # installation_node_id = payload["installation"]["node_id"]
 
         username = payload["sender"]["login"]
 
-        FIXME = generate_installation_access_token(installation_id)
+        access_token = generate_installation_access_token(installation_id)
+
+        # Pass the GitHub token to process_webhook
+        process_webhook(request, access_token)
 
         return HttpResponse(status=200)
-
-        try:
-            User = None
-            user = User.objects.get(github_username=username)
-            github_token = github_auth(user)
-
-            # Pass the GitHub token to process_webhook
-            process_webhook(request, github_token)
-            return HttpResponse(status=200)
-        except ObjectDoesNotExist:
-            # User does not exist in our database, ask them to install GitHub App
-            message = f"The user '{username}' has not installed the GitHub App."
-            return HttpResponse(message, status=400)
 
     else:
         return HttpResponse(status=400)
 
 
-def github_auth(user):
-    # Check if the token has expired
-    if user.token_expires_at <= datetime.datetime.now():
-        # Token has expired, request a new one
-        headers = {
-            "Authorization": f'Bearer {os.getenv("GITHUB_APP_PRIVATE_KEY")}',
-            "Accept": "application/vnd.github.v3+json",
-        }
-        response = requests.post(
-            f"https://api.github.com/app/installations/{user.github_installation_id}/access_tokens",
-            headers=headers,
-        )
-        if response.status_code == 201:
-            # Successfully got a new token
-            token_data = response.json()
-            user.github_token = token_data["token"]
-            user.token_expires_at = datetime.datetime.strptime(
-                token_data["expires_at"], "%Y-%m-%dT%H:%M:%SZ"
-            )
-            user.save()
+# def github_auth(user):
+#     # Check if the token has expired
+#     if user.token_expires_at <= datetime.datetime.now():
+#         # Token has expired, request a new one
+#         headers = {
+#             "Authorization": f'Bearer {os.getenv("GITHUB_APP_PRIVATE_KEY")}',
+#             "Accept": "application/vnd.github.v3+json",
+#         }
+#         response = requests.post(
+#             f"https://api.github.com/app/installations/{user.github_installation_id}/access_tokens",
+#             headers=headers,
+#         )
+#         if response.status_code == 201:
+#             # Successfully got a new token
+#             token_data = response.json()
+#             user.github_token = token_data["token"]
+#             user.token_expires_at = datetime.datetime.strptime(
+#                 token_data["expires_at"], "%Y-%m-%dT%H:%M:%SZ"
+#             )
+#             user.save()
 
-            # Request user details from GitHub to get the username
-            headers = {
-                "Authorization": f"Bearer {user.github_token}",
-                "Accept": "application/vnd.github.v3+json",
-            }
-            response = requests.get(
-                "https://api.github.com/user",
-                headers=headers,
-            )
-            if response.status_code == 200:
-                user_data = response.json()
-                user.github_username = user_data["login"]
-                user.save()
+#             # Request user details from GitHub to get the username
+#             headers = {
+#                 "Authorization": f"Bearer {user.github_token}",
+#                 "Accept": "application/vnd.github.v3+json",
+#             }
+#             response = requests.get(
+#                 "https://api.github.com/user",
+#                 headers=headers,
+#             )
+#             if response.status_code == 200:
+#                 user_data = response.json()
+#                 user.github_username = user_data["login"]
+#                 user.save()
 
-    return user.github_token
+#     return user.github_token
 
 
 # def register_user(request):
