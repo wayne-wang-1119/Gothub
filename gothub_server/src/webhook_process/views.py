@@ -12,7 +12,7 @@ from django.views.decorators.csrf import csrf_exempt
 from django.views.generic import View
 from github import Github
 
-from .tasks import generate_installation_access_token, process_webhook
+from .tasks import generate_installation_access_token, process_issue_opened
 
 
 def home(request):
@@ -21,23 +21,26 @@ def home(request):
 
 @csrf_exempt
 def github_payload(request: WSGIRequest):
-    if request.method == "POST":
-        payload = json.loads(request.body)
-
-        installation_id = payload["installation"]["id"]
-        # installation_node_id = payload["installation"]["node_id"]
-
-        username = payload["sender"]["login"]
-
-        access_token = generate_installation_access_token(installation_id)
-
-        # Pass the GitHub token to process_webhook
-        process_webhook(request, access_token)
-
-        return HttpResponse(status=200)
-
-    else:
+    if request.method != "POST":
         return HttpResponse(status=400)
+
+    payload = json.loads(request.body)
+
+    installation_id = payload["installation"]["id"]
+    # installation_node_id = payload["installation"]["node_id"]
+
+    access_token_data = generate_installation_access_token(installation_id)
+    access_token = access_token_data["token"]
+
+    if "action" == "opened" and "issue" in payload:
+        process_issue_opened(
+            payload["issue"],
+            payload["repository"],
+            payload["sender"],
+            access_token,
+        )
+
+    return HttpResponse(status=200)
 
 
 # def github_auth(user):

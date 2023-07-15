@@ -27,8 +27,8 @@ class GithubOrderInp:
     https_url: str
     github_token: str
     openai_api_key: str
-    branch_name: Optional[str]
-    extra_prompt: Optional[str]
+    branch_name: Optional[str] = None
+    extra_prompt: Optional[str] = None
     repo_agent: RepoAgent = gots_repo_agent
 
 
