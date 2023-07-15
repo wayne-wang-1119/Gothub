@@ -64,6 +64,29 @@ def process_webhook(data, github_token):
         return "need an issue created"
 
 
+def generate_jwt() -> str:
+    payload = {
+        # Issued at time
+        "iat": int(time.time()),
+        # JWT expiration time (10 minutes maximum)
+        "exp": int(time.time()) + 600,
+        # GitHub App's identifier
+        "iss": GITHUB_APP_ID,
+    }
+
+    # Create JWT
+    jwt_instance = jwt.JWT()
+    encoded_jwt = jwt_instance.encode(
+        payload,
+        SIGNING_KEY,
+        alg="RS256",
+    )
+
+    print(f"JWT:  {encoded_jwt}")
+
+    return encoded_jwt
+
+
 def get_access_token(installation_id):
     headers = {
         "Authorization": f'Bearer {os.getenv("GITHUB_APP_PRIVATE_KEY")}',
