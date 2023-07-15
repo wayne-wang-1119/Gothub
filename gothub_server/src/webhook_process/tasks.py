@@ -49,7 +49,8 @@ def process_webhook(data, github_token):
 def get_access_token(installation_id):
     headers = {
         "Authorization": f'Bearer {os.getenv("GITHUB_APP_PRIVATE_KEY")}',
-        "Accept": "application/vnd.github.v3+json",
+        "Accept": "application/vnd.github+json",
+        "X-GitHub-Api-Version": "2022-11-28",
     }
     response = requests.post(
         f"https://api.github.com/app/installations/{installation_id}/access_tokens",
