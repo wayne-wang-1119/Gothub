@@ -1,7 +1,12 @@
 import json
 import os
 import subprocess
+import sys
+import time
+from pathlib import Path
 
+import dotenv
+import jwt
 import requests
 
 from gothub.order import (
@@ -9,6 +14,16 @@ from gothub.order import (
     GithubOrderOut,
     take_order,
 )
+
+dotenv.load_dotenv()
+
+
+# Ugly
+GITHUB_PEM_PATH = (
+    Path(__file__).absolute().parent.parent.parent.parent.parent
+    / "gothub-ai.private-key.pem"
+)
+GITHUB_APP_ID = os.getenv("GITHUB_APP_ID")
 
 
 def process_webhook(data, github_token):
