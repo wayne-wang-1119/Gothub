@@ -24,9 +24,9 @@ def github_payload(request: WSGIRequest):
     print(request)
     print(type(request))
 
-    return HttpResponse(status=200)
-
     if request.method == "POST":
+        return HttpResponse(status=200)
+
         payload = json.loads(request)
         username = payload["sender"]["login"]
 
