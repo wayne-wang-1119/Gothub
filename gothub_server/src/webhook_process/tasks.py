@@ -82,12 +82,13 @@ def generate_jwt() -> str:
         alg="RS256",
     )
 
-    print(f"JWT:  {encoded_jwt}")
-
     return encoded_jwt
 
 
-def get_access_token(installation_id):
+def generate_installation_access_token(installation_id):
+    jwt = generate_jwt()
+    print(jwt)
+
     headers = {
         "Authorization": f'Bearer {os.getenv("GITHUB_APP_PRIVATE_KEY")}',
         "Accept": "application/vnd.github+json",
