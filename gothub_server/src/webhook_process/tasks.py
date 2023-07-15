@@ -85,7 +85,7 @@ def generate_jwt() -> str:
     return encoded_jwt
 
 
-def generate_installation_access_token(installation_id):
+def generate_installation_access_token(installation_id) -> dict:
     jwt = generate_jwt()
 
     headers = {
@@ -100,6 +100,6 @@ def generate_installation_access_token(installation_id):
 
     if response.status_code == 201:
         token_data = response.json()
-        return token_data["token"]
+        return token_data
     else:
         raise Exception("Failed to generate installation access token")
