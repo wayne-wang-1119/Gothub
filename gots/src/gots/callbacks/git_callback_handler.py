@@ -7,6 +7,10 @@ from langchain.callbacks.base import BaseCallbackHandler
 
 # First, define custom callback handler implementations
 class GitCallbackHandler(BaseCallbackHandler):
+    """
+    FIXME Tool callbacks seem to have bugs.
+    """
+
     def __init__(self, repo: Repo):
         self.repo = repo
 
