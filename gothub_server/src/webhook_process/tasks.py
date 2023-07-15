@@ -1,7 +1,8 @@
 import json
 import os
 import subprocess
-import sys
+
+import requests
 
 from gothub.order import (
     GithubOrderInp,
@@ -43,3 +44,14 @@ def process_webhook(data, github_token):
         take_order(hub)
     else:
         return "need an issue created"
+
+
+def get_access_token(installation_id):
+    headers = {
+        "Authorization": f'Bearer {os.getenv("GITHUB_APP_PRIVATE_KEY")}',
+        "Accept": "application/vnd.github.v3+json",
+    }
+    response = requests.post(
+        f"https://api.github.com/app/installations/{installation_id}/access_tokens",
+        headers=headers,
+    )
