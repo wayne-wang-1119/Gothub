@@ -92,8 +92,8 @@ def generate_installation_access_token(installation_id) -> dict:
         headers=headers,
     )
 
-    if response.status_code == 201:
-        token_data = response.json()
-        return token_data
-    else:
+    if response.status_code != 201:
         raise Exception("Failed to generate installation access token")
+
+    token_data = response.json()
+    return token_data
