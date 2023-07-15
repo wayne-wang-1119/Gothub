@@ -15,6 +15,10 @@ from github import Github
 from .tasks import process_webhook
 
 
+def home(request):
+    return render(request, "webhook_process/home.html")
+
+
 @csrf_exempt
 def github_payload(request: WSGIRequest):
     print(request)
@@ -41,10 +45,6 @@ def github_payload(request: WSGIRequest):
 
     else:
         return HttpResponse(status=400)
-
-
-def home(request):
-    return render(request, "webhook_process/home.html")
 
 
 def github_auth(user):
