@@ -4,6 +4,7 @@ import os
 
 import requests
 from django.core.exceptions import ObjectDoesNotExist
+from django.core.handlers.wsgi import WSGIRequest
 from django.http import HttpResponse, HttpResponseBadRequest, JsonResponse
 from django.shortcuts import render
 from django.utils import timezone
@@ -15,7 +16,12 @@ from .tasks import process_webhook
 
 
 @csrf_exempt
-def github_payload(request):
+def github_payload(request: WSGIRequest):
+    print(request)
+    print(type(request))
+
+    return HttpResponse(status=200)
+
     if request.method == "POST":
         payload = json.loads(request)
         username = payload["sender"]["login"]
