@@ -12,7 +12,7 @@ from django.views.decorators.csrf import csrf_exempt
 from django.views.generic import View
 from github import Github
 
-from .tasks import process_webhook
+from .tasks import generate_installation_access_token, process_webhook
 
 
 def home(request):
@@ -21,14 +21,17 @@ def home(request):
 
 @csrf_exempt
 def github_payload(request: WSGIRequest):
-    print(request)
-    print(type(request))
-
     if request.method == "POST":
-        return HttpResponse(status=200)
+        payload = json.loads(request.body)
 
-        payload = json.loads(request)
+        installation_id = payload["installation"]["id"]
+        installation_node_id = payload["installation"]["node_id"]
+
         username = payload["sender"]["login"]
+
+        FIXME = generate_installation_access_token(installation_id)
+
+        return HttpResponse(status=200)
 
         try:
             User = None
