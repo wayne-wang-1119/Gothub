@@ -24,7 +24,7 @@ def github_payload(request: WSGIRequest):
     if request.method != "POST":
         return HttpResponse(status=400)
 
-    payload = json.loads(request.body)
+    payload: dict = json.loads(request.body)
 
     installation_id = payload["installation"]["id"]
     # installation_node_id = payload["installation"]["node_id"]
@@ -32,7 +32,7 @@ def github_payload(request: WSGIRequest):
     access_token_data = generate_installation_access_token(installation_id)
     access_token = access_token_data["token"]
 
-    if "action" == "opened" and "issue" in payload:
+    if payload.get("action") == "opened" and "issue" in payload:
         process_issue_opened(
             payload["issue"],
             payload["repository"],
