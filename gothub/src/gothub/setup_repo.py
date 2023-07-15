@@ -1,4 +1,5 @@
 import os
+import re
 from pathlib import Path
 from typing import Optional
 
@@ -41,8 +42,13 @@ def setup_repo(inp: SetupRepoInp) -> Repo:
     # Make dir in setup_dir
     mkdir_if_available_else_error(dir)
 
+    # Insert github_token into https_url
+    # TODO This is not elegant
+    pattern = r"https://"
+    https_url = re.sub(pattern, f"https://oauth2:{github_token}@", https_url)
+    print(https_url)
+
     # Clone repo in dir
-    # TODO: How to use github_token?
     repo = Repo.clone_from(https_url, dir)
 
     # Checkout branch
