@@ -11,7 +11,6 @@ from django.views.decorators.csrf import csrf_exempt
 from django.views.generic import View
 from github import Github
 
-from .models import User
 from .tasks import process_webhook
 
 
@@ -22,6 +21,7 @@ def github_payload(request):
         username = payload["sender"]["login"]
 
         try:
+            User = None
             user = User.objects.get(github_username=username)
             github_token = github_auth(user)
 
@@ -79,52 +79,52 @@ def github_auth(user):
     return user.github_token
 
 
-def register_user(request):
-    if request.method == "GET":
-        code = request.GET.get("code")
+# def register_user(request):
+#     if request.method == "GET":
+#         code = request.GET.get("code")
 
-        if code is None:
-            return HttpResponseBadRequest("Error: No code provided.")
+#         if code is None:
+#             return HttpResponseBadRequest("Error: No code provided.")
 
-        # Fetch the access token
-        access_token_url = "https://github.com/login/oauth/access_token"
-        headers = {"Accept": "application/json"}
-        data = {
-            "client_id": os.getenv("GITHUB_CLIENT_ID"),
-            "client_secret": os.getenv("GITHUB_CLIENT_SECRET"),
-            "code": code,
-        }
-        response = requests.post(access_token_url, headers=headers, data=data)
+#         # Fetch the access token
+#         access_token_url = "https://github.com/login/oauth/access_token"
+#         headers = {"Accept": "application/json"}
+#         data = {
+#             "client_id": os.getenv("GITHUB_CLIENT_ID"),
+#             "client_secret": os.getenv("GITHUB_CLIENT_SECRET"),
+#             "code": code,
+#         }
+#         response = requests.post(access_token_url, headers=headers, data=data)
 
-        if response.status_code != 200:
-            return HttpResponseBadRequest("Error: Invalid code.")
+#         if response.status_code != 200:
+#             return HttpResponseBadRequest("Error: Invalid code.")
 
-        access_token = response.json()["access_token"]
+#         access_token = response.json()["access_token"]
 
-        # Fetch the user's GitHub username
-        user_api_url = "https://api.github.com/user"
-        headers = {
-            "Authorization": f"Bearer {access_token}",
-            "Accept": "application/vnd.github.v3+json",
-        }
-        response = requests.get(user_api_url, headers=headers)
+#         # Fetch the user's GitHub username
+#         user_api_url = "https://api.github.com/user"
+#         headers = {
+#             "Authorization": f"Bearer {access_token}",
+#             "Accept": "application/vnd.github.v3+json",
+#         }
+#         response = requests.get(user_api_url, headers=headers)
 
-        if response.status_code != 200:
-            return HttpResponseBadRequest("Error: Could not fetch user info.")
+#         if response.status_code != 200:
+#             return HttpResponseBadRequest("Error: Could not fetch user info.")
 
-        github_username = response.json()["login"]
+#         github_username = response.json()["login"]
 
-        # Check if the user already exists
-        user, created = User.objects.get_or_create(github_username=github_username)
+#         # Check if the user already exists
+#         user, created = User.objects.get_or_create(github_username=github_username)
 
-        # Update Database User Info
-        user.github_token = access_token
-        user.token_expires_at = timezone.now() + datetime.timedelta(
-            minutes=55
-        )  # expires after one hour of creation
-        user.save()
+#         # Update Database User Info
+#         user.github_token = access_token
+#         user.token_expires_at = timezone.now() + datetime.timedelta(
+#             minutes=55
+#         )  # expires after one hour of creation
+#         user.save()
 
-        return HttpResponse("Login successful.")
+#         return HttpResponse("Login successful.")
 
-    else:
-        return HttpResponseBadRequest("Error: Invalid request method.")
+#     else:
+#         return HttpResponseBadRequest("Error: Invalid request method.")
