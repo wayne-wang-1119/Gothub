@@ -46,7 +46,6 @@ def setup_repo(inp: SetupRepoInp) -> Repo:
     # TODO This is not elegant
     pattern = r"https://"
     https_url = re.sub(pattern, f"https://oauth2:{github_token}@", https_url)
-    print(https_url)
 
     # Clone repo in dir
     repo = Repo.clone_from(https_url, dir)
