@@ -20,10 +20,13 @@ dotenv.load_dotenv()
 
 # Ugly
 GITHUB_PEM_PATH = (
-    Path(__file__).absolute().parent.parent.parent.parent.parent
-    / "gothub-ai.private-key.pem"
+    Path(__file__).absolute().parent.parent.parent.parent / "gothub-ai.private-key.pem"
 )
 GITHUB_APP_ID = os.getenv("GITHUB_APP_ID")
+
+
+with open(GITHUB_PEM_PATH, "rb") as pem_file:
+    SIGNING_KEY = jwt.jwk_from_pem(pem_file.read())
 
 
 def process_webhook(data, github_token):
