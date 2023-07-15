@@ -1,3 +1,8 @@
+"""
+@deprecated
+"""
+
+
 import time
 
 from git import InvalidGitRepositoryError, NoSuchPathError, Repo
