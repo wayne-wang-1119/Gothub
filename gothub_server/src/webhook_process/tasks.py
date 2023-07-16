@@ -8,6 +8,7 @@ from pathlib import Path
 import dotenv
 import jwt
 import requests
+from github import Github
 
 from gothub.order import (
     GithubOrderInp,
@@ -39,6 +40,14 @@ def process_issue_opened(
     https_url = repository["clone_url"]
 
     openai_api_key = os.environ["OPENAI_API_KEY"]
+
+    # Reply a comment
+    # TODO Make more elaborate
+    repository_full_name = repository["full_name"]
+    github = Github(access_token)
+    github_repo = github.get_repo(repository_full_name)
+    github_issue = github_repo.get_issue(issue["number"])
+    github_issue.create_comment("Thanks for opening this issue!")
 
     # Extract the issue title and body.
     issue_title = issue.get("title", "")
