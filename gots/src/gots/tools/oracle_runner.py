@@ -1,12 +1,6 @@
+import subprocess
+
 from langchain.tools import BaseTool, StructuredTool
-from pydantic import BaseModel, Field
-
-
-class _OracleRunnerInput(BaseModel):
-    oracle_id: str = Field(
-        ...,
-        description="id of the oracle to run",
-    )
 
 
 def run_oracle(oracle_id: str) -> str:
@@ -16,6 +10,37 @@ def run_oracle(oracle_id: str) -> str:
     :param oracle_id: id of the oracle to run
     :return: result of the oracle
     """
+
+    cmd = "&& ".join(
+        [
+            # f"cd {root_path.absolute()}",
+            "ls -al",
+            # "source ~/.bashrc",
+            "echo $USER",
+            "echo $PATH",
+            "echo $SHELL",
+            "python -c \"print('hello world!')\"",
+        ]
+    )
+
+    result = subprocess.run(
+        cmd,
+        shell=True,
+        executable="/bin/bash",
+        stdout=subprocess.PIPE,
+        stderr=subprocess.PIPE,
+        text=True,
+    )
+
+    # Print the return code (0 is success)
+    print("Return code:", result.returncode)
+
+    # Print the output of the command
+    print("Output:", result.stdout)
+
+    # Print the stderr if any error happened
+    print("Error:", result.stderr if result.stderr else None)
+
     return str(630)
 
 
