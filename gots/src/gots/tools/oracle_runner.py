@@ -1,10 +1,11 @@
 import subprocess
 from pathlib import Path
 
-from langchain.tools import BaseTool, StructuredTool
+from langchain.tools import BaseTool, StructuredTool, tool
 
 
 def oracle_runner_factory(root_path: str):
+    @tool
     def run_oracle(oracle_id: str) -> str:
         """
         Run the oracle with the given id.
@@ -40,6 +41,4 @@ def oracle_runner_factory(root_path: str):
 
         return result.stdout
 
-    oracle_runner = StructuredTool.from_function(run_oracle)
-
-    return oracle_runner
+    return run_oracle
