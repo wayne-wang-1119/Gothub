@@ -9,7 +9,7 @@ def setup_venv(root_path: Path):
         [
             f"cd {root_path.absolute()}",
             "ls -al",
-            "source ~/.bashrc",
+            # "source ~/.bashrc",
             "echo $USER",
             "echo $PATH",
             "echo $SHELL",
