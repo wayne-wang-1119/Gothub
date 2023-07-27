@@ -34,4 +34,4 @@ def setup_venv(root_path: Path):
     print("Output:", result.stdout)
 
     # Print the stderr if any error happened
-    print("Error:", result.stderr)
+    print("Error:", result.stderr if result.stderr else None)
