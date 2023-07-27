@@ -1,7 +1,9 @@
-from attrs import define
+from dataclasses import dataclass
+
+from gothub.write_github import GothubPullRequest
 
 
-@define
+@dataclass
 class Oracle:
     """
     TODO author
@@ -13,7 +15,7 @@ class Oracle:
     url: str
 
 
-@define
+@dataclass
 class Ability:
     """
     TODO author
@@ -25,7 +27,7 @@ class Ability:
     url: str
 
 
-@define
+@dataclass
 class Agent:
     """
     TODO author
@@ -38,7 +40,7 @@ class Agent:
     abilities: list[Ability]
 
 
-@define
+@dataclass
 class Order:
     """
     TODO author
@@ -47,5 +49,12 @@ class Order:
     id: str
     name: str
     description: str
+    target_repo_url: str
     agent: Agent
     prompt: str
+
+
+@dataclass
+class OrderOut:
+    order: Order
+    pull_requests: list[GothubPullRequest]
