@@ -15,7 +15,8 @@ for dir in "$current_dir"/*/; do
 
         # # Conda
         # # ! conda activate doesn't work somehow
-        conda_env_name=$(pwd | tr '/' '_')
+        last_dir=$(basename "$dir")
+        conda_env_name=".venv_$last_dir"
         # conda create -n $conda_env_name python=3.11 -y
         # conda activate $conda_env_name
 
