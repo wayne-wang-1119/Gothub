@@ -1,9 +1,8 @@
 from datetime import datetime
 
-from gothub.models import Order, OrderOut
+from gothub.models import Agent, Order, OrderOut
 from gothub.order_web import take_order_web
-from gothub.tests import GITHUB_TOKEN, OPENAI_API_KEY, TEST_HTTPS_URL
-from gothub.tests.test_order import mock_repo_agent
+from gothub.tests import TEST_HTTPS_URL
 
 
 def test_order_web_mock_repo_agent():
@@ -12,15 +11,19 @@ def test_order_web_mock_repo_agent():
     inp = Order(
         id=time,
         name="Test Order",
-        https_url=TEST_HTTPS_URL,
-        github_token=GITHUB_TOKEN,
-        openai_api_key=OPENAI_API_KEY,
-        branch_name=None,
-        extra_prompt=None,
-        repo_agent=mock_repo_agent,
+        description="Test Order description",
+        target_repo_url=TEST_HTTPS_URL,
+        prompt="",
+        agent=Agent(
+            id="test_agent",
+            name="Test Agent",
+            description="Test Agent description",
+            oracles=[],
+            abilities=[],
+        ),
     )
 
     out = take_order_web(inp)
 
     assert isinstance(out, OrderOut)
-    assert out.order_id is not None
+    assert out.order is inp
