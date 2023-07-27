@@ -13,8 +13,14 @@ for dir in "$current_dir"/*/; do
         # Change into the child directory
         cd "$dir"
 
+        # Conda environment name
+        conda_env_name=$(pwd | tr '/' '_')
+
+        conda create -n $conda_env_name python=3.11 -y
+        conda activate $conda_env_name
+
         # Run 'install' command
-        python -m pip install -e ".[dev,test]"
+        python -m pip install -e "."
 
         # Change back to the original directory
         cd "$current_dir"
