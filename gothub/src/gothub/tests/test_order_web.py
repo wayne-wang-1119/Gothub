@@ -26,7 +26,13 @@ def test_order_web_mock_repo_agent():
                     name="Test Oracle",
                     description="Test Oracle description",
                     url=TEST_ORACLE_URL,
-                )
+                ),
+                Oracle(
+                    id="test_oracle_2",
+                    name="Test Oracle 2",
+                    description="Test Oracle 2 description",
+                    url=TEST_ORACLE_URL,
+                ),
             ],
             abilities=[],
         ),
