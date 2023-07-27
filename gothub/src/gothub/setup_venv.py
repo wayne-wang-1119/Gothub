@@ -1,8 +1,15 @@
 import subprocess
+from pathlib import Path
 
 
-def setup_venv(root_path):
-    cmd = "python -c \"print('hello world')\""
+def setup_venv(root_path: Path):
+    print(root_path.absolute())
+
+    cmd = f"""\
+cd {root_path.absolute()} &&
+python -c "print('hello world!')" &&
+python -c "print('Hello world!')"
+"""
 
     result = subprocess.run(
         cmd,
