@@ -16,7 +16,7 @@ class SetupRepoInp:
     setup_dir: str
     https_url: str
     github_token: str
-    branch_name: Optional[str]
+    branch_name: Optional[str] = None
 
 
 def mkdir_if_available_else_error(path: Path):
