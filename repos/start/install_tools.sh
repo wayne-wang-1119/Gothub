@@ -14,9 +14,13 @@ for dir in "$current_dir"/*/; do
         cd "$dir"
 
         # # Conda
-        # conda_env_name=$(pwd | tr '/' '_')
+        conda_env_name=$(pwd | tr '/' '_')
         # conda create -n $conda_env_name python=3.11 -y
         # conda activate $conda_env_name
+
+        # venv
+        python -m venv ../$conda_env_name
+        source ../$conda_env_name/bin/activate
 
         # Run 'install' command
         python -m pip install -e "."
