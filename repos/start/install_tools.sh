@@ -14,6 +14,7 @@ for dir in "$current_dir"/*/; do
         cd "$dir"
 
         # # Conda
+        # # ! conda activate doesn't work somehow
         conda_env_name=$(pwd | tr '/' '_')
         # conda create -n $conda_env_name python=3.11 -y
         # conda activate $conda_env_name
