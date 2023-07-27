@@ -8,6 +8,8 @@ from langchain.chat_models import ChatOpenAI
 from pydantic import BaseModel
 from pydantic.dataclasses import dataclass
 
+from gots.tools.oracle_runner import oracle_runner
+
 from .callbacks.git_callback_handler import GitCallbackHandler
 from .tools.scoped_file_tools import build_scoped_file_tools
 
@@ -43,7 +45,10 @@ def one_branch_mrkl(inp: WriteRepoInp) -> None:
         ):
             pass
 
-    tools = build_scoped_file_tools(repo.working_dir)
+    tools = [
+        *build_scoped_file_tools(repo.working_dir),
+        oracle_runner,
+    ]
 
     llm = ChatOpenAI(
         temperature=0,
