@@ -24,13 +24,13 @@ def test_order_web_mock_repo_agent():
                 Oracle(
                     id="test_oracle",
                     name="Test Oracle",
-                    description="Test Oracle description",
+                    description="This oracle outputs a secret number",
                     url=TEST_ORACLE_URL,
                 ),
                 Oracle(
                     id="test_oracle_2",
                     name="Test Oracle 2",
-                    description="Test Oracle 2 description",
+                    description="This oracle outputs a secret number",
                     url=TEST_ORACLE_URL,
                 ),
             ],
