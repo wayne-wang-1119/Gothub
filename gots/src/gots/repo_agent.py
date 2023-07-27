@@ -47,7 +47,7 @@ def one_branch_mrkl(inp: WriteRepoInp) -> None:
 
     tools = [
         *build_scoped_file_tools(repo.working_dir),
-        oracle_runner_factory(repo.working_dir),
+        oracle_runner_factory(repo.working_dir + "/.."),
     ]
 
     llm = ChatOpenAI(
