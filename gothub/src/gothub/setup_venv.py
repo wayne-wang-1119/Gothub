@@ -3,13 +3,16 @@ from pathlib import Path
 
 
 def setup_venv(root_path: Path):
-    print(root_path.absolute())
+    conda_env_name = str(root_path.absolute()).replace("/", "_")
 
     cmd = "&& ".join(
         [
             f"cd {root_path.absolute()}",
             "ls -al",
             "python -c \"print('hello world!')\"",
+            f"conda create -n {conda_env_name} python=3.11 -y",
+            f"conda activate {conda_env_name}",
+            f"conda env remove -n {conda_env_name} -y",
         ]
     )
 
