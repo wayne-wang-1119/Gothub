@@ -1,8 +1,10 @@
 from datetime import datetime
 
-from gothub.models import Agent, Order, OrderOut
+from gothub.models import Agent, Oracle, Order, OrderOut
 from gothub.order_web import take_order_web
 from gothub.tests import TEST_HTTPS_URL
+
+TEST_ORACLE_URL = "https://github.com/Git-of-Thoughts/Oracle-EmptyOracle.git"
 
 
 def test_order_web_mock_repo_agent():
@@ -18,7 +20,14 @@ def test_order_web_mock_repo_agent():
             id="test_agent",
             name="Test Agent",
             description="Test Agent description",
-            oracles=[],
+            oracles=[
+                Oracle(
+                    id="test_oracle",
+                    name="Test Oracle",
+                    description="Test Oracle description",
+                    url=TEST_ORACLE_URL,
+                )
+            ],
             abilities=[],
         ),
     )
