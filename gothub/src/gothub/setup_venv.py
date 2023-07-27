@@ -9,18 +9,21 @@ def setup_venv(root_path: Path):
         [
             f"cd {root_path.absolute()}",
             "ls -al",
+            "source ~/.bashrc",
+            "echo $USER",
+            "echo $PATH",
+            "echo $SHELL",
             "python -c \"print('hello world!')\"",
-            f"conda create -n {conda_env_name} python=3.11 -y",
-            f"conda activate {conda_env_name}",
-            f"conda env remove -n {conda_env_name} -y",
+            "source ../../start/install_tools.sh",
         ]
     )
 
     result = subprocess.run(
         cmd,
         shell=True,
-        stdout=subprocess.PIPE,
-        stderr=subprocess.PIPE,
+        executable="/bin/bash",
+        # stdout=subprocess.PIPE,
+        # stderr=subprocess.PIPE,
         text=True,
     )
 
