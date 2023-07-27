@@ -65,13 +65,13 @@ def take_order_web(inp: Order) -> OrderOut:
         # Setup virtual env
         setup_venv(Path(repo.working_dir).parent)
 
-        # write_repo_out = repo_agent(
-        #     WriteRepoInp(
-        #         repo=repo,
-        #         openai_api_key=openai_api_key,
-        #         extra_prompt=prompt,
-        #     )
-        # )
+        write_repo_out = repo_agent(
+            WriteRepoInp(
+                repo=repo,
+                openai_api_key=openai_api_key,
+                extra_prompt=prompt,
+            )
+        )
 
         # new_branches = write_repo_out.new_branches
         new_branches: list[Any] = []
