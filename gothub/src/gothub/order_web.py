@@ -1,6 +1,8 @@
 import os
 import re
 from datetime import datetime
+from pathlib import Path
+from typing import Any
 
 from github import Github
 from github.Auth import Token
@@ -10,6 +12,8 @@ from gothub.order import SETUP_ORDERS_BASE_DIR
 from gothub.setup_repo import SetupRepoInp, setup_repo
 from gothub.write_github import create_pull_request
 from gots.repo_agent import RepoAgent, WriteRepoInp, gots_repo_agent
+
+from .setup_venv import setup_venv
 
 TARGET_REPO_DIR = "target_repo"
 
@@ -58,15 +62,19 @@ def take_order_web(inp: Order) -> OrderOut:
     )
 
     with setup_repo(setup_repo_inp) as repo:
-        write_repo_out = repo_agent(
-            WriteRepoInp(
-                repo=repo,
-                openai_api_key=openai_api_key,
-                extra_prompt=prompt,
-            )
-        )
+        # Setup virtual env
+        setup_venv(Path(repo.working_dir).parent)
 
-        new_branches = write_repo_out.new_branches
+        # write_repo_out = repo_agent(
+        #     WriteRepoInp(
+        #         repo=repo,
+        #         openai_api_key=openai_api_key,
+        #         extra_prompt=prompt,
+        #     )
+        # )
+
+        # new_branches = write_repo_out.new_branches
+        new_branches: list[Any] = []
 
         # TODO abstract this away
         for branch in new_branches:
