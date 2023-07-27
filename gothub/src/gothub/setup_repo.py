@@ -38,13 +38,9 @@ def setup_repo(inp: SetupRepoInp) -> Repo:
             pass
 
     dir = SETUP_BASE_DIR / setup_dir
-    target_repo_dir = dir / "target_repo"
 
     # Make dir in setup_dir
     mkdir_if_available_else_error(dir)
-
-    # Make repo dir in setup_dir
-    mkdir_if_available_else_error(target_repo_dir)
 
     # Insert github_token into https_url
     # TODO This is not elegant
@@ -52,7 +48,7 @@ def setup_repo(inp: SetupRepoInp) -> Repo:
     https_url = re.sub(pattern, f"https://oauth2:{github_token}@", https_url)
 
     # Clone repo in dir
-    repo = Repo.clone_from(https_url, target_repo_dir)
+    repo = Repo.clone_from(https_url, dir)
 
     # Checkout branch
     if branch_name is not None:
