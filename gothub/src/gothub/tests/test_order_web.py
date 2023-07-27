@@ -15,7 +15,7 @@ def test_order_web_mock_repo_agent():
         name="Test Order",
         description="Test Order description",
         target_repo_url=TEST_HTTPS_URL,
-        prompt="",
+        prompt="Run `test_oracle` and give me back the secret number",
         agent=Agent(
             id="test_agent",
             name="Test Agent",
