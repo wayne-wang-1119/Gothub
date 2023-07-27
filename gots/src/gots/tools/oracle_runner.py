@@ -16,12 +16,7 @@ def oracle_runner_factory(root_path: str):
         cmd = "&& ".join(
             [
                 f"cd {root_path}",
-                "ls -al",
-                # "source ~/.bashrc",
-                "echo $USER",
-                "echo $PATH",
-                "echo $SHELL",
-                "python -c \"print('hello world!')\"",
+                f"source ../../start/run_oracle.sh {oracle_id}",
             ]
         )
 
@@ -43,7 +38,7 @@ def oracle_runner_factory(root_path: str):
         # Print the stderr if any error happened
         print("Error:", result.stderr if result.stderr else None)
 
-        return str(630)
+        return result.stdout
 
     oracle_runner = StructuredTool.from_function(run_oracle)
 
