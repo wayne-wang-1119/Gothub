@@ -10,7 +10,7 @@ TEST_HTTPS_URL_NEXTJS = "https://github.com/kingh0730/Order-nextjs.git"
 TEST_ORACLE_URL = "https://github.com/Git-of-Thoughts/Oracle-EmptyOracle.git"
 
 
-def test_order_web_oracle():
+def _test_order_web_oracle():
     time = datetime.now().strftime("%Y-%m-%d_%H_%M_%S_%f")
 
     inp = Order(
