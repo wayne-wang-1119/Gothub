@@ -59,6 +59,8 @@ def test_order_nextjs():
 1. Delete the `app/page.js` file.
 2. Create a new file called `app/page.js`.
 3. Fill in the `page.js` file with a fun snake game written in React.
+    - Please remember to start your file with `"use client";`
+    - Otherwise Next.js will not be able to render your code on the client side.
 """,
         agent=Agent(
             id="test_agent",
