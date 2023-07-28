@@ -11,3 +11,6 @@ source $conda_env_name/bin/activate
 
 # Run
 main
+
+# TODO Support for arguments
+# TODO Support for multiple commands
