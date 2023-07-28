@@ -8,6 +8,9 @@ TEST_HTTPS_URL_NEXTJS = "https://github.com/kingh0730/Order-nextjs.git"
 
 
 TEST_ORACLE_URL = "https://github.com/Git-of-Thoughts/Oracle-EmptyOracle.git"
+KINGH0730_INFO_ORACLE_URL = (
+    "https://github.com/Git-of-Thoughts/Oracle-private.kinghan.info.git"
+)
 
 
 def _test_order_web_oracle():
@@ -58,8 +61,10 @@ def test_order_nextjs():
         prompt="""
 1. Delete the `app/page.js` file.
 2. Create a new file called `app/page.js`.
-3. Fill in the `page.js` file with a fun snake game written in React.
-    - Please remember to start your file with `"use client";`
+3. Obtain kingh0730's personal info from the `kingh0730_info_oracle` oracle.
+3. Fill in the `page.js` file with a personal portfolio page written in React
+    - You must incorporate the info from the oracle.
+    - You must start your file with `"use client";`
     - Otherwise Next.js will not be able to render your code on the client side.
 """,
         agent=Agent(
@@ -68,10 +73,10 @@ def test_order_nextjs():
             description="Test Agent description",
             oracles=[
                 Oracle(
-                    id="test_oracle",
-                    name="Test Oracle",
-                    description="This oracle outputs a secret number",
-                    url=TEST_ORACLE_URL,
+                    id="kingh0730_info_oracle",
+                    name="kingh0730's personal info",
+                    description="This oracle outputs kingh0730's personal info",
+                    url=KINGH0730_INFO_ORACLE_URL,
                 ),
                 # Oracle(
                 #     id="test_oracle_2",

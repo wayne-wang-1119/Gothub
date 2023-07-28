@@ -5,6 +5,7 @@
         "dotenv",
         "Gothub",
         "gots",
+        "kingh",
         "langchain",
         "mrkl",
         "mypy",
