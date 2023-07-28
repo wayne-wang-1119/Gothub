@@ -5,6 +5,7 @@ from langchain.tools.file_management import (
     ListDirectoryTool,
     MoveFileTool,
     ReadFileTool,
+    WriteFileTool,
 )
 
 from .scoped_file_tools_funcs import (
@@ -128,8 +129,8 @@ under the directory "test", you should enter "test/test_script.py".
     )
 
     return [
-        read_one_file_tool,
-        read_directory_tree_tool,
+        # read_one_file_tool,
+        # read_directory_tree_tool,
         create_file_tool,
         fill_file_tool,
         delete_file_tool,

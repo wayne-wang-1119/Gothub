@@ -58,10 +58,7 @@ def test_order_nextjs():
         prompt="""
 1. Delete the `app/page.js` file.
 2. Create a new file called `app/page.js`.
-3. Fill in the `page.js` file with the following content:
-    - a fun snake game
-4. Run `test_oracle` and obtain the secret number
-5. Display the secret number on the `page.js` file
+3. Fill in the `page.js` file with a fun snake game written in React.
 """,
         agent=Agent(
             id="test_agent",
