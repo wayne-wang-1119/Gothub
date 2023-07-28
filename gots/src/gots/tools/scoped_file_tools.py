@@ -122,11 +122,17 @@ For example, if you want to test a script "test_script.py",
 under the directory "test", you should enter "test/test_script.py".
 """,
     )
+
+    delete_file_tool = DeleteFileTool(
+        root_dir=root_dir,
+    )
+
     return [
         read_one_file_tool,
         read_directory_tree_tool,
         create_file_tool,
         fill_file_tool,
+        delete_file_tool,
         # FIXME fix these tools
         # read_line_tool,
         # locate_line_tool,

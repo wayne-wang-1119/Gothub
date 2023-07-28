@@ -55,7 +55,14 @@ def test_order_nextjs():
         name="Test Order",
         description="Test Order description",
         target_repo_url=TEST_HTTPS_URL_NEXTJS,
-        prompt="Run `test_oracle` and give me back the secret number",
+        prompt="""
+1. Delete the `app/page.js` file.
+2. Create a new file called `app/page.js`.
+3. Fill in the `page.js` file with the following content:
+    - a fun snake game
+4. Run `test_oracle` and obtain the secret number
+5. Display the secret number on the `page.js` file
+""",
         agent=Agent(
             id="test_agent",
             name="Test Agent",
