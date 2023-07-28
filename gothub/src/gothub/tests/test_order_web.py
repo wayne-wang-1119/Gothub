@@ -7,7 +7,44 @@ from gothub.tests import TEST_HTTPS_URL
 TEST_ORACLE_URL = "https://github.com/Git-of-Thoughts/Oracle-EmptyOracle.git"
 
 
-def test_order_web_mock_repo_agent():
+def test_order_web_oracle():
+    time = datetime.now().strftime("%Y-%m-%d_%H_%M_%S_%f")
+
+    inp = Order(
+        id=time,
+        name="Test Order",
+        description="Test Order description",
+        target_repo_url=TEST_HTTPS_URL,
+        prompt="Run `test_oracle` and give me back the secret number",
+        agent=Agent(
+            id="test_agent",
+            name="Test Agent",
+            description="Test Agent description",
+            oracles=[
+                Oracle(
+                    id="test_oracle",
+                    name="Test Oracle",
+                    description="This oracle outputs a secret number",
+                    url=TEST_ORACLE_URL,
+                ),
+                # Oracle(
+                #     id="test_oracle_2",
+                #     name="Test Oracle 2",
+                #     description="This oracle outputs a secret number",
+                #     url=TEST_ORACLE_URL,
+                # ),
+            ],
+            abilities=[],
+        ),
+    )
+
+    out = take_order_web(inp)
+
+    assert isinstance(out, OrderOut)
+    assert out.order is inp
+
+
+def test_order_nextjs():
     time = datetime.now().strftime("%Y-%m-%d_%H_%M_%S_%f")
 
     inp = Order(
