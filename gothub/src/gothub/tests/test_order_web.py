@@ -63,8 +63,9 @@ def test_order_nextjs():
 2. Create a new file called `app/page.js`.
 3. Obtain kingh0730's personal info from the `kingh0730_info_oracle` oracle.
 3. Fill in the `page.js` file with a personal portfolio page written in React
-    - You must incorporate the info from the oracle.
+    - You must incorporate `index`, `experience`, and `coursework` from the oracle.
     - You must start your file with `"use client";`
+    - You must not include any `img` tags in your file.
     - Otherwise Next.js will not be able to render your code on the client side.
 """,
         agent=Agent(
