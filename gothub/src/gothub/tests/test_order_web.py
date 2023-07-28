@@ -4,6 +4,9 @@ from gothub.models import Agent, Oracle, Order, OrderOut
 from gothub.order_web import take_order_web
 from gothub.tests import TEST_HTTPS_URL
 
+TEST_HTTPS_URL_NEXTJS = "https://github.com/kingh0730/Order-nextjs.git"
+
+
 TEST_ORACLE_URL = "https://github.com/Git-of-Thoughts/Oracle-EmptyOracle.git"
 
 
@@ -51,7 +54,7 @@ def test_order_nextjs():
         id=time,
         name="Test Order",
         description="Test Order description",
-        target_repo_url=TEST_HTTPS_URL,
+        target_repo_url=TEST_HTTPS_URL_NEXTJS,
         prompt="Run `test_oracle` and give me back the secret number",
         agent=Agent(
             id="test_agent",
