@@ -7,6 +7,9 @@ from typing import Any
 from github import Github
 from github.Auth import Token
 
+# FIXME Should not be here!
+from webhook_process.tasks import generate_installation_access_token
+
 from gothub.models import Agent, Order, OrderOut
 from gothub.order import SETUP_ORDERS_BASE_DIR
 from gothub.setup_repo import SetupRepoInp, setup_repo
@@ -39,6 +42,14 @@ def take_order_web(inp: Order) -> OrderOut:
                     github_token = os.environ["GITHUB_TOKEN"]
                     openai_api_key = os.environ["OPENAI_API_KEY"]
                     repo_agent = gots_repo_agent
+
+                    # ! For Order-nextjs only
+                    installation_id = 40121718
+                    access_token_data = generate_installation_access_token(
+                        installation_id
+                    )
+                    access_token = access_token_data["token"]
+                    github_token = access_token
 
     setup_dir = SETUP_ORDERS_BASE_DIR + "/" + id
 
@@ -73,8 +84,7 @@ def take_order_web(inp: Order) -> OrderOut:
             )
         )
 
-        # new_branches = write_repo_out.new_branches
-        new_branches: list[Any] = []
+        new_branches = write_repo_out.new_branches
 
         # TODO abstract this away
         for branch in new_branches:
