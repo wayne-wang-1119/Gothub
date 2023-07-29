@@ -5,6 +5,9 @@ from gothub.order_web import take_order_web
 from gothub.tests import TEST_HTTPS_URL
 
 TEST_HTTPS_URL_NEXTJS = "https://github.com/kingh0730/Order-nextjs.git"
+TEST_HTTPS_URL_PORTFOLIO_STARTER_KIT = (
+    "https://github.com/kingh0730/Order-portfolio-starter-kit.git"
+)
 
 
 TEST_ORACLE_URL = "https://github.com/Git-of-Thoughts/Oracle-EmptyOracle.git"
@@ -50,7 +53,7 @@ def _test_order_web_oracle():
     assert out.order is inp
 
 
-def test_order_nextjs():
+def _test_order_nextjs():
     time = datetime.now().strftime("%Y-%m-%d_%H_%M_%S_%f")
 
     inp = Order(
@@ -88,6 +91,50 @@ def test_order_nextjs():
                 #     url=TEST_ORACLE_URL,
                 # ),
             ],
+            abilities=[],
+        ),
+    )
+
+    out = take_order_web(inp)
+
+    assert isinstance(out, OrderOut)
+    assert out.order is inp
+
+
+def test_order_sweep_portfolio_starter_kit():
+    time = datetime.now().strftime("%Y-%m-%d_%H_%M_%S_%f")
+
+    inp = Order(
+        id=time,
+        name="Replace the content with my own information",
+        description="Test Order description",
+        target_repo_url=TEST_HTTPS_URL_PORTFOLIO_STARTER_KIT,
+        prompt="""
+My information in YAML format:
+
+- Name: Shangdian (King) Han
+- Email: kingh0730@berkeley.edu
+- LinkedIn: https://www.linkedin.com/in/kingh0730/
+- GitHub: https://www.github.com/kingh0730/
+- Introduction: >
+    Hi there! 👋
+
+    I'm Shangdian (King) Han.
+
+    At Microsoft Research, I prototyped the new Office AI for Excel.
+
+    I believe high-quality code generation AI will be
+    the most important development for human civilization in the near future,
+    for the simple reason that code shapes our world today.
+
+    That's why I'm building an LLM agent customization platform to
+    enhance the SOTA in code generation AI.
+""",
+        agent=Agent(
+            id="test_agent",
+            name="Test Agent",
+            description="Test Agent description",
+            oracles=[],
             abilities=[],
         ),
     )
