@@ -25,6 +25,7 @@ def take_order_web(inp: Order) -> OrderOut:
     match inp:
         case Order(
             id=id,
+            name=name,
             target_repo_url=target_repo_url,
             prompt=prompt,
             agent=agent,
@@ -104,6 +105,12 @@ def take_order_web(inp: Order) -> OrderOut:
         )
         for branch in new_branches
     ]
+
+    # !!! Use Sweep
+    sweep_issue = github_repo.create_issue(
+        title=f"Sweep: {name}",
+        body=prompt,
+    )
 
     order_out = OrderOut(
         order=inp,
