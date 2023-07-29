@@ -92,7 +92,9 @@ def take_order(inp: GithubOrderInp) -> GithubOrderOut:
         for branch in new_branches
     ]
 
-    return GithubOrderOut(
+    order_out = GithubOrderOut(
         order_id=time,
         pull_requests=new_pull_requests,
     )
+
+    return order_out

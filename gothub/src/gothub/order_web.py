@@ -105,7 +105,9 @@ def take_order_web(inp: Order) -> OrderOut:
         for branch in new_branches
     ]
 
-    return OrderOut(
+    order_out = OrderOut(
         order=inp,
         pull_requests=new_pull_requests,
     )
+
+    return order_out
