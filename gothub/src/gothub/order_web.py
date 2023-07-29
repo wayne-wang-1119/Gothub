@@ -44,7 +44,7 @@ def take_order_web(inp: Order) -> OrderOut:
                     openai_api_key = os.environ["OPENAI_API_KEY"]
                     repo_agent = gots_repo_agent
 
-                    # ! For Order-nextjs only
+                    # ! For Order-nextjs, Order-portfolio-starter-kit...
                     installation_id = 40121718
                     access_token_data = generate_installation_access_token(
                         installation_id
