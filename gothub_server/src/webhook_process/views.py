@@ -43,6 +43,11 @@ def github_payload(request: WSGIRequest):
     return HttpResponse(status=200)
 
 
+def take_order_web(request):
+    # return some JSON data
+    return JsonResponse({"foo": "bar"})
+
+
 # def github_auth(user):
 #     # Check if the token has expired
 #     if user.token_expires_at <= datetime.datetime.now():

@@ -16,11 +16,12 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from webhook_process.views import github_payload, home
+from webhook_process.views import github_payload, home, take_order_web
 
 urlpatterns = [
     path("", home, name="home"),
     path("admin/", admin.site.urls),
     path("payload/", github_payload, name="webhook"),
     # path("oauth/callback/", register_user, name="user_register"),
+    path("take_order_web/", take_order_web, name="take_order_web"),
 ]
