@@ -26,9 +26,10 @@ SECRET_KEY = "django-insecure-2dlxwzpwj3bxu=99i!kl6(8zf5mtq%b_mf$(x*y(sef9^v_+m_
 DEBUG = True
 
 ALLOWED_HOSTS = [
-    "smee.io",
+    # "smee.io", # ? Don't think we need this?
     "localhost",
     "127.0.0.1",
+    "34.68.27.176",  # GCP
 ]
 
 
