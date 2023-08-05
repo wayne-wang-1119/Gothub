@@ -43,6 +43,7 @@ def github_payload(request: WSGIRequest):
     return HttpResponse(status=200)
 
 
+@csrf_exempt  # ? This can be removed?
 def take_order_web(request):
     if request.method != "POST":
         return HttpResponse(status=400)
