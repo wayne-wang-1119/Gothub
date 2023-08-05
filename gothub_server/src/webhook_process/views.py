@@ -19,7 +19,7 @@ def home(request):
     return render(request, "webhook_process/home.html")
 
 
-@csrf_exempt
+@csrf_exempt  # ! This decorator is only for smee. I think.
 def github_payload(request: WSGIRequest):
     if request.method != "POST":
         return HttpResponse(status=400)
