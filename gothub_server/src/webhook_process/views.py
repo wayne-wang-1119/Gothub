@@ -44,6 +44,9 @@ def github_payload(request: WSGIRequest):
 
 
 def take_order_web(request):
+    if request.method != "POST":
+        return HttpResponse(status=400)
+
     # return some JSON data
     return JsonResponse({"foo": "bar"})
 
