@@ -26,8 +26,9 @@ SECRET_KEY = "django-insecure-2dlxwzpwj3bxu=99i!kl6(8zf5mtq%b_mf$(x*y(sef9^v_+m_
 DEBUG = True
 
 
-CORS_ORIGIN_WHITELIST = [
+CORS_ALLOWED_ORIGINS = [
     "http://localhost:5173",
+    "https://gothub.vercel.app",
 ]
 
 
