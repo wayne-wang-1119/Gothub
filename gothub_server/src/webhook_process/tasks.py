@@ -30,6 +30,29 @@ with open(GITHUB_PEM_PATH, "rb") as pem_file:
     SIGNING_KEY = jwt.jwk_from_pem(pem_file.read())
 
 
+def process_order_web(
+    username: str,
+    https_url: str,
+    access_token: str,
+    openai_api_key: str,
+    preprompt: str,
+    prompt: str,
+    # TODO Need to get oracles, abilities, etc.
+):
+    # TODO Preprompt should be system message to agent
+    extra_prompt = preprompt + "\n\n" + prompt
+
+    hub = GithubOrderInp(
+        username=username,
+        https_url=https_url,
+        github_token=access_token,
+        openai_api_key=openai_api_key,
+        extra_prompt=extra_prompt,
+    )
+
+    order_output = take_order(hub)
+
+
 def process_issue_opened(
     issue: dict,
     repository: dict,
