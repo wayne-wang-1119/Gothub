@@ -12,8 +12,9 @@ from django.views.decorators.csrf import csrf_exempt
 from django.views.generic import View
 from github import Github
 
+from gothub.tokens import generate_installation_access_token
+
 from .tasks import (
-    generate_installation_access_token,
     process_issue_opened,
     process_order_web,
 )

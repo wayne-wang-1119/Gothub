@@ -6,6 +6,9 @@ import dotenv
 import jwt
 import requests
 
+dotenv.load_dotenv()
+
+
 # Ugly
 GITHUB_PEM_PATH = (
     Path(__file__).absolute().parent.parent.parent.parent / "gothub-ai.private-key.pem"

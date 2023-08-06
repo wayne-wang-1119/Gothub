@@ -7,9 +7,6 @@ from typing import Any
 from github import Github
 from github.Auth import Token
 
-# FIXME Should not be here!
-from webhook_process.tasks import generate_installation_access_token
-
 from gothub.models import Agent, Order, OrderOut
 from gothub.order import SETUP_ORDERS_BASE_DIR
 from gothub.setup_repo import SetupRepoInp, setup_repo
@@ -17,6 +14,7 @@ from gothub.write_github import create_pull_request
 from gots.repo_agent import RepoAgent, WriteRepoInp, gots_repo_agent
 
 from .setup_venv import setup_venv
+from .tokens import generate_installation_access_token
 
 TARGET_REPO_DIR = "target_repo"
 
