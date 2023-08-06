@@ -25,7 +25,7 @@ def take_order_web(inp: Order) -> OrderOut:
     match inp:
         case Order(
             id=id,
-            name=name,
+            name=name,  # This means title
             target_repo_url=target_repo_url,
             prompt=prompt,
             agent=agent,
