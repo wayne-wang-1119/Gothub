@@ -37,6 +37,7 @@ ALLOWED_HOSTS = [
     "localhost",
     "127.0.0.1",
     "34.68.27.176",  # GCP
+    "eiip.org.cn",
 ]
 
 
