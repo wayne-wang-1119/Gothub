@@ -10,11 +10,13 @@ import jwt
 import requests
 from github import Github
 
+from gothub.models import Agent, Oracle, Order
 from gothub.order import (
     GithubOrderInp,
     GithubOrderOut,
     take_order,
 )
+from gothub.order_web import take_order_web
 
 dotenv.load_dotenv()
 
@@ -31,10 +33,9 @@ with open(GITHUB_PEM_PATH, "rb") as pem_file:
 
 
 def process_order_web(
+    order_id: str,
     username: str,
     https_url: str,
-    access_token: str,
-    openai_api_key: str,
     preprompt: str,
     prompt: str,
     # TODO Need to get oracles, abilities, etc.
@@ -42,15 +43,22 @@ def process_order_web(
     # TODO Preprompt should be system message to agent
     extra_prompt = preprompt + "\n\n" + prompt
 
-    hub = GithubOrderInp(
-        username=username,
-        https_url=https_url,
-        github_token=access_token,
-        openai_api_key=openai_api_key,
-        extra_prompt=extra_prompt,
+    hub = Order(
+        id=order_id,
+        name=NotImplemented,
+        description=NotImplemented,
+        target_repo_url=https_url,
+        agent=Agent(
+            id=NotImplemented,
+            name=NotImplemented,
+            description=NotImplemented,
+            oracles=[],
+            abilities=[],
+        ),
+        prompt=extra_prompt,
     )
 
-    order_output = take_order(hub)
+    order_output = take_order_web(hub)
 
 
 def process_issue_opened(

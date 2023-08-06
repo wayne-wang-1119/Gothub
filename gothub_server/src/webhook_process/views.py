@@ -12,7 +12,11 @@ from django.views.decorators.csrf import csrf_exempt
 from django.views.generic import View
 from github import Github
 
-from .tasks import generate_installation_access_token, process_issue_opened
+from .tasks import (
+    generate_installation_access_token,
+    process_issue_opened,
+    process_order_web,
+)
 
 
 def home(request):
@@ -48,8 +52,18 @@ def take_order_web(request):
     if request.method != "POST":
         return HttpResponse(status=400)
 
-    # return some JSON data
-    return JsonResponse({"foo": "bar"})
+    # FIXME Don't return the same JSON data back
+    data = json.loads(request.body)
+
+    process_order_web(
+        order_id=data["id"],
+        username=data["username"],
+        https_url=data["target_repo_url"],
+        preprompt=data["preprompt"],
+        prompt=data["prompt"],
+    )
+
+    return JsonResponse(data)
 
 
 # def github_auth(user):
