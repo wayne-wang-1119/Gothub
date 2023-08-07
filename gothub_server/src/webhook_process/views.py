@@ -58,7 +58,7 @@ def take_order_web(request):
 
     process_order_web(
         order_id=data["id"],
-        username=data["author"]["username"],
+        username=NotImplemented,
         https_url=data["repoLink"],
         preprompt=data["agent"]["preprompt"],
         prompt=data["prompt"],
