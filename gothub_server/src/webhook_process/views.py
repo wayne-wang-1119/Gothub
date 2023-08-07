@@ -55,12 +55,13 @@ def take_order_web(request):
 
     # FIXME Don't return the same JSON data back
     data = json.loads(request.body)
+    print(data)
 
     process_order_web(
         order_id=data["id"],
         username=data["username"],
-        https_url=data["target_repo_url"],
-        preprompt=data["preprompt"],
+        https_url=data["repoLink"],
+        preprompt=data["agent"]["preprompt"],
         prompt=data["prompt"],
     )
 
