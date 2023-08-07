@@ -55,7 +55,7 @@ def take_order_web(inp: Order) -> OrderOut:
     # Oracles
     for oracle in oracles:
         setup_repo_inp = SetupRepoInp(
-            setup_dir=setup_dir + "/order_" + oracle.id,
+            setup_dir=setup_dir + "/oracle_" + oracle.id,
             https_url=oracle.url,
             github_token=github_token,
         )
