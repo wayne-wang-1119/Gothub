@@ -53,7 +53,6 @@ def take_order_web(request):
     if request.method != "POST":
         return HttpResponse(status=400)
 
-    # FIXME Don't return the same JSON data back
     data = json.loads(request.body)
     print(data)
 
@@ -65,7 +64,7 @@ def take_order_web(request):
         prompt=data["prompt"],
     )
 
-    return JsonResponse(data)
+    return HttpResponse(status=200)
 
 
 # def github_auth(user):
