@@ -55,14 +55,22 @@ def take_order_web(inp: Order) -> OrderOut:
     # Oracles
     for oracle in oracles:
         setup_repo_inp = SetupRepoInp(
-            setup_dir=setup_dir + "/" + oracle.id,
+            setup_dir=setup_dir + "/order_" + oracle.id,
             https_url=oracle.url,
             github_token=github_token,
         )
         with setup_repo(setup_repo_inp) as repo:
             pass
 
-    # TODO Abilities
+    # Abilities
+    for ability in abilities:
+        setup_repo_inp = SetupRepoInp(
+            setup_dir=setup_dir + "/ability_" + ability.id,
+            https_url=ability.url,
+            github_token=github_token,
+        )
+        with setup_repo(setup_repo_inp) as repo:
+            pass
 
     setup_repo_inp = SetupRepoInp(
         setup_dir=setup_dir + "/" + TARGET_REPO_DIR,
