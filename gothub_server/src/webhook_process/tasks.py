@@ -3,7 +3,7 @@ import os
 import dotenv
 from github import Github
 
-from gothub.models import Agent, Oracle, Order
+from gothub.models import Agent, Oracle, Order, OrderOut
 from gothub.order import (
     GithubOrderInp,
     GithubOrderOut,
@@ -41,7 +41,9 @@ def process_order_web(
         prompt=extra_prompt,
     )
 
-    # order_output = take_order_web(hub)
+    order_output: OrderOut = take_order_web(hub)
+
+    first_pr = order_output.pull_requests[0]
 
     set_doc_result = (
         firestore_client.collection("users")
@@ -51,7 +53,7 @@ def process_order_web(
         .set(
             {
                 "status": "completed",
-                "result": "nit",
+                "result": first_pr.pr.html_url + "/files",
             }
         )
     )
