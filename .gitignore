@@ -1,6 +1,7 @@
 /.env
 /nohup.out
 /gothub-ai.private-key.pem
+/gothubai-firebase-admin-sdk.json
 
 .DS_Store
 

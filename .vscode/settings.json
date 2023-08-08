@@ -5,6 +5,7 @@
         "corsheaders",
         "dotenv",
         "Gothub",
+        "gothubai",
         "gots",
         "kingh",
         "langchain",
