@@ -55,7 +55,8 @@ def process_order_web(
             {
                 "status": "completed",
                 "result": first_pr.pr.html_url + "/files",
-            }
+            },
+            merge=True,
         )
     )
 
