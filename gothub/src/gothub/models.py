@@ -47,7 +47,7 @@ class Order:
     """
 
     id: str
-    name: str
+    name: str  # This means title
     description: str
     target_repo_url: str
     agent: Agent
