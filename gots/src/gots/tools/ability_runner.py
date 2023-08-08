@@ -6,7 +6,7 @@ from langchain.tools import BaseTool, StructuredTool, tool
 
 def ability_runner_factory(root_path: str):
     @tool
-    def ability(
+    def run_ability(
         ability_id: str,
         ability_args: str,
     ) -> str:
@@ -21,7 +21,7 @@ def ability_runner_factory(root_path: str):
         cmd = "&& ".join(
             [
                 f"cd {root_path}",
-                f"source ../../start/ability.sh {ability_id} {ability_args}",
+                f"source ../../start/run_ability.sh {ability_id} {ability_args}",
             ]
         )
 
@@ -45,4 +45,4 @@ def ability_runner_factory(root_path: str):
 
         return result.stdout
 
-    return ability
+    return run_ability
