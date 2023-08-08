@@ -57,7 +57,7 @@ def take_order_web(request):
     data = json.loads(request.body)
     print(data)
 
-    process_order_web(
+    process_order_web.delay(
         order_id=data["id"],
         user_id=data["submitter"]["id"],
         username=data["submitter"]["username"],
@@ -65,21 +65,21 @@ def take_order_web(request):
         preprompt=data["agent"]["preprompt"],
         prompt=data["prompt"],
         oracles=[
-            Oracle(
-                id=oracle["id"],
-                name=oracle["name"],
-                description=oracle["description"],
-                url=oracle["link"],
-            )
+            {
+                "id": oracle["id"],
+                "name": oracle["name"],
+                "description": oracle["description"],
+                "url": oracle["link"],
+            }
             for oracle in data["agent"]["oracles"]
         ],
         abilities=[
-            Ability(
-                id=ability["id"],
-                name=ability["name"],
-                description=ability["description"],
-                url=ability["link"],
-            )
+            {
+                "id": ability["id"],
+                "name": ability["name"],
+                "description": ability["description"],
+                "url": ability["link"],
+            }
             for ability in data["agent"]["abilities"]
         ],
     )

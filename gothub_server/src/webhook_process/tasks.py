@@ -23,9 +23,13 @@ def process_order_web(
     https_url: str,
     preprompt: str,
     prompt: str,
-    oracles: list[Oracle],
-    abilities: list[Ability],
+    oracles: list[dict],
+    abilities: list[dict],
 ):
+    # * This is because celery needs dictionaries
+    oracles = [Oracle(**oracle) for oracle in oracles]
+    abilities = [Ability(**ability) for ability in abilities]
+
     # TODO Preprompt should be system message to agent
     extra_prompt = preprompt + "\n\n" + prompt
 
