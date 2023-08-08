@@ -112,6 +112,7 @@ dependencies = [ # Optional
     "django-cors-headers==4.2.0",
     "gunicorn==21.2.0",
     "firebase_admin==6.2.0",
+    "celery==5.3.1",
 ]
 
 # List additional groups of dependencies here (e.g. development
