@@ -42,23 +42,38 @@ def process_order_web(
         prompt=extra_prompt,
     )
 
-    order_output: OrderOut = take_order_web(hub)
+    try:
+        order_output: OrderOut = take_order_web(hub)
 
-    first_pr = order_output.pull_requests[0]
+        first_pr = order_output.pull_requests[0]
 
-    set_doc_result = (
-        firestore_client.collection("users")
-        .document(user_id)
-        .collection("orders")
-        .document(order_id)
-        .set(
-            {
-                "status": "completed",
-                "result": first_pr.pr.html_url + "/files",
-            },
-            merge=True,
+        set_doc_result = (
+            firestore_client.collection("users")
+            .document(user_id)
+            .collection("orders")
+            .document(order_id)
+            .set(
+                {
+                    "status": "completed",
+                    "result": first_pr.pr.html_url + "/files",
+                },
+                merge=True,
+            )
         )
-    )
+
+    except Exception as e:
+        set_doc_result = (
+            firestore_client.collection("users")
+            .document(user_id)
+            .collection("orders")
+            .document(order_id)
+            .set(
+                {
+                    "status": "failed",
+                },
+                merge=True,
+            )
+        )
 
 
 def process_issue_opened(
