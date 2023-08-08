@@ -108,6 +108,8 @@ def take_order_web(inp: Order) -> OrderOut:
         create_pull_request(
             github_repo,
             branch,
+            title=name,
+            body=prompt,
         )
         for branch in new_branches
     ]
