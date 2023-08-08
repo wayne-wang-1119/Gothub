@@ -25,7 +25,7 @@ def process_order_web(
 
     hub = Order(
         id=order_id,
-        name=NotImplemented,
+        name=f"PR for {username} #{order_id}",
         description=NotImplemented,
         target_repo_url=https_url,
         agent=Agent(
