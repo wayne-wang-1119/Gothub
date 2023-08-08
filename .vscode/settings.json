@@ -4,6 +4,7 @@
         "blackbox",
         "corsheaders",
         "dotenv",
+        "firestore",
         "Gothub",
         "gothubai",
         "gots",
