@@ -27,6 +27,12 @@ for dir in "$current_dir"/*/; do
         # Run 'install' command
         python -m pip install -e "."
 
+        # Delete the `target_repo` directory
+        rm -rf target_repo
+
+        # Symbolic link `target_repo` to one directory up
+        ln -s ../target_repo target_repo
+
         # Change back to the original directory
         cd "$current_dir"
     fi
