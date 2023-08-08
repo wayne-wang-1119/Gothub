@@ -12,6 +12,7 @@ from django.views.decorators.csrf import csrf_exempt
 from django.views.generic import View
 from github import Github
 
+from gothub.models import Ability, Oracle
 from gothub.tokens import generate_installation_access_token
 
 from .tasks import (
@@ -63,6 +64,24 @@ def take_order_web(request):
         https_url=data["repoLink"],
         preprompt=data["agent"]["preprompt"],
         prompt=data["prompt"],
+        oracles=[
+            Oracle(
+                id=oracle["id"],
+                name=oracle["name"],
+                description=oracle["description"],
+                url=oracle["link"],
+            )
+            for oracle in data["agent"]["oracles"]
+        ],
+        abilities=[
+            Ability(
+                id=ability["id"],
+                name=ability["name"],
+                description=ability["description"],
+                url=ability["link"],
+            )
+            for ability in data["agent"]["abilities"]
+        ],
     )
 
     return HttpResponse(status=200)

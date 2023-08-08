@@ -3,7 +3,7 @@ import os
 import dotenv
 from github import Github
 
-from gothub.models import Agent, Oracle, Order, OrderOut
+from gothub.models import Ability, Agent, Oracle, Order, OrderOut
 from gothub.order import (
     GithubOrderInp,
     GithubOrderOut,
@@ -21,7 +21,8 @@ def process_order_web(
     https_url: str,
     preprompt: str,
     prompt: str,
-    # TODO Need to get oracles, abilities, etc.
+    oracles: list[Oracle],
+    abilities: list[Ability],
 ):
     # TODO Preprompt should be system message to agent
     extra_prompt = preprompt + "\n\n" + prompt
@@ -35,8 +36,8 @@ def process_order_web(
             id=NotImplemented,
             name=NotImplemented,
             description=NotImplemented,
-            oracles=[],
-            abilities=[],
+            oracles=oracles,
+            abilities=abilities,
         ),
         prompt=extra_prompt,
     )
