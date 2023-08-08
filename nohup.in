@@ -1,0 +1,1 @@
+nohup sh scripts/release_django.sh --timeout 900
