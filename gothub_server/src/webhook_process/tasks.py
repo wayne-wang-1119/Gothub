@@ -14,6 +14,7 @@ from gothub.order_web import take_order_web
 
 def process_order_web(
     order_id: str,
+    user_id: str,
     username: str,
     https_url: str,
     preprompt: str,
@@ -24,7 +25,7 @@ def process_order_web(
     extra_prompt = preprompt + "\n\n" + prompt
 
     hub = Order(
-        id=order_id,
+        id=f"{user_id}_{order_id}",
         name=f"PR for {username} #{order_id}",
         description=NotImplemented,
         target_repo_url=https_url,
