@@ -65,6 +65,7 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     "webhook_process",
     "corsheaders",
+    "django_celery_results",
 ]
 
 MIDDLEWARE = [
