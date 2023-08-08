@@ -1,4 +1,5 @@
 /.env
+/nohup.out
 /gothub-ai.private-key.pem
 
 .DS_Store
