@@ -112,11 +112,11 @@ def take_order_web(inp: Order) -> OrderOut:
         for branch in new_branches
     ]
 
-    # !!! Use Sweep
-    sweep_issue = github_repo.create_issue(
-        title=f"Sweep: {name}",
-        body=prompt,
-    )
+    # # !!! Use Sweep
+    # sweep_issue = github_repo.create_issue(
+    #     title=f"Sweep: {name}",
+    #     body=prompt,
+    # )
 
     order_out = OrderOut(
         order=inp,
