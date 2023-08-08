@@ -1,6 +1,7 @@
 import os
 
 import dotenv
+from celery import shared_task
 from github import Github
 
 from gothub.models import Ability, Agent, Oracle, Order, OrderOut
@@ -14,6 +15,7 @@ from gothub.order_web import take_order_web
 from . import firestore_client
 
 
+@shared_task
 def process_order_web(
     order_id: str,
     user_id: str,
