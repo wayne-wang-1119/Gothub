@@ -54,8 +54,8 @@ def one_branch_mrkl(inp: WriteRepoInp) -> None:
 
     llm = ChatOpenAI(
         temperature=0,
-        # model="gpt-3.5-turbo-0613",
-        model="gpt-4-0613",
+        model="gpt-3.5-turbo-0613",
+        # model="gpt-4-0613",
         openai_api_key=openai_api_key,
         callbacks=[GitCallbackHandler(repo)],
     )
