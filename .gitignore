@@ -1,5 +1,7 @@
 /.env
 /nohup.out
+/nohup_django.out
+/nohup_celery.out
 /gothub-ai.private-key.pem
 /gothubai-firebase-admin-sdk.json
 
