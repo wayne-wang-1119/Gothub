@@ -44,18 +44,10 @@ def process_order_web(
     # order_output = take_order_web(hub)
 
     set_doc_result = (
-        firestore_client.collection(
-            "users",
-        )
-        .document(
-            user_id,
-        )
-        .collection(
-            "orders",
-        )
-        .document(
-            order_id,
-        )
+        firestore_client.collection("users")
+        .document(user_id)
+        .collection("orders")
+        .document(order_id)
         .set(
             {
                 "status": "completed",
