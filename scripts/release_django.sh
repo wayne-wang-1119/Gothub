@@ -3,4 +3,4 @@ cd gothub_server/src/
 # $PYTHON manage.py runserver 0.0.0.0:80
 # $PYTHON manage.py runserver 0.0.0.0:80 --cert /tmp/cert
 
-python -m gunicorn gothub_server.wsgi:application --bind 127.0.0.1:8000
+python -m gunicorn gothub_server.wsgi:application --bind 127.0.0.1:8000 --workers 3
