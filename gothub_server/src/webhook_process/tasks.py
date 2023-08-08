@@ -11,6 +11,8 @@ from gothub.order import (
 )
 from gothub.order_web import take_order_web
 
+from . import firestore_client
+
 
 def process_order_web(
     order_id: str,
@@ -39,7 +41,28 @@ def process_order_web(
         prompt=extra_prompt,
     )
 
-    order_output = take_order_web(hub)
+    # order_output = take_order_web(hub)
+
+    set_doc_result = (
+        firestore_client.collection(
+            "users",
+        )
+        .document(
+            user_id,
+        )
+        .collection(
+            "orders",
+        )
+        .document(
+            order_id,
+        )
+        .set(
+            {
+                "status": "completed",
+                "result": "nit",
+            }
+        )
+    )
 
 
 def process_issue_opened(
