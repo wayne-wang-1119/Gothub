@@ -1,1 +1,2 @@
-nohup sh scripts/release_django.sh --timeout 1800
+nohup ./scripts/release_django.sh > nohup_django.out 2>&1 &
+nohup ./scripts/release_celery.sh > nohup_celery.out 2>&1 &
