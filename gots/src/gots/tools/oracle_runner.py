@@ -6,18 +6,22 @@ from langchain.tools import BaseTool, StructuredTool, tool
 
 def oracle_runner_factory(root_path: str):
     @tool
-    def run_oracle(oracle_id: str) -> str:
+    def run_oracle(
+        oracle_id: str,
+        oracle_args: str,
+    ) -> str:
         """
         Run the oracle with the given id.
 
         :param oracle_id: id of the oracle to run
+        :param oracle_args: arguments to pass to the oracle
         :return: result of the oracle
         """
 
         cmd = "&& ".join(
             [
                 f"cd {root_path}",
-                f"source ../../start/run_oracle.sh {oracle_id}",
+                f"source ../../start/run_oracle.sh {oracle_id} {oracle_args}",
             ]
         )
 
