@@ -1,1 +1,2 @@
-pytest --ignore=repos
+# append arguments
+pytest --ignore=repos $@
