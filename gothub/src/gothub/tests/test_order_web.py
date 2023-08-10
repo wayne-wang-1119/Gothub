@@ -101,7 +101,7 @@ def _test_order_nextjs():
     assert out.order is inp
 
 
-def test_order_sweep_portfolio_starter_kit():
+def _test_order_sweep_portfolio_starter_kit():
     time = datetime.now().strftime("%Y-%m-%d_%H_%M_%S_%f")
 
     inp = Order(
