@@ -68,6 +68,7 @@ def process_order_web(
         )
 
     except Exception as e:
+        print(f"Error: {e}")
         set_doc_result = (
             firestore_client.collection("users")
             .document(user_id)
