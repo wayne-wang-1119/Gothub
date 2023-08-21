@@ -20,7 +20,7 @@ def oracle_runner_factory(root_path: str):
 
         cmd = "&& ".join(
             [
-                f"cd {root_path}",
+                f"cd '{root_path}'",
                 f"source ../../start/run_oracle.sh {oracle_id} {oracle_args}",
             ]
         )

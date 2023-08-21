@@ -7,7 +7,7 @@ def setup_venv(root_path: Path):
 
     cmd = "&& ".join(
         [
-            f"cd {root_path.absolute()}",
+            f"cd '{root_path.absolute()}'",
             "ls -al",
             # "source ~/.bashrc",
             "echo $USER",

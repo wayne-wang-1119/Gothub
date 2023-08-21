@@ -20,7 +20,7 @@ def ability_runner_factory(root_path: str):
 
         cmd = "&& ".join(
             [
-                f"cd {root_path}",
+                f"cd '{root_path}'",
                 f"source ../../start/run_ability.sh {ability_id} {ability_args}",
             ]
         )
