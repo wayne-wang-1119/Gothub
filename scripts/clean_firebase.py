@@ -30,5 +30,18 @@ for user in users_ref.stream():
         print(f"Deleting order {order.id} of user {user.id}")
         order.reference.delete()
 
+    target_orders = orders_ref.where("prompt", "==", "write me a fun game").stream()
+
+    for order in target_orders:
+        print(f"Deleting order {order.id} of user {user.id}")
+        order.reference.delete()
+
+    target_orders = orders_ref.stream()
+
+    for order in target_orders:
+        # Check if 'status' field does not exist in the document
+        if "status" not in order.to_dict():
+            print(f"Deleting order {order.id} of user {user.id}")
+            order.reference.delete()
 
 print("Deletion process completed!")
