@@ -109,7 +109,7 @@ def take_order_web(inp: Order) -> OrderOut:
             github_repo,
             branch,
             title=name,
-            body=prompt,
+            body=prompt + "\n\nGothub's Answer: " + write_repo_out.answer,
         )
         for branch in new_branches
     ]
