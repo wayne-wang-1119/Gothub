@@ -35,6 +35,7 @@ class WriteRepoInp(BaseModel):
 
 class WriteRepoOut(BaseModel):
     new_branches: list[Head]
+    answer: str
 
     class Config:
         arbitrary_types_allowed = True
@@ -74,7 +75,9 @@ def one_branch_mrkl(inp: WriteRepoInp) -> None:
         verbose=True,
     )
 
-    mrkl.run(extra_prompt)
+    answer = mrkl.run(extra_prompt)
+    return answer
+    # mrkl.run(extra_prompt)
 
 
 def gots_repo_agent(inp: WriteRepoInp) -> WriteRepoOut:
@@ -99,11 +102,12 @@ def gots_repo_agent(inp: WriteRepoInp) -> WriteRepoOut:
 
     # Replace this with the actual code
     repo.git.commit("--allow-empty", "-m", "empty commit: start")
-    one_branch_mrkl(inp)
+    answer = one_branch_mrkl(inp)
     repo.git.commit("--allow-empty", "-m", "empty commit: end")
 
     original_branch.checkout()
 
     return WriteRepoOut(
         new_branches=[new_branch],
+        answer=answer,
     )
