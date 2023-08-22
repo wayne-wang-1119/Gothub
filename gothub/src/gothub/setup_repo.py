@@ -55,3 +55,13 @@ def setup_repo(inp: SetupRepoInp) -> Repo:
         repo.git.checkout(branch_name)
 
     return repo
+
+
+def setup_logs(inp: Path):
+    file_path = SETUP_BASE_DIR / f"{inp}/log.txt"
+
+    if not file_path.exists():
+        with open(file_path, "w") as f:
+            pass
+    else:
+        print(f"File {file_path} already exists!")

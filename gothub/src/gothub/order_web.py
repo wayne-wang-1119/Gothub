@@ -9,7 +9,7 @@ from github.Auth import Token
 
 from gothub.models import Agent, Order, OrderOut
 from gothub.order import SETUP_ORDERS_BASE_DIR
-from gothub.setup_repo import SetupRepoInp, setup_repo
+from gothub.setup_repo import SetupRepoInp, setup_logs, setup_repo
 from gothub.write_github import create_pull_request
 from gots.repo_agent import RepoAgent, WriteRepoInp, gots_repo_agent
 
@@ -51,7 +51,6 @@ def take_order_web(inp: Order) -> OrderOut:
                     github_token = access_token
 
     setup_dir = SETUP_ORDERS_BASE_DIR + "/" + id
-
     # Oracles
     for oracle in oracles:
         setup_repo_inp = SetupRepoInp(
@@ -82,7 +81,7 @@ def take_order_web(inp: Order) -> OrderOut:
     with setup_repo(setup_repo_inp) as repo:
         # Setup virtual env
         setup_venv(Path(repo.working_dir).parent)
-
+        setup_logs(repo.working_dir)
         write_repo_out = repo_agent(
             WriteRepoInp(
                 repo=repo,
@@ -90,7 +89,6 @@ def take_order_web(inp: Order) -> OrderOut:
                 extra_prompt=prompt,
             )
         )
-
         new_branches = write_repo_out.new_branches
 
         # TODO abstract this away
