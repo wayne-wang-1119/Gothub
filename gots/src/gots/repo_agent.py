@@ -66,7 +66,7 @@ def one_branch_mrkl(inp: WriteRepoInp) -> None:
         llm=llm,
         agent=AgentType.OPENAI_FUNCTIONS,
         callbacks=[GitCallbackHandler(repo)],
-        verbose=True,
+        verbose=False,
     )
 
     answer = mrkl.run(extra_prompt)

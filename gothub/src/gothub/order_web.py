@@ -81,7 +81,7 @@ def take_order_web(inp: Order) -> OrderOut:
     with setup_repo(setup_repo_inp) as repo:
         # Setup virtual env
         setup_venv(Path(repo.working_dir).parent)
-        setup_logs(repo.working_dir)
+        setup_logs(Path(repo.working_dir).parent)
         write_repo_out = repo_agent(
             WriteRepoInp(
                 repo=repo,
@@ -104,6 +104,7 @@ def take_order_web(inp: Order) -> OrderOut:
 
     new_pull_requests = [
         create_pull_request(
+            repo,
             github_repo,
             branch,
             title=name,

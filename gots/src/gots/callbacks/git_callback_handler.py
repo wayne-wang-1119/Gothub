@@ -1,4 +1,5 @@
 import sys
+from pathlib import Path
 from typing import Any, Dict, List, Union
 
 from git import Repo
@@ -13,10 +14,10 @@ class GitCallbackHandler(BaseCallbackHandler):
 
     def __init__(self, repo: Repo):
         self.repo = repo
-        logfile = repo.working_dir + "/log.txt"
+        logfile = Path(repo.working_dir).parent / "log.txt"
         self.logfilepath = logfile
         with open(self.logfilepath, "a") as f:  # Open the file in append mode
-            f.write("init\n")
+            f.write("Logging: init\n")
 
     def write_to_log(self, message: str):
         with open(self.logfilepath, "a") as f:
@@ -26,23 +27,31 @@ class GitCallbackHandler(BaseCallbackHandler):
         """Run when tool starts running."""
 
     def on_llm_start(self, *args, **kwargs: Any) -> Any:
-        self.write_to_log("on_llm_start\n" + str(args) + "\n" + str(kwargs) + "\n")
+        self.write_to_log(
+            "Logging: on_llm_start\n" + str(args) + "\n" + str(kwargs) + "\n"
+        )
         self.repo.git.add(A=True)  # This will add all files to the staging area
         self.repo.git.commit("-m", "on llm start", "--allow-empty")
 
     def on_llm_end(self, *args, **kwargs: Any) -> Any:
-        self.write_to_log("on_llm_end\n" + str(args) + "\n" + str(kwargs) + "\n")
+        self.write_to_log(
+            "Logging: on_llm_end\n" + str(args) + "\n" + str(kwargs) + "\n"
+        )
         self.repo.git.add(A=True)  # This will add all files to the staging area
         self.repo.git.commit("-m", "on llm end", "--allow-empty")
 
     def on_chain_end(self, *args, **kwargs: Any) -> Any:
         """Run when chain ends running."""
-        self.write_to_log("on_chain_end\n" + str(args) + "\n" + str(kwargs) + "\n")
+        self.write_to_log(
+            "Logging: on_chain_end\n" + str(args) + "\n" + str(kwargs) + "\n"
+        )
         self.repo.git.add(A=True)  # This will add all files to the staging area
         self.repo.git.commit("-m", "on chain end", "--allow-empty")
 
     def on_agent_finish(self, *args, **kwargs: Any) -> Any:
         """Run on agent end."""
-        self.write_to_log("on_agent_finish\n" + str(args) + "\n" + str(kwargs) + "\n")
+        self.write_to_log(
+            "Logging: on_agent_finish\n" + str(args) + "\n" + str(kwargs) + "\n"
+        )
         self.repo.git.add(A=True)  # This will add all files to the staging area
         self.repo.git.commit("-m", "on agent finish", "--allow-empty")

@@ -1,3 +1,4 @@
+from pathlib import Path
 from typing import Optional
 
 from git import Head
@@ -14,6 +15,7 @@ class GothubPullRequest(BaseModel):
 
 
 def create_pull_request(
+    repo: Path,
     github_repo: Repository,
     branch: Head,
     title: Optional[str] = None,
@@ -31,6 +33,19 @@ def create_pull_request(
         head=branch_name,  # name of the branch you want to merge
         base=base_branch,
     )
+
+    # ALERT: This is a hack to log everything to the comment section of the PR
+    log_path = Path(repo.working_dir).parent / "log.txt"
+
+    with open(log_path, "r") as file:
+        log_lines = file.read()
+
+    # logging_lines = [line for line in log_lines if line.startswith("Logging:")]
+
+    # for logging_line in logging_lines:
+
+    # TODO: Make this async or something else if needed for better logging experience
+    pr.create_issue_comment(log_lines)
 
     return GothubPullRequest(
         pr=pr,
