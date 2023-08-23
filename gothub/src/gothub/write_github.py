@@ -40,10 +40,6 @@ def create_pull_request(
     with open(log_path, "r") as file:
         log_lines = file.read()
 
-    # logging_lines = [line for line in log_lines if line.startswith("Logging:")]
-
-    # for logging_line in logging_lines:
-
     # TODO: Make this async or something else if needed for better logging experience
     pr.create_issue_comment(log_lines)
 
