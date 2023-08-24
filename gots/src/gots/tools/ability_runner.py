@@ -41,7 +41,8 @@ def ability_runner_factory(root_path: str):
         print("Output:", result.stdout)
 
         # Print the stderr if any error happened
-        print("Error:", result.stderr if result.stderr else None)
+        if result.stderr:
+            print("Error:", result.stderr)
 
         return result.stdout
 
