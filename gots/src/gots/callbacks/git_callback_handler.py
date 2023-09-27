@@ -11,24 +11,28 @@ from langchain.schema.output import LLMResult
 
 # First, define custom callback handler implementations
 class GitCallbackHandler(BaseCallbackHandler):
+    ##This class is a list of callback functions to be used in Langchain callbacks and to be used in the Gothub directory
     """
     FIXME Tool callbacks seem to have bugs.
     """
 
     def __init__(self, repo: Repo):
-        self.repo = repo
-        logfile = Path(repo.working_dir).parent / "log.txt"
-        self.logfilepath = logfile
+        self.repo = repo  # This will store the repo object
+        logfile = (
+            Path(repo.working_dir).parent / "log.txt"
+        )  # This will store the path to the log file
+        self.logfilepath = logfile  # This will store the path to the log file
         with open(self.logfilepath, "a") as f:  # Open the file in append mode
-            f.write("## Logging: init\n")
+            f.write("## Logging: init\n")  # Write the message to the file
 
     def write_to_log(self, message: str):
-        with open(self.logfilepath, "a") as f:
-            f.write(message)
+        with open(self.logfilepath, "a") as f:  # Open the file in append mode
+            f.write(message)  # Write the message to the file
 
     def on_tool_start(
         self, serialized: Dict[str, Any], input_str: str, **kwargs: Any
     ) -> Any:
+        ##This function is called when the tool starts running
         """Run when tool starts running."""
         serialized_str = json.dumps(serialized, indent=4)  # Indent to format JSON
         # kwargs_str = json.dumps(kwargs.toJSON(), indent=4)  # Indent to format JSON
@@ -40,13 +44,14 @@ class GitCallbackHandler(BaseCallbackHandler):
             + "### Input String:\n"
             + input_str
             + "\n"
-        )
+        )  # Write the message to the file
         self.repo.git.add(A=True)  # This will add all files to the staging area
         self.repo.git.commit("-m", "on tool start", "--allow-empty")
 
     def on_llm_start(
         self, serialized: Dict[str, Any], prompts: List[str], **kwargs: Any
     ) -> Any:
+        ##This function is called when the llm starts running
         serialized_str = json.dumps(serialized, indent=4)  # Indent to format JSON
         # kwargs_str = json.dumps(**kwargs.toJSON(), indent=4)  # Indent to format JSON
         prompts_str = "\n".join(prompts)
@@ -58,7 +63,7 @@ class GitCallbackHandler(BaseCallbackHandler):
             + "### Prompts:\n"
             + prompts_str
             + "\n"
-        )
+        )  # Write the message to the file
         self.repo.git.add(A=True)  # This will add all files to the staging area
         self.repo.git.commit("-m", "on llm start", "--allow-empty")
 
